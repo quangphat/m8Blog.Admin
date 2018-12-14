@@ -3,11 +3,15 @@ import { RouteComponentProps } from 'react-router';
 import { IArticleMeta } from '../../Models/IArticleMeta'
 import * as Components from '../../components'
 import * as Utils from '../../infrastructure/Utils'
-import { Editor, EditorState, ContentState, RichUtils } from 'draft-js';
+import { EditorState, ContentState, RichUtils } from 'draft-js';
 import DraftPasteProcessor from 'draft-js/lib/DraftPasteProcessor';
 import createHighlightPlugin from './Plugins/highlightPlugin';
 import 'react-trumbowyg/dist/trumbowyg.min.css'
 import Trumbowyg from 'react-trumbowyg'
+//import { Editor } from 'react-draft-wysiwyg';
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+import { Editor } from 'react-draft-wysiwyg';
+//import '../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 interface DraftEditorProps {
 
 }
@@ -74,7 +78,9 @@ export class DraftEditor extends React.Component<DraftEditorProps, DraftEditorSt
     }
     public render() {
         return <div>
-            <Trumbowyg onChange={(e) => this.onChange(e)} />
+            <Editor
+                onEditorStateChange={(e) => this.onChange(e)}
+            />
         </div>
     }
 }
