@@ -5,7 +5,7 @@ import * as PagingHelpers from '../../infrastructure/PagingHelpers';
 import * as Utils from '../../infrastructure/Utils';
 import { DropdownMenu } from '../DropdownMenu/DropdownMenu';
 import { CreateSVG } from '../CreateSVG'
-import { Button } from '../Button'
+import { Button } from '../Button/Button'
 import './index.css';
 
 interface IPaginateProps {

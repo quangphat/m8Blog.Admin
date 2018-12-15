@@ -19,7 +19,23 @@ module.exports = (env) => {
             rules: [
                 { test: /\.tsx?$/, include: /ClientApp/, use: 'awesome-typescript-loader?silent=true' },
                 { test: /\.css$/, use: isDevBuild ? ['style-loader', 'css-loader'] : ExtractTextPlugin.extract({ use: 'css-loader?minimize' }) },
-                { test: /\.(png|jpg|jpeg|gif|svg)$/, use: 'url-loader?limit=25000' }
+                { test: /\.(png|jpg|jpeg|gif|svg)$/, use: 'url-loader?limit=25000' },
+                {
+                    test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,
+                    use: "url-loader?limit=10000&mimetype=application/font-woff"
+                }, {
+                    test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/,
+                    use: "url-loader?limit=10000&mimetype=application/font-woff"
+                }, {
+                    test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
+                    use: "url-loader?limit=10000&mimetype=application/octet-stream"
+                }, {
+                    test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
+                    use: "file-loader"
+                }, {
+                    test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
+                    use: "url-loader?limit=10000&mimetype=image/svg+xml"
+                }
             ]
         },
         plugins: [

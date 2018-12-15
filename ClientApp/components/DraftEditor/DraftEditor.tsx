@@ -10,7 +10,7 @@ import 'react-trumbowyg/dist/trumbowyg.min.css'
 import Trumbowyg from 'react-trumbowyg'
 //import { Editor } from 'react-draft-wysiwyg';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
-import { Editor } from 'react-draft-wysiwyg';
+//import { Editor } from 'react-draft-wysiwyg';
 //import '../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 interface DraftEditorProps {
 
@@ -78,8 +78,9 @@ export class DraftEditor extends React.Component<DraftEditorProps, DraftEditorSt
     }
     public render() {
         return <div>
-            <Editor
-                onEditorStateChange={(e) => this.onChange(e)}
+            <Trumbowyg
+                editorState={this.state.editorState} wrapperClassName="demo-wrapper" editorClassName="editer-content"
+                onEditorStateChange={(e)=>this.onChange(e)}
             />
         </div>
     }

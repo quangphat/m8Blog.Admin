@@ -1,0 +1,104 @@
+.quill .ql-container .ql-editor {
+    white-space: pre-wrap;
+    min-height: 200px;
+    max-height: 500px;
+}
+
+.content-editor--editImage{
+    background: #fafcfc;
+}
+
+.content-editor--modalImage .modal-footer .col-auto{
+    width: 100%;
+}
+
+.content-editor--search .ui-action-list{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.content-editor--search .ui-action-list .ui-action-list__item{
+    width: 50%;
+}
+
+.content-editor--image{
+    border: 1px solid #d3dbe2;
+    padding: 10px;
+    margin: 5px;
+    max-width: 100px;
+    min-height: 100px;
+    position: relative;
+}
+.content-editor--image img{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate3d(-50%,-50%,0);
+    padding: 5px;
+}
+
+.content-editor--search .ui-action-list .ui-action-list-action:hover{
+    background: transparent;
+}
+
+.content-editor--search .ui-action-list .ui-action-list-action{
+    padding: 0;
+}
+
+.content-editor--searchImage{
+    position: relative;
+    text-align: left;
+}
+
+.content-editor--search .next-input--stylized{
+    max-width: 400px;
+}
+
+.content-editor--btngroup{
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.content-editor--modalImage .nav-tabs{
+    background: #fcfcfc;
+}
+
+.content-editor--modalImage .nav-tabs .nav-item:hover > .nav-link{
+    text-decoration: underline;
+}
+
+.content-editor--modalImage .nav-tabs .nav-link:hover{
+    border: none;
+}
+
+.content-editor--modalImage .nav-tabs .nav-link.active,
+.content-editor--modalImage .nav-tabs .nav-link{
+    padding: 15px;
+    border-top: none;
+    border-radius: 0;
+}
+
+@media(min-width: 500px){
+    .content-editor--search .ui-action-list .ui-action-list__item{
+        width: 20%;
+    }
+}
+
+.content-editor--modalSource .ui-textarea{
+    border: none;
+}
+
+.content-editor--modalFooter .file-upload{
+    display: inline-block;
+    max-width: none;
+    min-height: auto;
+    border: none;
+}
+
+.source-code--textarea,
+.source-code--textarea:focus{
+    border: none !important;
+}
