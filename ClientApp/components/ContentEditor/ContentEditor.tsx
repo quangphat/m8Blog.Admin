@@ -148,7 +148,12 @@ export class ContentEditor extends React.Component<ContentEditorProps, ContentEd
         if (this.props.autoFocus)
             this.ref_quill.focus();
     }
-
+    public getPlainText() {
+        let plaintText = this.ref_quill.editor.getText()
+        if (plaintText)
+            return plaintText
+        return '';
+    }
     handleFreetextImageFilter(e) {
         this.setState({ imageQuery: e.target.value }, () => this.handleDebounceSelectAllModal())
     }
@@ -536,6 +541,7 @@ export class ContentEditor extends React.Component<ContentEditorProps, ContentEd
                     theme='snow'
                     value={this.state.content}
                     readOnly={this.props.isReadonly}
+                    
                     onChange={value => this.onChange(value)}
                     onChangeSelection={(event) => this.onChangeSelection(event)}
                     modules={this.props.isReadonly ? null : self.settingModule()}

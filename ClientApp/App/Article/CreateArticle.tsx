@@ -11,6 +11,7 @@ interface CreateArticleStates {
     article: Models.IArticle
 }
 export class CreateArticle extends React.Component<RouteComponentProps<any>, CreateArticleStates> {
+    ref_ContentEditor: Components.ContentEditor;
     constructor(props: any) {
         super(props);
         this.state = {
@@ -34,9 +35,14 @@ export class CreateArticle extends React.Component<RouteComponentProps<any>, Cre
         if (article == null) return
         if (Utils.isNullOrUndefined(article.category)) return
         if (Utils.isNullOrEmpty(article.title) || Utils.isNullOrEmpty(article.content)) return
+        article.preview = this.ref_ContentEditor.getPlainText();
+        if (article.preview.length > 100)
+            article.preview = article.preview.substring(0, 100);
         let res = await ArticleRepository.CreateArticle(article)
+        this.setState({ article: article })
         console.log(res)
     }
+
     public render() {
         let { categories } = this.state
         return <React.Fragment>
@@ -59,7 +65,10 @@ export class CreateArticle extends React.Component<RouteComponentProps<any>, Cre
                     </div>
                     <div className="form-group">
                             <label>Nội dung</label>
-                            <Components.CkEditor data={this.state.article.content}
+                            <Components.ContentEditor
+                                ref={ref => this.ref_ContentEditor = ref}
+                                
+                                content={this.state.article.content}
                                 onChange={(value) => this.setState({ article: { ...this.state.article, content: value } })} />
                     </div>
                 </div>

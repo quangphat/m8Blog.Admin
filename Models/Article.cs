@@ -6,6 +6,7 @@ namespace my8Blog.Admin.Models
     {
         public string Id { get; set; }
         public string Title { get; set; }
+        public string Preview { get; set; }
         public DateTime? CreatedTime { get; set; }
         public DateTime? ModifiedTime { get; set; }
         public string Content { get; set; }

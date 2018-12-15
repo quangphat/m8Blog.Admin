@@ -12,6 +12,7 @@ interface TestStates {
     getPlainText?: Function
 }
 export class Test extends React.Component<RouteComponentProps<any>, TestStates> {
+    ref_ContentEditor: Components.ContentEditor;
     constructor(props: any) {
         super(props);
         this.state = {
@@ -24,13 +25,17 @@ export class Test extends React.Component<RouteComponentProps<any>, TestStates> 
        
     }
     private onChange(e) {
+        debugger
         this.setState({ content: e });
+        let text = this.ref_ContentEditor.getPlainText();
     }
     public render() {
        
         return <div className="col-sm-12">
             <span>draft js </span>
-            <Components.ContentEditor content={this.state.content} />
+            <Components.ContentEditor
+                ref={ref => this.ref_ContentEditor = ref}
+                content={this.state.content} onChange={(value) => this.onChange(value)} />
             </div>
     }
 }

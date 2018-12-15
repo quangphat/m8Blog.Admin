@@ -95,8 +95,11 @@ export class CategoryTree extends React.Component<TreeProps, TreeStates> {
         }
         if (!parentCate.isRoot) {
             newCate.categoryIds = parentCate.categoryIds
+            if (newCate.categoryIds == null) newCate.categoryIds =[]
             newCate.categoryIds.push(parentCate.id.toString())
             newCate.categoryNames = parentCate.categoryNames
+            if (newCate.categoryNames == null)
+                newCate.categoryNames =[]
             newCate.categoryNames.push(parentCate.categoryName)
         }
        

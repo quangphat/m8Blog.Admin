@@ -1,7 +1,14 @@
+.content-editor{
+    background:#fff;
+}
+    .content-editor .quill {
+        margin-top:2px;
+    }
 .quill .ql-container .ql-editor {
     white-space: pre-wrap;
     min-height: 200px;
     max-height: 500px;
+    line-height: 25px;
 }
 
 .content-editor--editImage{

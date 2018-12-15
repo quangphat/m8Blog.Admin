@@ -3,6 +3,7 @@ import { IAuthor } from '../Models/IAuthor'
 export interface IArticle {
     id: string,
     title: string,
+    preview:string,
     createdTime?: Date,
     modifiedTime?: Date,
     content: string,
