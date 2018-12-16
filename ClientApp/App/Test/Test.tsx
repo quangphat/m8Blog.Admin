@@ -31,11 +31,11 @@ export class Test extends React.Component<RouteComponentProps<any>, TestStates> 
     }
     public render() {
        
-        return <div className="col-sm-12">
-            <span>draft js </span>
-            <Components.ContentEditor
-                ref={ref => this.ref_ContentEditor = ref}
-                content={this.state.content} onChange={(value) => this.onChange(value)} />
+        return <div className="pd-all-20"><div className="col-sm-12">
+                <Components.DanteEditor
+                    content={'ddd'} />
             </div>
+            </div>
+            
     }
 }

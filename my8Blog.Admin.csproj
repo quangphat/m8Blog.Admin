@@ -38,10 +38,7 @@
     <None Remove="ClientApp\components\ArticleMeta\ArticleMeta.tsx" />
     <None Remove="ClientApp\components\CategoryTree\CategoryTree.tsx" />
     <None Remove="ClientApp\components\CkEditor\CkEditor.tsx" />
-    <None Remove="ClientApp\components\DraftEditor\components\Link .tsx" />
-    <None Remove="ClientApp\components\DraftEditor\DraftEditor.tsx" />
-    <None Remove="ClientApp\components\DraftEditor\Plugins\addLinkPlugin.tsx" />
-    <None Remove="ClientApp\components\DraftEditor\Plugins\highlightPlugin.tsx" />
+    <None Remove="ClientApp\components\DanteEditor\DanteEditor.tsx" />
     <None Remove="ClientApp\components\HeaderPage\HeaderPage.tsx" />
     <None Remove="ClientApp\components\index.tsx" />
     <None Remove="ClientApp\components\Loading\Loading.tsx" />
@@ -79,10 +76,7 @@
     <TypeScriptCompile Include="ClientApp\App\Test\Test.tsx" />
     <TypeScriptCompile Include="ClientApp\components\ArticleMeta\ArticleMeta.tsx" />
     <TypeScriptCompile Include="ClientApp\components\CkEditor\CkEditor.tsx" />
-    <TypeScriptCompile Include="ClientApp\components\DraftEditor\components\Link .tsx" />
-    <TypeScriptCompile Include="ClientApp\components\DraftEditor\DraftEditor.tsx" />
-    <TypeScriptCompile Include="ClientApp\components\DraftEditor\Plugins\addLinkPlugin.tsx" />
-    <TypeScriptCompile Include="ClientApp\components\DraftEditor\Plugins\highlightPlugin.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\DanteEditor\DanteEditor.tsx" />
     <TypeScriptCompile Include="ClientApp\components\HeaderPage\HeaderPage.tsx" />
     <TypeScriptCompile Include="ClientApp\components\index.tsx" />
     <TypeScriptCompile Include="ClientApp\components\CategoryTree\CategoryTree.tsx" />

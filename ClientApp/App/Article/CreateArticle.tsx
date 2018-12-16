@@ -14,9 +14,11 @@ export class CreateArticle extends React.Component<RouteComponentProps<any>, Cre
     ref_ContentEditor: Components.ContentEditor;
     constructor(props: any) {
         super(props);
+        let model = new Object as Models.IArticle
+        model.content = ''
         this.state = {
             categories: [],
-            article: new Object as Models.IArticle
+            article: model
         };
 
     }
@@ -57,7 +59,7 @@ export class CreateArticle extends React.Component<RouteComponentProps<any>, Cre
             
             <div className="col-sm-12">
                 
-                <div className="col-sm-8">
+                <div className="col-sm-10">
                     <div className="form-group">
                         <label>Tiêu đề</label>
                         <Components.Input value={this.state.article.title}
@@ -67,12 +69,11 @@ export class CreateArticle extends React.Component<RouteComponentProps<any>, Cre
                             <label>Nội dung</label>
                             <Components.ContentEditor
                                 ref={ref => this.ref_ContentEditor = ref}
-                                
                                 content={this.state.article.content}
                                 onChange={(value) => this.setState({ article: { ...this.state.article, content: value } })} />
                     </div>
                 </div>
-                <div className="col-sm-4">
+                <div className="col-sm-2">
                     <div className="form-group">
                         <label></label>
                         {!Utils.isArrNullOrHaveNoItem(categories) && <Components.CategoryTree categories={this.state.categories}

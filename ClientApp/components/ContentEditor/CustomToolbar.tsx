@@ -126,10 +126,10 @@ export class CustomToolbar extends React.Component<CustomToolbarProps, CustomToo
         return <div id="toolbar" key={123}>
             <select className="ql-font">
             </select>
-            <select title="Size" className="ql-size">
+            <select title="Size" className="ql-size" defaultValue='20px'>
                 <option value="10px">Small</option>
                 <option value="14px">Normal</option>
-                <option value="20px" selected>Large</option>
+                <option value="20px">Large</option>
                 <option value="36px">Huge</option>
             </select>
             <select className="ql-align">
