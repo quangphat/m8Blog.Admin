@@ -482,14 +482,14 @@ export class AdminLayout extends React.Component<MainLayoutProps, AdminLayoutSta
         </aside>
     }
     private renderWrapper() {
-        return <div className="content-wrapper min-height-946">
+        return <div className="content-wrapper">
             {this.props.children}
         </div>
     }
 
     public render() {
         return <div className="skin-blue sidebar-mini auto-height min-height-100">
-            <div className="wrapper auto-height min-height-100">
+            <div className="wrapper">
                 {this.renderHeader()}
                 {this.renderSidebar()}
                 {this.renderWrapper()}

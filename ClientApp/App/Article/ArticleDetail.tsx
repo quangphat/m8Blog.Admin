@@ -55,13 +55,11 @@ export class ArticleDetail extends React.Component<RouteComponentProps<any>, Art
                     <span>Chỉnh sửa</span>
                 </Components.Button>
             </Components.HeaderPage>
-            <div className="pd-all-20">
                 <div className="col-sm-12">
                     <div className="col-sm-8">
                         {this.renderBody()}
                     </div>
                 </div>
-            </div>
         </React.Fragment>
     }
 }
