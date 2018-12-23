@@ -3,9 +3,11 @@ import { IAuthor } from '../Models/IAuthor'
 export interface IArticle {
     id: string,
     title: string,
-    preview:string,
-    createdTime?: Date,
-    modifiedTime?: Date,
+    preview: string,
+    createdTime?: number,
+    modifiedTime?: number,
+    createdBy: string,
+    modifiedBy: string,
     content: string,
     imageUrl: string,
     isDelete: boolean,
@@ -18,6 +20,7 @@ export interface IArticle {
     categoryNames: string[],
     author?: IAuthor,
     projectId: number,
-
+    friendlyUrl: string,
+    status: number
 }
 //<AppendNewHere>

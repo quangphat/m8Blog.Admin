@@ -36,6 +36,7 @@ export const routes = <Router history={history}>
             <RoleRoute exact path='/article' component={App.ArticleList} />
             <RoleRoute exact path='/article_create' component={App.CreateArticle} />
             <RoleRoute exact path='/article/:id' component={App.ArticleDetail} />
+            <RoleRoute exact path='/article/:id/edit' component={App.ArticleEdit} />
         </Switch>
     </App.AdminLayout>
 </Router>

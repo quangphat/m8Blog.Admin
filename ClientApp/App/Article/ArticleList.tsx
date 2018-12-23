@@ -21,7 +21,7 @@ export class ArticleList extends React.Component<RouteComponentProps<any>, Artic
         this.getArticle()
     }
     private getArticle() {
-        ArticleRepository.Search('t', 1, 10, 'x', 'x').then(res => {
+        ArticleRepository.Search(null, null, null, 1, 10).then(res => {
             if (res.data != null) {
                 this.setState({ articles: res.data.datas })
             }

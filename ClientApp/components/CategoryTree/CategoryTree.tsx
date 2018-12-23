@@ -9,11 +9,13 @@ import './index.css'
 
 interface TreeProps {
     categories: Models.ICategory[],
+    selectedItem?: Models.ICategory,
     onSelect: Function
 }
 interface TreeStates {
     categories: Models.ICategory[],
     newCate: Models.ICategory,
+    selectedItem: Models.ICategory,
     isOpenPopup: boolean
 }
 export class CategoryTree extends React.Component<TreeProps, TreeStates> {
@@ -22,6 +24,7 @@ export class CategoryTree extends React.Component<TreeProps, TreeStates> {
         this.state = {
             categories: this.props.categories,
             isOpenPopup: false,
+            selectedItem: this.props.selectedItem || null,
             newCate: new Object as Models.ICategory
         };
 
@@ -76,7 +79,7 @@ export class CategoryTree extends React.Component<TreeProps, TreeStates> {
                 this.setCheck(p, item, value)
             }
         })
-        this.setState({ categories: categories }, () => this.props.onSelect(item))
+        this.setState({ categories: categories, selectedItem: item }, () => this.props.onSelect(item))
     }
     private async getCategories() {
         let res = await CategoryRepository.GetAll()
@@ -124,10 +127,14 @@ export class CategoryTree extends React.Component<TreeProps, TreeStates> {
         return true
     }
     private renderItem(cate: Models.ICategory) {
+        let { selectedItem } = this.state
+        let isCheck = cate.isCheck
+        if (!Utils.isNullOrUndefined(selectedItem) && cate.id == selectedItem.id)
+            cate.isCheck = true
         return <div className='col-md-12'>
             <span className="treeview-node-name node-active boder-none pd-l13 background-none box-shadow-none">
                 {!this.isHasChild(cate) && <Components.InputCheckbox nameInput='category'
-                    isChecked={cate.isCheck} handleOnChange={(e) => this.onCheck(cate, e)} />}
+                    isChecked={isCheck} handleOnChange={(e) => this.onCheck(cate, e)} />}
                 <span className="text-left" onClick={() => this.onSwitchOpen(cate)} >
                     {cate.categoryName}
                 </span>

@@ -64,31 +64,29 @@ const unicodeChars = new Array("á", "à", "ả", "ã", "ạ", "â", "ấ", "ầ
     "Ý", "Ỳ", "Ỷ", "Ỹ", "Ỵ",
 );
 export function NonUnicode(value: string, toLowerCase: boolean = true) {
-    if (value != null && value.length > 0) {
-        value = toLowerCase ? value.trim().toLowerCase() : value.trim();
-        var outString = value;
-        var stringLength = 0;
-        var countSpace = 0;
+    if (isNullOrEmpty(value)) return ''
+    value = toLowerCase ? value.trim().toLowerCase() : value.trim();
+    var outString = value;
+    var stringLength = 0;
+    var countSpace = 0;
 
-        while (stringLength < value.length) {
-            if (value[stringLength] == " ")
-                countSpace++;
-            else
-                countSpace = 0;
+    while (stringLength < value.length) {
+        if (value[stringLength] == " ")
+            countSpace++;
+        else
+            countSpace = 0;
 
-            if (countSpace > 1)
-                outString = outString.replace(" ", "");
-            else {
-                var idx = unicodeChars.indexOf(value[stringLength]);
-                if (idx != -1) {
-                    outString = outString.replace(unicodeChars[idx], nonUnicodeChars[idx]);
-                }
+        if (countSpace > 1)
+            outString = outString.replace(" ", "");
+        else {
+            var idx = unicodeChars.indexOf(value[stringLength]);
+            if (idx != -1) {
+                outString = outString.replace(unicodeChars[idx], nonUnicodeChars[idx]);
             }
-            stringLength++;
         }
-
-        return outString;
+        stringLength++;
     }
 
-    return value;
+    return outString;
+
 }

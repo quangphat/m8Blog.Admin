@@ -1,4 +1,5 @@
-﻿export interface IResponse<T> extends IResponseResult {
+﻿
+export interface IResponse<T> extends IResponseResult {
     data: T
 }
 export interface IResponseResult {
@@ -75,6 +76,53 @@ export class Fetch {
 
         return fetch(url, {
             method: 'POST',
+            credentials: 'include',
+            body: JSON.stringify(data),
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        }).then(response => {
+            if (hasShowWait) {
+                this.showWait(false)
+            }
+
+            if (response.status == 200) {
+                let result = response.json() as Promise<IResponse<any>>
+                if (callback_success || callback_fail) {
+                    result.then((data) => {
+                        if (!data.error) {
+                            if (callback_success) {
+                                callback_success(data)
+                                return data
+                            }
+                        }
+                        else {
+                            if (callback_fail) {
+                                this.context.ShowMessage('error', data.error.message, data.error.code)
+                                callback_fail(data)
+                                return data
+                            }
+                        }
+                    })
+                }
+                else
+                    return result
+            }
+            else {
+                //Bad request
+            }
+        })
+    }
+    public static async PUT<T>(this, url: string, data: object, hasShowWait: boolean = true,
+        callback_success: Function = null,
+        callback_fail: Function = null) {
+        if (hasShowWait) {
+            this.showWait(true)
+        }
+
+        return fetch(url, {
+            method: 'PUT',
             credentials: 'include',
             body: JSON.stringify(data),
             headers: {

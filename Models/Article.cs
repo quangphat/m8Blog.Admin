@@ -7,8 +7,10 @@ namespace my8Blog.Admin.Models
         public string Id { get; set; }
         public string Title { get; set; }
         public string Preview { get; set; }
-        public DateTime? CreatedTime { get; set; }
-        public DateTime? ModifiedTime { get; set; }
+        public long CreatedTime { get; set; }
+        public long ModifiedTime { get; set; }
+        public string CreatedBy { get; set; }
+        public string ModifiedBy { get; set; }
         public string Content { get; set; }
         public string ImageUrl { get; set; }
         public bool IsDelete { get; set; }
@@ -21,5 +23,7 @@ namespace my8Blog.Admin.Models
         public string[] CategoryNames { get; set; }
         public Author Author { get; set; }
         public int ProjectId { get; set; }
+        public string FriendlyUrl { get; set; }
+        public int Status { get; set; }
     }
 }

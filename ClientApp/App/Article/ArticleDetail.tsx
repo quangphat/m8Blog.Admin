@@ -20,9 +20,9 @@ export class ArticleDetail extends React.Component<RouteComponentProps<any>, Art
     }
     componentWillMount() {
         let id = this.props.match.params.id
-        this.getarticleDetail(id)
+        this.getArticleDetail(id)
     }
-    private getarticleDetail(id) {
+    private getArticleDetail(id) {
         
         if (Utils.isNullOrUndefined(id))
             this.props.history.push('/article');
@@ -44,13 +44,19 @@ export class ArticleDetail extends React.Component<RouteComponentProps<any>, Art
                 <label>Nội dung</label>
                 <Components.HtmlParser className='background-white pd-all-20' data={article.content} />
             </div>
+            <div className="form-group">
+                <label>Đường dẫn thân thiện</label>
+                <p className="collection-seo--preview-url text-truncate mb-0">
+                    {'https://wwww.greencode.vn/article/' + article.friendlyUrl}
+                </p>
+            </div>
         </React.Fragment>
     }
     public render() {
         return <React.Fragment>
             <Components.HeaderPage>
                 <Components.Button type='primary' className='ml-3'
-                    handleOnClick={() => { this.props.history.push('/article', true) }} >
+                    handleOnClick={() => { this.props.history.push(`/article/${this.state.article.id}/edit`) }} >
                     <Components.CreateSVG size={12} linkHref='#next-icon-edit' className='mr-3' />
                     <span>Chỉnh sửa</span>
                 </Components.Button>

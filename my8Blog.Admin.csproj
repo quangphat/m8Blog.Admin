@@ -26,6 +26,7 @@
   <ItemGroup>
     <None Remove="ClientApp\App\Admin\Admin.tsx" />
     <None Remove="ClientApp\App\Article\ArticleDetail.tsx" />
+    <None Remove="ClientApp\App\Article\ArticleEdit.tsx" />
     <None Remove="ClientApp\App\Article\ArticleList.tsx" />
     <None Remove="ClientApp\App\Article\CreateArticle.tsx" />
     <None Remove="ClientApp\App\Article\index.tsx" />
@@ -42,6 +43,7 @@
     <None Remove="ClientApp\components\HeaderPage\HeaderPage.tsx" />
     <None Remove="ClientApp\components\index.tsx" />
     <None Remove="ClientApp\components\Loading\Loading.tsx" />
+    <None Remove="ClientApp\Enums\AppEnums.tsx" />
     <None Remove="ClientApp\Models\IArticleMeta.tsx" />
     <None Remove="ClientApp\Models\IAuthor.ts" />
     <None Remove="ClientApp\Models\ICategory.ts" />
@@ -66,6 +68,7 @@
   <ItemGroup>
     <TypeScriptCompile Include="ClientApp\App\Admin\Admin.tsx" />
     <TypeScriptCompile Include="ClientApp\App\Article\ArticleDetail.tsx" />
+    <TypeScriptCompile Include="ClientApp\App\Article\ArticleEdit.tsx" />
     <TypeScriptCompile Include="ClientApp\App\Article\ArticleList.tsx" />
     <TypeScriptCompile Include="ClientApp\App\Article\CreateArticle.tsx" />
     <TypeScriptCompile Include="ClientApp\App\Article\index.tsx" />
@@ -81,6 +84,7 @@
     <TypeScriptCompile Include="ClientApp\components\index.tsx" />
     <TypeScriptCompile Include="ClientApp\components\CategoryTree\CategoryTree.tsx" />
     <TypeScriptCompile Include="ClientApp\components\Loading\Loading.tsx" />
+    <TypeScriptCompile Include="ClientApp\Enums\AppEnums.tsx" />
     <TypeScriptCompile Include="ClientApp\infrastructure\Utils.tsx" />
     <TypeScriptCompile Include="ClientApp\Models\ICategory.ts" />
     <TypeScriptCompile Include="ClientApp\Models\IAuthor.ts" />

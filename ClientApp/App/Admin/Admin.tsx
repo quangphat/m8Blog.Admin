@@ -28,7 +28,6 @@ export class Admin extends React.Component<RouteComponentProps<any>, AdminStates
                 <label >Email address</label>
                 <input type="email" className="form-control" placeholder="Enter email" />
             </div>
-            {this.renderCkEditor()}
         </div>
     }
 }

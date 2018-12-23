@@ -19,10 +19,16 @@ namespace my8Blog.Admin.Controllers
             //_lastSkip = 0;
         }
         [HttpGet]
-        [Route("{searchStr}/{page}/{limit}/{authorId}/{categoryId}")]
-        public async Task<IActionResult> Gets(string searchStr, int page, int limit, string authorId, string categoryId)
+        [Route("search")]
+        public async Task<IActionResult> Gets(string searchStr, string authorId, string categoryId, int page, int limit)
         {
-            return await GetAsync(Request, $"/{ApiRouteRsx.Article}/{searchStr}/{page}/{limit}/{authorId}/{categoryId}");
+            return await GetAsync(Request, $"/{ApiRouteRsx.Article}/search",new {
+                searchStr,
+                authorId,
+                categoryId,
+                page,
+                limit
+            });
         }
         [HttpPost]
         public async Task<IActionResult> CreateArticle([FromBody] Article model)
@@ -31,6 +37,15 @@ namespace my8Blog.Admin.Controllers
             Author author = AutoMapper.Mapper.Map<Author>(_currentProcess.CurrentAccount.Account);
             model.Author = author;
             return await PostAsync(Request, $"/{ApiRouteRsx.Article}/create", null, model);
+        }
+        [HttpPut]
+        [Route("{articleId}")]
+        public async Task<IActionResult> EditArticle(string articleId, [FromBody] Article article)
+        {
+            if (article == null) return BadRequest();
+            Author author = AutoMapper.Mapper.Map<Author>(_currentProcess.CurrentAccount.Account);
+            article.ModifiedBy = author.Id;
+            return await PutAsync(Request, $"/{ApiRouteRsx.Article}/{articleId}", null, article);
         }
         [HttpGet]
         [Route("{articleId}")]

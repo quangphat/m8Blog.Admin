@@ -25,9 +25,9 @@ export class Home extends React.Component<RouteComponentProps<any>, HomeStates> 
         this.SearchArticle()
     }
     private SearchArticle() {
-        ArticleRepository.Search('ss', 0, 0, '', '').then(response => {
-            console.log(response)
-        })
+        //ArticleRepository.Search('ss', 0, 0, '', '').then(response => {
+        //    console.log(response)
+        //})
     }
 
     public render() {

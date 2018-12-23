@@ -7,24 +7,34 @@ import * as Enums from '../../Enums/AppEnums'
 import { ArticleRepository } from '../../repositories/ArticleRepository'
 import * as Utils from '../../infrastructure/Utils'
 import { CategoryRepository } from '../../repositories/CategoryRepository'
-interface CreateArticleStates {
+interface ArticleEditStates {
     categories: Models.ICategory[],
     article: Models.IArticle
 }
-export class CreateArticle extends React.Component<RouteComponentProps<any>, CreateArticleStates> {
+export class ArticleEdit extends React.Component<RouteComponentProps<any>, ArticleEditStates> {
     ref_ContentEditor: Components.ContentEditor;
     constructor(props: any) {
         super(props);
-        let model = new Object as Models.IArticle
-        model.content = ''
         this.state = {
             categories: [],
-            article: model
+            article: null
         };
 
     }
     componentWillMount() {
         this.getCategories()
+        let id = this.props.match.params.id
+        this.getArticleDetail(id)
+    }
+    private getArticleDetail(id) {
+
+        if (Utils.isNullOrUndefined(id))
+            this.props.history.push('/article');
+        ArticleRepository.GetDetail(id).then(res => {
+            if (res.data != null) {
+                this.setState({ article: res.data })
+            }
+        })
     }
     private getCategories() {
         CategoryRepository.GetAll().then(res => {
@@ -33,7 +43,7 @@ export class CreateArticle extends React.Component<RouteComponentProps<any>, Cre
             }
         })
     }
-    private async onCreateArticle() {
+    private async onSaveArticle() {
         let { article } = this.state
         if (article == null) return
         if (Utils.isNullOrUndefined(article.category)) return
@@ -43,9 +53,10 @@ export class CreateArticle extends React.Component<RouteComponentProps<any>, Cre
             article.preview = article.preview.substring(0, 300);
         article.status = Enums.ArticleStatus.Pending;
         article.friendlyUrl = Utils.NonUnicode(article.friendlyUrl)
-        let res = await ArticleRepository.CreateArticle(article)
-        this.setState({ article: article })
-        console.log(res)
+        let res = await ArticleRepository.Update(article.id, article)
+        if (res.success == true) {
+            this.props.history.push(`/article/${article.id}`)
+        }
     }
     private onChangeTitle(e) {
         if (e == null) return
@@ -53,28 +64,30 @@ export class CreateArticle extends React.Component<RouteComponentProps<any>, Cre
         article.title = e.target.value
         article.friendlyUrl = article.title
         this.setState({ article: article })
-     }
+    }
     public render() {
         let { categories, article } = this.state
+        if (Utils.isArrNullOrHaveNoItem(categories) || article == null) return null
         return <React.Fragment>
             <Components.HeaderPage>
                 <Components.Button type='primary' className='ml-3'
-                    handleOnClick={() => this.onCreateArticle()} >
+                    handleOnClick={() => this.onSaveArticle()} >
                     <Components.CreateSVG size={12} linkHref='#next-icon-checkmark' className='mr-3' />
                     <span>Lưu</span>
                 </Components.Button>
+                
             </Components.HeaderPage>
             <div className="pd-all-20">
-            
-            <div className="col-sm-12">
-                
-                <div className="col-sm-10">
-                    <div className="form-group">
-                        <label>Tiêu đề</label>
+
+                <div className="col-sm-12">
+
+                    <div className="col-sm-10">
+                        <div className="form-group">
+                            <label>Tiêu đề</label>
                             <Components.Input value={article.title}
                                 onChange={(e) => this.onChangeTitle(e)} />
-                    </div>
-                    <div className="form-group">
+                        </div>
+                        <div className="form-group">
                             <label>Nội dung</label>
                             <Components.ContentEditor
                                 ref={ref => this.ref_ContentEditor = ref}
@@ -88,23 +101,20 @@ export class CreateArticle extends React.Component<RouteComponentProps<any>, Cre
                         </div>
                         <div className="form-group">
                             <p className="collection-seo--preview-url text-truncate mb-0">
-                                {'https://wwww.greencode.vn/' + Utils.NonUnicode(article.friendlyUrl)}
+                                {'https://wwww.greencode.vn/article' + Utils.NonUnicode(article.friendlyUrl)}
                             </p>
                         </div>
-                </div>
-                <div className="col-sm-2">
-                    <div className="form-group">
-                        <label></label>
-                        {!Utils.isArrNullOrHaveNoItem(categories) && <Components.CategoryTree categories={this.state.categories}
-                            onSelect={(c) => this.setState({ article: { ...this.state.article, category: c } })} />}
+                    </div>
+                    <div className="col-sm-2">
+                        <div className="form-group">
+                            <label></label>
+                            {!Utils.isArrNullOrHaveNoItem(categories) && <Components.CategoryTree selectedItem={article.category}
+                                categories={this.state.categories}
+                                onSelect={(c) => this.setState({ article: { ...this.state.article, category: c } })} />}
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div >
+            </div >
         </React.Fragment>
     }
 }
-const listData = [
-    { value: '0', display: 'item1' },
-    { value: '1', display: 'item2' },
-]
