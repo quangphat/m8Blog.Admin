@@ -22,3 +22,42 @@
 .min-height-946{
     min-height:946px;
 }
+.notification-custom-success {
+    width: 100%;
+    display: flex;
+    background-color: #28a745;
+}
+.notification-title,
+.notification-message {
+    color: #fff;
+}
+
+.notification-close span {
+    color: #fff;
+}
+.notification-item {
+    position: relative;
+}
+.notification-item {
+    border-radius: 0px !important;
+    box-shadow: 1px 3px 4px rgba(0,0,0,.2);
+    cursor: pointer;
+    display: flex;
+    position: relative;
+}
+.notification-danger {
+    background-color: #dc3545;
+    border-left: 0px !important;
+}
+.notification-success {
+    background-color: #dc3545;
+    border-left: 0px !important;
+}
+.notification-message {
+    max-width: calc(100% - 15px);
+    font-size: 14px;
+    line-height: 150%;
+    word-wrap: break-word;
+    margin-bottom: 0;
+    margin-top: 0;
+}

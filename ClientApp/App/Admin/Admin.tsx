@@ -25,8 +25,7 @@ export class Admin extends React.Component<RouteComponentProps<any>, AdminStates
 
         return <div>
             <div className="form-group">
-                <label >Email address</label>
-                <input type="email" className="form-control" placeholder="Enter email" />
+                
             </div>
         </div>
     }
