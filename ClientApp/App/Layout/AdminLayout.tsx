@@ -64,7 +64,7 @@ export class AdminLayout extends React.Component<MainLayoutProps, AdminLayoutSta
             container: "top-right",
             animationIn: ["animated", "fadeIn"],
             animationOut: ["animated", "fadeOut"],
-            dismiss: { duration: 0 },
+            dismiss: { duration: 5000 },
             dismissable: { click: true }
         });
     }
@@ -78,7 +78,7 @@ export class AdminLayout extends React.Component<MainLayoutProps, AdminLayoutSta
             container: "bottom-left",
             animationIn: ["animated", "fadeIn"],
             animationOut: ["animated", "fadeOut"],
-            dismiss: { duration: 0 },
+            dismiss: { duration: 5000},
             dismissable: { click: true }
         });
     }
