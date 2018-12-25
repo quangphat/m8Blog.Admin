@@ -10,6 +10,7 @@
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="8.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.9" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.1.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.4" />
     <PackageReference Include="MsgPack.Cli" Version="1.0.0" />
   </ItemGroup>
@@ -48,6 +49,7 @@
     <None Remove="ClientApp\Models\IAuthor.ts" />
     <None Remove="ClientApp\Models\ICategory.ts" />
     <None Remove="ClientApp\Models\index.tsx" />
+    <None Remove="ClientApp\Models\INotification.tsx" />
     <None Remove="ClientApp\repositories\ArticleRepository.tsx" />
     <None Remove="ClientApp\repositories\CategoryRepository.tsx" />
     <None Remove="ClientApp\repositories\Fetch.tsx" />
@@ -90,6 +92,7 @@
     <TypeScriptCompile Include="ClientApp\Models\IAuthor.ts" />
     <TypeScriptCompile Include="ClientApp\Models\IArticleMeta.tsx" />
     <TypeScriptCompile Include="ClientApp\Models\index.tsx" />
+    <TypeScriptCompile Include="ClientApp\Models\INotification.tsx" />
     <TypeScriptCompile Include="ClientApp\repositories\CategoryRepository.tsx" />
     <TypeScriptCompile Include="ClientApp\repositories\ArticleRepository.tsx" />
     <TypeScriptCompile Include="ClientApp\repositories\Fetch.tsx" />

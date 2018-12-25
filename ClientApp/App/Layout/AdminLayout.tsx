@@ -6,6 +6,8 @@ import { NavLink } from 'react-router-dom';
 import ReactNotification from "react-notifications-component";
 import "react-notifications-component/dist/theme.css";
 import * as Utils from '../../infrastructure/Utils'
+import * as SignalR from '../../infrastructure/SignalR'
+import { INotification } from '../../Models/INotification'
 export interface MainLayoutProps {
     routerHistory: H.History
 }
@@ -23,6 +25,16 @@ export class AdminLayout extends React.Component<MainLayoutProps, AdminLayoutSta
     }
 
     componentDidMount() {
+        SignalR.createHubConnection();
+        SignalR.hubConnection.on('Notify', (Notify) => {
+            this.ShowMessage('success', Notify.Content);
+        });
+    }
+    private _sendCommentNotify(Notify: INotification) {
+        SignalR.hubConnection
+            .invoke('Notify', Notify).then((response) => {
+            })
+            .catch(err => console.error(err));
 
     }
     static childContextTypes = {
@@ -30,6 +42,7 @@ export class AdminLayout extends React.Component<MainLayoutProps, AdminLayoutSta
         ShowErrorMessage: PropTypes.func,
         ShowSuccessMessage: PropTypes.func,
         ShowSmartMessage: PropTypes.func,
+        _sendCommentNotify: PropTypes.func
         
     }
     getChildContext() {
@@ -38,7 +51,7 @@ export class AdminLayout extends React.Component<MainLayoutProps, AdminLayoutSta
             ShowErrorMessage: this.ShowErrorMessage.bind(this),
             ShowSuccessMessage: this.ShowSuccessMessage.bind(this),
             ShowSmartMessage: this.ShowSmartMessage.bind(this),
-           
+            _sendCommentNotify: this._sendCommentNotify.bind(this)
         }
     }
     private ShowErrorMessage(this:any, message?: string) {

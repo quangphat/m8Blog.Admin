@@ -32,6 +32,8 @@ namespace my8Blog.Admin.Infrastructures
                 .ForMember(a => a.Lastname, b => b.MapFrom(c => c.LastName))
                 .ForMember(a => a.Email, b => b.MapFrom(c => c.Email))
                 .ForMember(a => a.Avatar, b => b.MapFrom(c => c.Avatar));
+            mapper.CreateMap<Account, SignalRAccount>()
+                .ForMember(a => a.PersonId, b => b.MapFrom(c => c.PersonId));
             //<AppendNewHere>
         }
     }

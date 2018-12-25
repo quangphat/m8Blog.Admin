@@ -33,8 +33,8 @@ export class Test extends React.Component<RouteComponentProps<any>, TestStates> 
         ShowMessage: PropTypes.func,
         ShowErrorMessage: PropTypes.func,
         ShowSuccessMessage: PropTypes.func,
-        ShowSmartMessage: PropTypes.func
-
+        ShowSmartMessage: PropTypes.func,
+        _sendCommentNotify: PropTypes.func
     }
     private onChange(e) {
         this.setState({ content: e });
@@ -49,7 +49,7 @@ export class Test extends React.Component<RouteComponentProps<any>, TestStates> 
     NotiFyCustom() {
         let content = <div className={`notification-custom-success`}>
             <div className="notification-custom-icon">
-                <i className=''/>
+                <i className='' />
             </div>
             <div className="notification-custom-content">
                 <p className="notification-message">
@@ -59,6 +59,15 @@ export class Test extends React.Component<RouteComponentProps<any>, TestStates> 
         </div>
         this.context.ShowSmartMessage('success', content)
     }
+    private sendNotify() {
+        let notify = {
+            id: "1",
+            content: "yeah",
+            ownerActionId: "5c0a8d6aeb562671178ff907",
+            receiversId: ["5c0a8e96eb562671178ff92e"]
+        } as Models.INotification
+        this.context._sendCommentNotify(notify)
+    }
     public render() {
 
         return <div className="pd-all-20">
@@ -67,13 +76,17 @@ export class Test extends React.Component<RouteComponentProps<any>, TestStates> 
                     <ReactNotification ref={com => this.notificationDOMRef = com} />
                     <button onClick={() => this.addNotification()} className="btn btn-primary">
                         Danger
-        </button>
+                    </button>
                     <button onClick={() => this.NotiFySuccess()} className="btn btn-primary">
                         Success
-        </button>
+                    </button>
                     <button onClick={() => this.NotiFyCustom()} className="btn btn-primary">
                         Custom
-        </button>                </div>
+                    </button>
+                    <button onClick={() => this.sendNotify()} className="btn btn-primary">
+                        Signalr
+                    </button>
+                </div>
             </div>
         </div>
 

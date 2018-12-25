@@ -32,9 +32,12 @@ namespace my8Blog.Admin
                 builder
                     .AllowAnyMethod()
                     .AllowAnyHeader()
-                    .AllowAnyOrigin();
+                    .WithOrigins("http://greencode.vn:52701")
+                    .AllowCredentials();
             }));
-
+            services.AddSignalR().AddJsonProtocol(opts => {
+                opts.PayloadSerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            });
             services.Configure<ClientConfig>(Configuration.GetSection("ClientConfig"));
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddMvc().AddJsonOptions(opts =>
@@ -76,9 +79,14 @@ namespace my8Blog.Admin
             }
 
             app.UseStaticFiles();
+            app.UseCors("CorsPolicy");
             app.UseAuthentication();
             app.UseSession();
             app.UseMiddleware<SessionHandler>();
+            app.UseSignalR(routes =>
+            {
+                routes.MapHub<NotificationHub>("/notification");
+            });
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

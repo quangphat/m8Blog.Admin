@@ -1,5 +1,6 @@
 ﻿import * as H from 'history';
 import { createBrowserHistory } from 'history';
+import { IAccount } from '../Models/IAccount'
 export const history = createBrowserHistory();
 
 export const getNewGuid = (): string => {
@@ -89,4 +90,18 @@ export function NonUnicode(value: string, toLowerCase: boolean = true) {
 
     return outString;
 
+}
+export const GetAccount = (): IAccount => {
+    if (isLogin() == false) return null
+    let account = document['account'] as IAccount
+    return account;
+}
+export const isLogin = (): boolean => {
+    let account = document['account'] as IAccount
+    if (isNullOrUndefined(account)) return false;
+    if (isNullOrEmpty(account.PersonId)
+        || isNullOrUndefined(account.ProjectId)
+        || isNullOrEmpty(account.Email))
+        return false;
+    return true;
 }
