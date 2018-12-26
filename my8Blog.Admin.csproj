@@ -43,6 +43,7 @@
     <None Remove="ClientApp\components\DanteEditor\DanteEditor.tsx" />
     <None Remove="ClientApp\components\HeaderPage\HeaderPage.tsx" />
     <None Remove="ClientApp\components\index.tsx" />
+    <None Remove="ClientApp\components\InfoBox\InfoBox.tsx" />
     <None Remove="ClientApp\components\Loading\Loading.tsx" />
     <None Remove="ClientApp\Enums\AppEnums.tsx" />
     <None Remove="ClientApp\Models\IArticleMeta.tsx" />
@@ -85,6 +86,7 @@
     <TypeScriptCompile Include="ClientApp\components\HeaderPage\HeaderPage.tsx" />
     <TypeScriptCompile Include="ClientApp\components\index.tsx" />
     <TypeScriptCompile Include="ClientApp\components\CategoryTree\CategoryTree.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\InfoBox\InfoBox.tsx" />
     <TypeScriptCompile Include="ClientApp\components\Loading\Loading.tsx" />
     <TypeScriptCompile Include="ClientApp\Enums\AppEnums.tsx" />
     <TypeScriptCompile Include="ClientApp\infrastructure\Utils.tsx" />
