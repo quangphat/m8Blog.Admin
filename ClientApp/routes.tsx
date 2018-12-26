@@ -31,7 +31,7 @@ const history = Utils.history
 export const routes = <Router history={history}>
     <App.AdminLayout routerHistory={history}>
         <Switch>
-            <RoleRoute exact path='/' component={App.Admin} />
+            <RoleRoute exact path='/' component={App.Home} />
             <RoleRoute exact path='/test' component={App.Test} />
             <RoleRoute exact path='/article' component={App.ArticleList} />
             <RoleRoute exact path='/article_create' component={App.CreateArticle} />
