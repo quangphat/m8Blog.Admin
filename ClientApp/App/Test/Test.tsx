@@ -64,7 +64,7 @@ export class Test extends React.Component<RouteComponentProps<any>, TestStates> 
             id: "1",
             content: "yeah",
             ownerActionId: "5c0a8d6aeb562671178ff907",
-            receiversId: ["5c0a8e96eb562671178ff92e"]
+            receiversId: ["5c0a8e96eb562671178ff92e", "5c2338ec71479b759ab01807"]
         } as Models.INotification
         this.context._sendCommentNotify(notify)
     }
@@ -72,6 +72,12 @@ export class Test extends React.Component<RouteComponentProps<any>, TestStates> 
 
         return <div className="pd-all-20">
             <div className="col-sm-12">
+                <div className="col-sm-3">
+                    <Components.Badge type="aqua" content="Chờ duyệt" />
+                    <Components.Badge type="blue" content="Chờ duyệt" />
+                    <Components.Badge type="orrange" content="Chờ duyệt" />
+                    <Components.Badge type="green" content="Chờ duyệt" />
+                </div>
                 <div className="app-content">
                     <ReactNotification ref={com => this.notificationDOMRef = com} />
                     <button onClick={() => this.addNotification()} className="btn btn-primary">
