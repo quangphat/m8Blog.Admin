@@ -57,7 +57,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="wwwroot\assets\admin\css\adminlte.css.map" />
     <None Include="wwwroot\assets\admin\fonts\fontawesome-webfont.svg" />
     <None Include="wwwroot\assets\admin\fonts\fontawesome-webfont.woff2" />
     <None Include="wwwroot\assets\webfonts\fa-brands-400.svg" />
