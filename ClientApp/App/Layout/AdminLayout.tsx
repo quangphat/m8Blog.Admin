@@ -6,6 +6,7 @@ import { NavLink } from 'react-router-dom';
 import ReactNotification from "react-notifications-component";
 import "react-notifications-component/dist/theme.css";
 import * as Utils from '../../infrastructure/Utils'
+import * as RoutePath from '../../infrastructure/RoutePath'
 import * as SignalR from '../../infrastructure/SignalR'
 import { INotification } from '../../Models/INotification'
 export interface MainLayoutProps {
@@ -376,7 +377,7 @@ export class AdminLayout extends React.Component<MainLayoutProps, AdminLayoutSta
                         </ul>
                     </li>
                     <li className="treeview">
-                        <NavLink to={'/article'}>
+                        <NavLink to={RoutePath.Path.articles}>
                             <i className="fa fa-files-o"></i>
                             <span>Bài viết</span>
                         </NavLink>

@@ -6,6 +6,7 @@ import * as Models from '../../Models'
 import { ArticleRepository } from '../../repositories/ArticleRepository'
 import * as Utils from '../../infrastructure/Utils'
 import { NavLink } from 'react-router-dom';
+import * as RoutePath from '../../infrastructure/RoutePath'
 interface ArticleListStates {
     articles: Models.IArticle[]
 }
@@ -32,7 +33,7 @@ export class ArticleList extends React.Component<RouteComponentProps<any>, Artic
             return <tr key={item.id}>
                 <td className='text-left text-normal'>
                     <div className="table-break-word">
-                        <NavLink to={'/article/' + item.id} className="d-inline-block">
+                        <NavLink to={RoutePath.Path.article_detail(item.id)} className="d-inline-block">
                             <div className="font-weight-bold">{item.title}</div>
                         </NavLink>
                     </div>
@@ -81,7 +82,7 @@ export class ArticleList extends React.Component<RouteComponentProps<any>, Artic
         return <React.Fragment>
             <Components.HeaderPage>
                 <Components.Button type='primary' className='ml-3'
-                    handleOnClick={() => { this.props.history.push('/article_create', true) }} >
+                    handleOnClick={() => { this.props.history.push(RoutePath.Path.article_create) }} >
                     <Components.CreateSVG size={12} linkHref='#next-icon-checkmark' className='mr-3' />
                     <span>Tạo bài viết mới</span>
                 </Components.Button>

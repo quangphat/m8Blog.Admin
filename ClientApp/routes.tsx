@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Switch, Router, Route, Redirect } from 'react-router-dom';
 import * as App from '../ClientApp/App';
 import * as Utils from './infrastructure/Utils';
+import * as RoutePath from './infrastructure/RoutePath'
 const RoleRoute = ({ component: Component, ...rest }: { component: any, path?: string, exact?: boolean }) => (
     <Route {...rest} render={props => {
         return <Component {...props} />
@@ -32,11 +33,11 @@ export const routes = <Router history={history}>
     <App.AdminLayout routerHistory={history}>
         <Switch>
             <RoleRoute exact path='/' component={App.Home} />
-            <RoleRoute exact path='/test' component={App.Test} />
-            <RoleRoute exact path='/article' component={App.ArticleList} />
-            <RoleRoute exact path='/article_create' component={App.CreateArticle} />
-            <RoleRoute exact path='/article/:id' component={App.ArticleDetail} />
-            <RoleRoute exact path='/article/:id/edit' component={App.ArticleEdit} />
+            <RoleRoute exact path={RoutePath.Path.test} component={App.Test} />
+            <RoleRoute exact path={RoutePath.Path.articles} component={App.ArticleList} />
+            <RoleRoute exact path={RoutePath.Path.article_create} component={App.CreateArticle} />
+            <RoleRoute exact path={RoutePath.Path.article_detail()} component={App.ArticleDetail} />
+            <RoleRoute exact path={RoutePath.Path.article_edit()} component={App.ArticleEdit} />
         </Switch>
     </App.AdminLayout>
 </Router>

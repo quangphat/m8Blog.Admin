@@ -7,6 +7,7 @@ import * as Enums from '../../Enums/AppEnums'
 import { ArticleRepository } from '../../repositories/ArticleRepository'
 import * as Utils from '../../infrastructure/Utils'
 import { CategoryRepository } from '../../repositories/CategoryRepository'
+import * as RoutePath from '../../infrastructure/RoutePath'
 interface ArticleEditStates {
     categories: Models.ICategory[],
     article: Models.IArticle
@@ -29,7 +30,7 @@ export class ArticleEdit extends React.Component<RouteComponentProps<any>, Artic
     private getArticleDetail(id) {
 
         if (Utils.isNullOrUndefined(id))
-            this.props.history.push('/article');
+            this.props.history.push(RoutePath.Path.articles);
         ArticleRepository.GetDetail(id).then(res => {
             if (res.data != null) {
                 this.setState({ article: res.data })
@@ -55,7 +56,7 @@ export class ArticleEdit extends React.Component<RouteComponentProps<any>, Artic
         article.friendlyUrl = Utils.NonUnicode(article.friendlyUrl)
         let res = await ArticleRepository.Update(article.id, article)
         if (res.success == true) {
-            this.props.history.push(`/article/${article.id}`)
+            this.props.history.push(RoutePath.Path.article_detail(article.id))
         }
     }
     private onChangeTitle(e) {

@@ -5,6 +5,7 @@ import * as Components from '../../components'
 import * as Models from '../../Models'
 import { ArticleRepository } from '../../repositories/ArticleRepository'
 import * as Utils from '../../infrastructure/Utils'
+import * as RoutePath from '../../infrastructure/RoutePath'
 interface ArticleDetailStates {
     categories: Models.ICategory[],
     article: Models.IArticle
@@ -25,7 +26,7 @@ export class ArticleDetail extends React.Component<RouteComponentProps<any>, Art
     private getArticleDetail(id) {
         
         if (Utils.isNullOrUndefined(id))
-            this.props.history.push('/article');
+            this.props.history.push(RoutePath.Path.articles);
         ArticleRepository.GetDetail(id).then(res => {
             if (res.data != null) {
                 this.setState({ article: res.data })
@@ -56,7 +57,7 @@ export class ArticleDetail extends React.Component<RouteComponentProps<any>, Art
         return <React.Fragment>
             <Components.HeaderPage>
                 <Components.Button type='primary' className='ml-3'
-                    handleOnClick={() => { this.props.history.push(`/article/${this.state.article.id}/edit`) }} >
+                    handleOnClick={() => { this.props.history.push(RoutePath.Path.article_edit(this.state.article.id)) }} >
                     <Components.CreateSVG size={12} linkHref='#next-icon-edit' className='mr-3' />
                     <span>Chỉnh sửa</span>
                 </Components.Button>
