@@ -9,6 +9,9 @@ import ReactNotification from "react-notifications-component";
 import * as PropTypes from 'prop-types';
 import './index.css'
 import "react-notifications-component/dist/theme.css";
+import Cropper from 'react-cropper';
+import 'cropperjs/dist/cropper.css';
+
 interface TestStates {
     categories: Models.ICategory[],
     content: string,
@@ -18,6 +21,8 @@ interface TestStates {
 export class Test extends React.Component<RouteComponentProps<any>, TestStates> {
     notificationDOMRef: any;
     ref_ContentEditor: Components.ContentEditor;
+    cropper: any;
+    ref_uploadImage: any;
     constructor(props: any) {
         super(props);
         this.state = {
@@ -68,6 +73,28 @@ export class Test extends React.Component<RouteComponentProps<any>, TestStates> 
         } as Models.INotification
         this.context._sendCommentNotify(notify)
     }
+    private resultantImage() {
+        let el = this.refs.reactCroppie
+        //el.croppie('result', {
+        //    type: 'rawcanvas',
+        //    circle: true,
+        //    // size: { width: 300, height: 300 },
+        //    format: 'png'
+        //}).then(function (canvas) {
+
+        //});
+        //el.result({ format: 'base64', size: { width: 100, height: 100 } }).then(function (resp) {
+        //    console.log(resp);
+        //    var image = new Image();
+        //    image.src = resp;
+        //    document.body.appendChild(image);
+        //});
+
+    }
+    _crop() {
+        // image in dataUrl
+        console.log(this.cropper.getCroppedCanvas().toDataURL());
+    }
     public render() {
 
         return <div className="pd-all-20">
@@ -79,19 +106,17 @@ export class Test extends React.Component<RouteComponentProps<any>, TestStates> 
                     <Components.Badge type="green" content="Chờ duyệt" />
                 </div>
                 <div className="app-content">
-                    <ReactNotification ref={com => this.notificationDOMRef = com} />
-                    <button onClick={() => this.addNotification()} className="btn btn-primary">
-                        Danger
-                    </button>
-                    <button onClick={() => this.NotiFySuccess()} className="btn btn-primary">
-                        Success
-                    </button>
-                    <button onClick={() => this.NotiFyCustom()} className="btn btn-primary">
-                        Custom
-                    </button>
-                    <button onClick={() => this.sendNotify()} className="btn btn-primary">
-                        Signalr
-                    </button>
+                    <Components.ImageEmpty />
+                    <Components.ImageResize
+                        src='https://res.cloudinary.com/quangphat/image/upload/c_fit/static/nancy_thumb.jpg' />
+                    <Components.FileUpload ref={component => this.ref_uploadImage = component}
+                        onSelectFile={() => this.setState({ content: '' })} isMultiple ={false} className="position-relative">
+                        <div className='fileupload-text text-center'>
+                            <Components.CreateSVG size={30} linkHref='#next-icon-camera-plus' />
+                            <p className="mb-0 mt-2 text-secondary">Thêm hình ảnh</p>
+                        </div>
+
+                    </Components.FileUpload>
                 </div>
             </div>
         </div>

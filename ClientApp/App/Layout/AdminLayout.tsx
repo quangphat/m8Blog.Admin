@@ -124,7 +124,8 @@ export class AdminLayout extends React.Component<MainLayoutProps, AdminLayoutSta
                                         <li>
                                             <a href="#">
                                                 <div className="pull-left">
-                                                    <img src="../../../assets/admin/img/user2-160x160.jpg" className="img-circle" alt="User Image" />
+                                                    <img src="https://res.cloudinary.com/quangphat/image/upload/c_fit,h_150,w_100/static/nancy_thumb.jpg"
+                                                        className="img-circle" alt="User Image" />
                                                 </div>
                                                 <h4>
                                                     Support Team
@@ -297,12 +298,13 @@ export class AdminLayout extends React.Component<MainLayoutProps, AdminLayoutSta
                         </li>
                         <li className="dropdown user user-menu">
                             <a href="#" className="dropdown-toggle" data-toggle="dropdown">
-                                <img src="../../../assets/admin/img/user2-160x160.jpg" className="user-image" alt="User Image" />
-                                <span className="hidden-xs">Quang Phát</span>
+                                <img src="https://res.cloudinary.com/quangphat/image/upload/c_fit,h_150,w_100/static/nancy_thumb.jpg" className="user-image" alt="User Image" />
+                                <span className="hidden-xs">{Utils.GetAccount().DisplayName}</span>
                             </a>
                             <ul className="dropdown-menu">
                                 <li className="user-header">
-                                    <img src="../../../assets/admin/img/user2-160x160.jpg" className="img-circle" alt="User Image" />
+                                    <img src="https://res.cloudinary.com/quangphat/image/upload/c_fit,h_150,w_100/static/nancy_thumb.jpg"
+                                        className="img-circle" alt="User Image" />
 
                                     <p>
                                         Alexander Pierce - Web Developer
@@ -345,7 +347,8 @@ export class AdminLayout extends React.Component<MainLayoutProps, AdminLayoutSta
             <section className="sidebar">
                 <div className="user-panel">
                     <div className="pull-left image">
-                        <img src="../../../assets/admin/img/user2-160x160.jpg" className="img-circle" alt="User Image" />
+                        <img src="https://res.cloudinary.com/quangphat/image/upload/c_fit,h_150,w_100/static/nancy_thumb.jpg"
+                            className="img-circle" alt="User Image" />
                     </div>
                     <div className="pull-left info">
                         <p>Alexander Pierce</p>
@@ -396,7 +399,12 @@ export class AdminLayout extends React.Component<MainLayoutProps, AdminLayoutSta
                             </span>
                         </a>
                     </li>
-
+                    <li>
+                        <NavLink to={RoutePath.Path.test}>
+                            <i className="fa fa-files-o"></i>
+                            <span>Test</span>
+                        </NavLink>
+                    </li>
                 </ul>
             </section>
         </aside>
