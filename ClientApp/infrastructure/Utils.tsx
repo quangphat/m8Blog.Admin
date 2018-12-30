@@ -99,9 +99,9 @@ export const GetAccount = (): IAccount => {
 export const isLogin = (): boolean => {
     let account = document['account'] as IAccount
     if (isNullOrUndefined(account)) return false;
-    if (isNullOrEmpty(account.PersonId)
-        || isNullOrUndefined(account.ProjectId)
-        || isNullOrEmpty(account.Email))
+    if (isNullOrEmpty(account.personId)
+        || isNullOrUndefined(account.projectId)
+        || isNullOrEmpty(account.email))
         return false;
     return true;
 }

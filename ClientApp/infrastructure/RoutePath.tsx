@@ -16,5 +16,6 @@ export const Path = {
         if (isNullOrEmpty(id))
             return '/article/:id/edit'
         return `/article/${id}/edit`
-    }
+    },
+    accounts:'/accounts'
 }

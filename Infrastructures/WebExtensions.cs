@@ -30,7 +30,7 @@ namespace my8Blog.Admin.Infrastructures
                     option.ExpireTimeSpan = TimeSpan.FromDays(30);
                     option.SlidingExpiration = true;
                     option.Cookie.Name = "my8ProgramingBlog";
-                    option.LoginPath = "/Account/Login";
+                    option.LoginPath = "/Account/loginview";
                 });
         }
         public static Account GetUserInfo(this HttpContext context)
@@ -53,15 +53,11 @@ namespace my8Blog.Admin.Infrastructures
                     account.WorkAs = list.FirstOrDefault((Claim a) => a.Type == "WorkAs")?.Value;
                     account.Avatar = list.FirstOrDefault((Claim a) => a.Type == "Avatar")?.Value;
                     account.Role = list.FirstOrDefault((Claim a) => a.Type == "Role")?.Value;
+                    account.ProjectId = list.FirstOrDefault((Claim a) => a.Type == "ProjectId")?.Value;
                     string scopeStr = list.FirstOrDefault((Claim a) => a.Type == "Scopes")?.Value;
                     if(!string.IsNullOrWhiteSpace(scopeStr))
                     {
                         account.Scopes = scopeStr.Split(',');
-                    }
-                    string projectIdStr = list.FirstOrDefault((Claim a) => a.Type == "ProjectId")?.Value;
-                    if (!string.IsNullOrWhiteSpace(projectIdStr))
-                    {
-                        account.ProjectId = Convert.ToInt32(projectIdStr);
                     }
                     return account;
                 }

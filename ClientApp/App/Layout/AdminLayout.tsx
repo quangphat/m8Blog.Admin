@@ -309,8 +309,8 @@ export class AdminLayout extends React.Component<MainLayoutProps, AdminLayoutSta
                         </li>
                         <li className="dropdown user user-menu">
                             <a href="#" className="dropdown-toggle" data-toggle="dropdown">
-                                <Avatar displayName={account.DisplayName} img={account.Avatar} type="s25" isResetAvatar={this.state.isResetAvatar} />
-                                <span className="hidden-xs">{Utils.GetAccount().DisplayName}</span>
+                                <Avatar displayName={account.displayName} img={account.avatar} className="my8-avatar-32" isResetAvatar={this.state.isResetAvatar} />
+                                <span className="hidden-xs">{Utils.GetAccount().displayName}</span>
                             </a>
                             <ul className="dropdown-menu">
                                 <li className="user-header">
@@ -359,7 +359,7 @@ export class AdminLayout extends React.Component<MainLayoutProps, AdminLayoutSta
             <section className="sidebar">
                 <div className="user-panel">
                     <div className="pull-left image">
-                        <Avatar displayName={account.DisplayName} img={account.Avatar} type="s100" isResetAvatar={this.state.isResetAvatar} />
+                        <Avatar displayName={account.displayName} img={account.avatar} className="my8-avatar-32" isResetAvatar={this.state.isResetAvatar} />
                     </div>
                     <div className="pull-left info">
                         <p>Alexander Pierce</p>
@@ -403,12 +403,12 @@ export class AdminLayout extends React.Component<MainLayoutProps, AdminLayoutSta
                         </ul>
                     </li>
                     <li>
-                        <a href="../widgets.html">
+                        <NavLink to={RoutePath.Path.accounts}>
                             <i className="fa fa-th"></i> <span>Tài khoản</span>
                             <span className="pull-right-container">
                                 <small className="label pull-right bg-green">new</small>
                             </span>
-                        </a>
+                        </NavLink>
                     </li>
                     <li>
                         <NavLink to={RoutePath.Path.test}>

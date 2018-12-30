@@ -78,37 +78,34 @@ export class Test extends React.Component<RouteComponentProps<any>, TestStates> 
 
     handleSelectImage(files) {
         if (files == null) return
-        MediaRepository.UploadAvatar(Utils.GetAccount().PersonId, files[0], "").then(response => {
+        MediaRepository.UploadAvatar(Utils.GetAccount().personId, files[0], "").then(response => {
             if (response != null && response.error == null) {
                 let account = Utils.GetAccount()
-                account.Avatar = response.data
+                account.avatar = response.data
                 this.context.updateAccount(account)
             }
         })
                     
     }
     public render() {
-
+        let account = Utils.GetAccount()
         return <div className="pd-all-20">
             <div className="col-sm-12">
                 <div className="col-sm-3">
-                    <Components.Badge type="aqua" content="Chờ duyệt" />
-                    <Components.Badge type="blue" content="Chờ duyệt" />
-                    <Components.Badge type="orrange" content="Chờ duyệt" />
-                    <Components.Badge type="green" content="Chờ duyệt" />
+
                 </div>
                 <div className="app-content">
-                    <Components.ImageEmpty />
-                    <Components.ImageResize
-                        src='https://res.cloudinary.com/quangphat/image/upload/c_fit/static/nancy_thumb.jpg' />
-                    <Components.FileUpload ref={component => this.ref_uploadImage = component}
-                        onSelectFile={(files) => this.handleSelectImage(files)} isMultiple ={false} className="position-relative">
-                        <div className='fileupload-text text-center'>
-                            <Components.CreateSVG size={30} linkHref='#next-icon-camera-plus' />
-                            <p className="mb-0 mt-2 text-secondary">Thêm hình ảnh</p>
-                        </div>
+                    
+                    <Components.Box title="Quản trị viên" className="box-success">
+                        <Components.FileUpload ref={component => this.ref_uploadImage = component}
+                            onSelectFile={(files) => this.handleSelectImage(files)} isMultiple={false} className="position-relative">
+                            <div className='fileupload-text text-center'>
+                                <Components.CreateSVG size={30} linkHref='#next-icon-camera-plus' />
+                                <p className="mb-0 mt-2 text-secondary">Thêm hình ảnh</p>
+                            </div>
 
-                    </Components.FileUpload>
+                        </Components.FileUpload>
+                    </Components.Box>
                 </div>
             </div>
         </div>

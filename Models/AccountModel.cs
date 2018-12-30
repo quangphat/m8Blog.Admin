@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,7 +25,10 @@ namespace my8Blog.Admin.Models
         {
             if (account == null) return null;
             account.Password = null;
-            return JsonConvert.SerializeObject(Account);
+            return JsonConvert.SerializeObject(Account, new JsonSerializerSettings
+            {
+                ContractResolver = new CamelCasePropertyNamesContractResolver()
+            });
         }
     }
 }

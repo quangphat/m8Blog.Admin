@@ -38,6 +38,7 @@ export const routes = <Router history={history}>
             <RoleRoute exact path={RoutePath.Path.article_create} component={App.CreateArticle} />
             <RoleRoute exact path={RoutePath.Path.article_detail()} component={App.ArticleDetail} />
             <RoleRoute exact path={RoutePath.Path.article_edit()} component={App.ArticleEdit} />
+            <RoleRoute exact path={RoutePath.Path.accounts} component={App.Accounts} />
         </Switch>
     </App.AdminLayout>
 </Router>

@@ -9,9 +9,9 @@ namespace my8Blog.Admin.Infrastructures
 {
     public static class FileHelper
     {
-        public static async Task UploadAvatar(IFormFile file, string accountId, string path)
+        public static async Task<string> UploadAvatar(IFormFile file, string accountId, string path)
         {
-            if (file == null || string.IsNullOrWhiteSpace(accountId)) return;
+            if (file == null || string.IsNullOrWhiteSpace(accountId)) return string.Empty;
             if (file.Length > 0)
             {
                 var fileName = $"{accountId}{Guid.NewGuid()}_avatar";
@@ -19,9 +19,11 @@ namespace my8Blog.Admin.Infrastructures
                 using (var fileStream = new FileStream(Path.Combine(path, fullName), FileMode.Create))
                 {
                     await file.CopyToAsync(fileStream);
+                    return fileName;
                 }
 
             }
+            return string.Empty;
         }
     }
 }

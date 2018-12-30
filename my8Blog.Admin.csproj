@@ -25,6 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\App\Accounts\Accounts.tsx" />
     <None Remove="ClientApp\App\Admin\Admin.tsx" />
     <None Remove="ClientApp\App\Article\ArticleDetail.tsx" />
     <None Remove="ClientApp\App\Article\ArticleEdit.tsx" />
@@ -39,6 +40,7 @@
     <None Remove="ClientApp\App\Utils.tsx" />
     <None Remove="ClientApp\components\ArticleMeta\ArticleMeta.tsx" />
     <None Remove="ClientApp\components\Avatar\Avatar.tsx" />
+    <None Remove="ClientApp\components\Box\Box.tsx" />
     <None Remove="ClientApp\components\CategoryTree\CategoryTree.tsx" />
     <None Remove="ClientApp\components\CkEditor\CkEditor.tsx" />
     <None Remove="ClientApp\components\DanteEditor\DanteEditor.tsx" />
@@ -54,6 +56,7 @@
     <None Remove="ClientApp\Models\ICategory.ts" />
     <None Remove="ClientApp\Models\index.tsx" />
     <None Remove="ClientApp\Models\INotification.tsx" />
+    <None Remove="ClientApp\repositories\AccountRepository.tsx" />
     <None Remove="ClientApp\repositories\ArticleRepository.tsx" />
     <None Remove="ClientApp\repositories\CategoryRepository.tsx" />
     <None Remove="ClientApp\repositories\Fetch.tsx" />
@@ -72,6 +75,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\App\Accounts\Accounts.tsx" />
     <TypeScriptCompile Include="ClientApp\App\Admin\Admin.tsx" />
     <TypeScriptCompile Include="ClientApp\App\Article\ArticleDetail.tsx" />
     <TypeScriptCompile Include="ClientApp\App\Article\ArticleEdit.tsx" />
@@ -85,6 +89,7 @@
     <TypeScriptCompile Include="ClientApp\App\Test\Test.tsx" />
     <TypeScriptCompile Include="ClientApp\components\ArticleMeta\ArticleMeta.tsx" />
     <TypeScriptCompile Include="ClientApp\components\Avatar\Avatar.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\Box\Box.tsx" />
     <TypeScriptCompile Include="ClientApp\components\CkEditor\CkEditor.tsx" />
     <TypeScriptCompile Include="ClientApp\components\DanteEditor\DanteEditor.tsx" />
     <TypeScriptCompile Include="ClientApp\components\HeaderPage\HeaderPage.tsx" />
@@ -101,6 +106,7 @@
     <TypeScriptCompile Include="ClientApp\Models\IArticleMeta.tsx" />
     <TypeScriptCompile Include="ClientApp\Models\index.tsx" />
     <TypeScriptCompile Include="ClientApp\Models\INotification.tsx" />
+    <TypeScriptCompile Include="ClientApp\repositories\AccountRepository.tsx" />
     <TypeScriptCompile Include="ClientApp\repositories\CategoryRepository.tsx" />
     <TypeScriptCompile Include="ClientApp\repositories\ArticleRepository.tsx" />
     <TypeScriptCompile Include="ClientApp\repositories\Fetch.tsx" />

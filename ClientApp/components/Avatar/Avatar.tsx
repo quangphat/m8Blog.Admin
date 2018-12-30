@@ -1,17 +1,21 @@
 ﻿import * as React from 'react'
 import * as classnames from 'classnames';
+import { ImageResize } from '../Image/ImageResize'
+import * as Utils from '../../infrastructure/Utils'
 import './index.css'
-export declare type IAvatarType = 's100' | 's50' |'s25'
+//export declare type IAvatarType = 's100' | 's50' |'s25'
 interface AvatarProps {
     img: string,
     displayName: string,
-    type: IAvatarType,
+    //type: IAvatarType,
+    className?: string,
     isResetAvatar?: number
 }
 interface AvatarStates {
     img: string,
     displayName: string,
-    isResetAvatar: number
+    isResetAvatar: number,
+    isError: boolean
 }
 export class Avatar extends React.Component<AvatarProps, AvatarStates>
 {
@@ -20,7 +24,8 @@ export class Avatar extends React.Component<AvatarProps, AvatarStates>
         this.state = {
             img: this.props.img,
             displayName: this.props.displayName,
-            isResetAvatar: this.props.isResetAvatar|0
+            isResetAvatar: this.props.isResetAvatar | 0,
+            isError: false
         }
     }
     componentWillReceiveProps(newProps: AvatarProps) {
@@ -44,14 +49,9 @@ export class Avatar extends React.Component<AvatarProps, AvatarStates>
         }
         return ""
     }
-    private getAvatar(img: string, type: IAvatarType) {
-        if (type == "s100")
-            return `http://admin.greencode.vn:52709/upload/images/${img}.png`
-        else if (type == "s50")
-            return `http://admin.greencode.vn:52709/upload/images/${img}.png`
-        else if (type == "s25")
-            return `http://admin.greencode.vn:52709/upload/images/${img}.png`
-        return "";
+    private getAvatar(img: string) {
+        if (Utils.isNullOrEmpty(img)) return ""
+        return `http://admin.greencode.vn:52709/upload/images/${img}.png`
     }
     private getAvatarColor(shortName:string) {
         let index = -1;
@@ -65,19 +65,25 @@ export class Avatar extends React.Component<AvatarProps, AvatarStates>
             return { backgroundColor: "#2e7d32" }
         return { backgroundColor: "#2e7d32" }
     }
-    render() {
-        let { img, displayName } = this.state
-        let { type } = this.props
-        let avatar = this.getAvatar(img, type)
+    private setError(error: boolean) {
+        this.setState({ isError: error })
+    }
+    private renderAvatar() {
+        let { img, displayName, isError } = this.state
+        let { className } = this.props
+        let avatar = this.getAvatar(img)
         let display = this.getShortName(displayName)
         let classes = classnames({
-            'my8-avatar-25': type == 's25',
-            'my8-avatar-32': type == 's50',
+            [className]: className,
         })
-        return img ? <img src={avatar} className={`img-circle ${classes}`} alt="User Image" />
-            : <div className="my8-avatar" style={this.getAvatarColor(display)}>
+        if (Utils.isNullOrEmpty(avatar) || isError)
+            return <div className={`my8-avatar ${classes}`} style={this.getAvatarColor(display)}>
                 <span className="color-white font-size-20px">{display}</span>
             </div>
+        return <img src={avatar} onError={() => this.setError(true)} className={`img-circle ${classes}`} alt={displayName} />
+    }
+    render() {
+        return this.renderAvatar()
     }
 }
 export const ShortName1 = ["A", "B", "C", "D", "E", "F","Y"]

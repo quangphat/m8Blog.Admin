@@ -61,6 +61,15 @@ namespace my8Blog.Admin {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to accounts.
+        /// </summary>
+        public static string Account {
+            get {
+                return ResourceManager.GetString("Account", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Articles.
         /// </summary>
         public static string Article {

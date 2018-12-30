@@ -19,7 +19,7 @@ namespace my8Blog.Admin.Models
         public string Lastname { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
-        public int ProjectId { get; set; }
+        public string ProjectId { get; set; }
         public string Role { get; set; }
         public string[] Scopes { get; set; }
     }

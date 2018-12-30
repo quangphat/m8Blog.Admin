@@ -13,19 +13,33 @@ using my8Blog.Admin.Models;
 
 namespace my8Blog.Admin.Controllers
 {
+    [Route("account")]
     public class AccountController : BaseController
     {
         public AccountController(HttpClient httpClient, IOptions<ClientConfig> clientConfig, CurrentProcess currentProcess)
             : base(httpClient, clientConfig, currentProcess)
         {
         }
-
+        [Route("loginview")]
         public async Task<IActionResult> Login()
         {
             return View();
         }
+        [HttpGet]
+        [Route("search")]
+        public async Task<IActionResult> Gets(string searchStr, string role, int page, int limit)
+        {
+            return await GetAsync($"/{ApiRouteRsx.Account}/search", new
+            {
+                searchStr,
+                page,
+                limit,
+                role
+            });
+        }
         [HttpPost]
-        public async Task<IActionResult> Login(Account model)
+        [Route("login")]
+        public async Task<IActionResult> Login(AccountLogin model)
         {
             Account account = await LoginUser(model);
             if (!isValidAccount(account)) return View();
@@ -61,10 +75,10 @@ namespace my8Blog.Admin.Controllers
             if (account == null) return false;
             if (string.IsNullOrWhiteSpace(account.PersonId)) return false;
             if (string.IsNullOrWhiteSpace(account.Email)) return false;
-            if (account.ProjectId < 1) return false;
+            if (string.IsNullOrWhiteSpace(account.ProjectId)) return false;
             return true;
         }
-        private async Task<Account> LoginUser(Account model)
+        private async Task<Account> LoginUser(AccountLogin model)
         {
             if (model == null)
             {

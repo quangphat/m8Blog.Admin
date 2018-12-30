@@ -6,4 +6,5 @@ export { CreateArticle } from './Article/CreateArticle';
 export { ArticleList } from './Article/ArticleList';
 export { ArticleDetail } from './Article/ArticleDetail';
 export { ArticleEdit } from './Article/ArticleEdit';
+export { Accounts } from './Accounts/Accounts';
 export { Test } from './Test/Test';
