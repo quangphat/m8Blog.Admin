@@ -77,5 +77,14 @@ namespace my8Blog.Admin {
                 return ResourceManager.GetString("Category", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to media.
+        /// </summary>
+        public static string Media {
+            get {
+                return ResourceManager.GetString("Media", resourceCulture);
+            }
+        }
     }
 }

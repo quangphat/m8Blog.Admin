@@ -1,0 +1,28 @@
+﻿.my8-avatar {
+    font-size: 14px;
+    color: rgba(0,0,0,.65);
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: inline-block;
+    text-align: center;
+    background: #f4f6f8;
+    color: #fff;
+    white-space: nowrap;
+    position: relative;
+    overflow: hidden;
+    vertical-align: middle;
+    line-height: 32px;
+    border-radius: 50%;
+    font-weight: 700;
+}
+.my8-avatar-25{
+    width:25px;
+    height:25px;
+}
+.my8-avatar-32 {
+    width: 32px;
+    height: 32px;
+}

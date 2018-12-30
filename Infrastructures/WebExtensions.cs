@@ -51,6 +51,7 @@ namespace my8Blog.Admin.Infrastructures
                     account.ProfileName = list.FirstOrDefault((Claim a) => a.Type == "Url")?.Value;
                     account.PersonId = list.FirstOrDefault((Claim a) => a.Type == "PersonId")?.Value;
                     account.WorkAs = list.FirstOrDefault((Claim a) => a.Type == "WorkAs")?.Value;
+                    account.Avatar = list.FirstOrDefault((Claim a) => a.Type == "Avatar")?.Value;
                     account.Role = list.FirstOrDefault((Claim a) => a.Type == "Role")?.Value;
                     string scopeStr = list.FirstOrDefault((Claim a) => a.Type == "Scopes")?.Value;
                     if(!string.IsNullOrWhiteSpace(scopeStr))

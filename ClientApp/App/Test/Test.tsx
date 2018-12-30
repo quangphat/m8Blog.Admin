@@ -11,6 +11,7 @@ import './index.css'
 import "react-notifications-component/dist/theme.css";
 import Cropper from 'react-cropper';
 import 'cropperjs/dist/cropper.css';
+import { MediaRepository } from '../../repositories/MediaRepository'
 
 interface TestStates {
     categories: Models.ICategory[],
@@ -39,7 +40,8 @@ export class Test extends React.Component<RouteComponentProps<any>, TestStates> 
         ShowErrorMessage: PropTypes.func,
         ShowSuccessMessage: PropTypes.func,
         ShowSmartMessage: PropTypes.func,
-        _sendCommentNotify: PropTypes.func
+        _sendCommentNotify: PropTypes.func,
+        updateAccount: PropTypes.func
     }
     private onChange(e) {
         this.setState({ content: e });
@@ -73,27 +75,17 @@ export class Test extends React.Component<RouteComponentProps<any>, TestStates> 
         } as Models.INotification
         this.context._sendCommentNotify(notify)
     }
-    private resultantImage() {
-        let el = this.refs.reactCroppie
-        //el.croppie('result', {
-        //    type: 'rawcanvas',
-        //    circle: true,
-        //    // size: { width: 300, height: 300 },
-        //    format: 'png'
-        //}).then(function (canvas) {
 
-        //});
-        //el.result({ format: 'base64', size: { width: 100, height: 100 } }).then(function (resp) {
-        //    console.log(resp);
-        //    var image = new Image();
-        //    image.src = resp;
-        //    document.body.appendChild(image);
-        //});
-
-    }
-    _crop() {
-        // image in dataUrl
-        console.log(this.cropper.getCroppedCanvas().toDataURL());
+    handleSelectImage(files) {
+        if (files == null) return
+        MediaRepository.UploadAvatar(Utils.GetAccount().PersonId, files[0], "").then(response => {
+            if (response != null && response.error == null) {
+                let account = Utils.GetAccount()
+                account.Avatar = response.data
+                this.context.updateAccount(account)
+            }
+        })
+                    
     }
     public render() {
 
@@ -110,7 +102,7 @@ export class Test extends React.Component<RouteComponentProps<any>, TestStates> 
                     <Components.ImageResize
                         src='https://res.cloudinary.com/quangphat/image/upload/c_fit/static/nancy_thumb.jpg' />
                     <Components.FileUpload ref={component => this.ref_uploadImage = component}
-                        onSelectFile={() => this.setState({ content: '' })} isMultiple ={false} className="position-relative">
+                        onSelectFile={(files) => this.handleSelectImage(files)} isMultiple ={false} className="position-relative">
                         <div className='fileupload-text text-center'>
                             <Components.CreateSVG size={30} linkHref='#next-icon-camera-plus' />
                             <p className="mb-0 mt-2 text-secondary">Thêm hình ảnh</p>

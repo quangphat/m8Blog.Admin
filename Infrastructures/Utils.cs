@@ -8,6 +8,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace my8Blog.Admin.Infrastructures
 {
@@ -104,6 +105,14 @@ namespace my8Blog.Admin.Infrastructures
             if (trim)
                 return input.Replace(" ", "");
             return input;
+        }
+        public static async Task<byte[]> StreamToByArray(Stream input)
+        {
+            using (MemoryStream ms = new MemoryStream())
+            {
+                await input.CopyToAsync(ms);
+                return ms.ToArray();
+            }
         }
     }
 }

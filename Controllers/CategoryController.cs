@@ -22,12 +22,12 @@ namespace my8Blog.Admin.Controllers
         [Route("create")]
         public async Task<IActionResult> Create([FromBody] Category model)
         {
-            return await PostAsync(Request, $"/{ApiRouteRsx.Category}/create", null, model);
+            return await PostAsync( $"/{ApiRouteRsx.Category}/create", null, model);
         }
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            return await GetAsync(Request, $"/{ApiRouteRsx.Category}");
+            return await GetAsync($"/{ApiRouteRsx.Category}");
         }
     }
 }

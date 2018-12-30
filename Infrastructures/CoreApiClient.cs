@@ -89,6 +89,18 @@ namespace my8Blog.Admin.Infrastructures
 
                     content = formData;
                 }
+                else if (data is List<Tuple<string, object>>)
+                {
+                    var formData = new MultipartFormDataContent();
+
+                    foreach (var pair in data as List<Tuple<string, object>>)
+                        if (pair.Item2 is byte[])
+                            formData.Add(new ByteArrayContent(pair.Item2 as byte[]), pair.Item1, pair.Item1);
+                        else if (pair.Item2 != null)
+                            formData.Add(new StringContent(pair.Item2.ToString()), pair.Item1);
+
+                    content = formData;
+                }
                 else
                 {
                     json = JsonConvert.SerializeObject(data, new JsonSerializerSettings

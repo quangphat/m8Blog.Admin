@@ -123,4 +123,7 @@
   <data name="Category" xml:space="preserve">
     <value>Categories</value>
   </data>
+  <data name="Media" xml:space="preserve">
+    <value>media</value>
+  </data>
 </root>

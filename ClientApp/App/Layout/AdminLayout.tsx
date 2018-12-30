@@ -9,18 +9,22 @@ import * as Utils from '../../infrastructure/Utils'
 import * as RoutePath from '../../infrastructure/RoutePath'
 import * as SignalR from '../../infrastructure/SignalR'
 import { INotification } from '../../Models/INotification'
+import { IAccount } from '../../Models/IAccount'
+import { Avatar } from '../../components/Avatar/Avatar'
 export interface MainLayoutProps {
     routerHistory: H.History
 }
 interface AdminLayoutStates {
-
+    account: IAccount,
+    isResetAvatar: number
 }
 export class AdminLayout extends React.Component<MainLayoutProps, AdminLayoutStates> {
     notificationDOMRef: any;
     constructor(props: any) {
         super(props);
         this.state = {
-
+            account: Utils.GetAccount(),
+            isResetAvatar: 0
         }
         this.notificationDOMRef = React.createRef();
     }
@@ -43,8 +47,8 @@ export class AdminLayout extends React.Component<MainLayoutProps, AdminLayoutSta
         ShowErrorMessage: PropTypes.func,
         ShowSuccessMessage: PropTypes.func,
         ShowSmartMessage: PropTypes.func,
-        _sendCommentNotify: PropTypes.func
-        
+        _sendCommentNotify: PropTypes.func,
+        updateAccount: PropTypes.func
     }
     getChildContext() {
         return {
@@ -52,8 +56,14 @@ export class AdminLayout extends React.Component<MainLayoutProps, AdminLayoutSta
             ShowErrorMessage: this.ShowErrorMessage.bind(this),
             ShowSuccessMessage: this.ShowSuccessMessage.bind(this),
             ShowSmartMessage: this.ShowSmartMessage.bind(this),
-            _sendCommentNotify: this._sendCommentNotify.bind(this)
+            _sendCommentNotify: this._sendCommentNotify.bind(this),
+            updateAccount: this.updateAccount.bind(this)
         }
+    }
+    private updateAccount(account: IAccount) {
+        document['account'] = account
+        let { isResetAvatar } = this.state
+        this.setState({ account: account, isResetAvatar: isResetAvatar+1 })
     }
     private ShowErrorMessage(this:any, message?: string) {
         this.ShowMessage('danger', message)
@@ -97,6 +107,7 @@ export class AdminLayout extends React.Component<MainLayoutProps, AdminLayoutSta
         });
     }
     private renderHeader() {
+        let { account } = this.state
         return <header className="main-header">
             <a href="/" className="logo">
                 <span className="logo-mini"><b>A</b>LT</span>
@@ -124,7 +135,7 @@ export class AdminLayout extends React.Component<MainLayoutProps, AdminLayoutSta
                                         <li>
                                             <a href="#">
                                                 <div className="pull-left">
-                                                    <img src="https://res.cloudinary.com/quangphat/image/upload/c_fit,h_150,w_100/static/nancy_thumb.jpg"
+                                                    <img src="https://res.cloudinary.com/quangphat/image/upload/c_thumb,h_100,w_100/static/5c0a407cc0412195df965750_avatar.jpg"
                                                         className="img-circle" alt="User Image" />
                                                 </div>
                                                 <h4>
@@ -298,12 +309,12 @@ export class AdminLayout extends React.Component<MainLayoutProps, AdminLayoutSta
                         </li>
                         <li className="dropdown user user-menu">
                             <a href="#" className="dropdown-toggle" data-toggle="dropdown">
-                                <img src="https://res.cloudinary.com/quangphat/image/upload/c_fit,h_150,w_100/static/nancy_thumb.jpg" className="user-image" alt="User Image" />
+                                <Avatar displayName={account.DisplayName} img={account.Avatar} type="s25" isResetAvatar={this.state.isResetAvatar} />
                                 <span className="hidden-xs">{Utils.GetAccount().DisplayName}</span>
                             </a>
                             <ul className="dropdown-menu">
                                 <li className="user-header">
-                                    <img src="https://res.cloudinary.com/quangphat/image/upload/c_fit,h_150,w_100/static/nancy_thumb.jpg"
+                                    <img src="https://res.cloudinary.com/quangphat/image/upload/c_thumb,h_50,w_50/static/5c0a407cc0412195df965750_avatar.jpg"
                                         className="img-circle" alt="User Image" />
 
                                     <p>
@@ -343,12 +354,12 @@ export class AdminLayout extends React.Component<MainLayoutProps, AdminLayoutSta
         </header>
     }
     private renderSidebar() {
+        let { account } = this.state
         return <aside className="main-sidebar">
             <section className="sidebar">
                 <div className="user-panel">
                     <div className="pull-left image">
-                        <img src="https://res.cloudinary.com/quangphat/image/upload/c_fit,h_150,w_100/static/nancy_thumb.jpg"
-                            className="img-circle" alt="User Image" />
+                        <Avatar displayName={account.DisplayName} img={account.Avatar} type="s100" isResetAvatar={this.state.isResetAvatar} />
                     </div>
                     <div className="pull-left info">
                         <p>Alexander Pierce</p>

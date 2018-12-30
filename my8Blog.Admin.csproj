@@ -38,10 +38,13 @@
     <None Remove="ClientApp\App\Test\Test.tsx" />
     <None Remove="ClientApp\App\Utils.tsx" />
     <None Remove="ClientApp\components\ArticleMeta\ArticleMeta.tsx" />
+    <None Remove="ClientApp\components\Avatar\Avatar.tsx" />
     <None Remove="ClientApp\components\CategoryTree\CategoryTree.tsx" />
     <None Remove="ClientApp\components\CkEditor\CkEditor.tsx" />
     <None Remove="ClientApp\components\DanteEditor\DanteEditor.tsx" />
     <None Remove="ClientApp\components\HeaderPage\HeaderPage.tsx" />
+    <None Remove="ClientApp\components\Image\ImageEmpty.tsx" />
+    <None Remove="ClientApp\components\Image\ImageResize.tsx" />
     <None Remove="ClientApp\components\index.tsx" />
     <None Remove="ClientApp\components\InfoBox\InfoBox.tsx" />
     <None Remove="ClientApp\components\Loading\Loading.tsx" />
@@ -54,6 +57,7 @@
     <None Remove="ClientApp\repositories\ArticleRepository.tsx" />
     <None Remove="ClientApp\repositories\CategoryRepository.tsx" />
     <None Remove="ClientApp\repositories\Fetch.tsx" />
+    <None Remove="ClientApp\repositories\MediaRepository.tsx" />
   </ItemGroup>
 
   <ItemGroup>
@@ -80,9 +84,12 @@
     <TypeScriptCompile Include="ClientApp\App\Layout\Layout.tsx" />
     <TypeScriptCompile Include="ClientApp\App\Test\Test.tsx" />
     <TypeScriptCompile Include="ClientApp\components\ArticleMeta\ArticleMeta.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\Avatar\Avatar.tsx" />
     <TypeScriptCompile Include="ClientApp\components\CkEditor\CkEditor.tsx" />
     <TypeScriptCompile Include="ClientApp\components\DanteEditor\DanteEditor.tsx" />
     <TypeScriptCompile Include="ClientApp\components\HeaderPage\HeaderPage.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\Image\ImageEmpty.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\Image\ImageResize.tsx" />
     <TypeScriptCompile Include="ClientApp\components\index.tsx" />
     <TypeScriptCompile Include="ClientApp\components\CategoryTree\CategoryTree.tsx" />
     <TypeScriptCompile Include="ClientApp\components\InfoBox\InfoBox.tsx" />
@@ -97,6 +104,7 @@
     <TypeScriptCompile Include="ClientApp\repositories\CategoryRepository.tsx" />
     <TypeScriptCompile Include="ClientApp\repositories\ArticleRepository.tsx" />
     <TypeScriptCompile Include="ClientApp\repositories\Fetch.tsx" />
+    <TypeScriptCompile Include="ClientApp\repositories\MediaRepository.tsx" />
   </ItemGroup>
 
   <ItemGroup>
@@ -112,6 +120,10 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ApiRouteRsx.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\upload\images\" />
   </ItemGroup>
 
   <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">

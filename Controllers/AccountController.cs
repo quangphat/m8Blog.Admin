@@ -36,6 +36,8 @@ namespace my8Blog.Admin.Controllers
             claims.Add(new Claim("ProjectId", account.ProjectId.ToString()));
             if (!string.IsNullOrWhiteSpace(account.DisplayName))
                 claims.Add(new Claim("DisplayName", account.DisplayName));
+            if (!string.IsNullOrWhiteSpace(account.Avatar))
+                claims.Add(new Claim("Avatar", account.Avatar));
             if (!string.IsNullOrWhiteSpace(account.WorkAs))
                 claims.Add(new Claim("WorkAs", account.WorkAs));
             if (!string.IsNullOrWhiteSpace(account.Role))
@@ -73,7 +75,7 @@ namespace my8Blog.Admin.Controllers
                 return null;
             }
             model.Password = Utils.GetSHA256Hash(model.Password);
-            var result = await LoginPostAsync(Request ,"/accounts/login", null, model);
+            var result = await LoginPostAsync("/accounts/login", null, model);
             if (result.StatusCode == System.Net.HttpStatusCode.OK)
             {
                 if (result.Data != null)
