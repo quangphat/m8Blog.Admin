@@ -105,5 +105,10 @@ namespace my8Blog.Admin.Controllers
             }
             return null;
         }
+        [Route("AccessDenied")]
+        public async Task<IActionResult> AccessDenied()
+        {
+            return StatusCode(403);
+        }
     }
 }
