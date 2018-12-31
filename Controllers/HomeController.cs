@@ -20,6 +20,7 @@ namespace my8Blog.Admin.Controllers
         }
         public IActionResult Index()
         {
+            
             return View(_currentProcess.CurrentAccount);
         }
 

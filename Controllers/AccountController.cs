@@ -6,6 +6,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using my8Blog.Admin.Infrastructures;
@@ -27,6 +28,7 @@ namespace my8Blog.Admin.Controllers
         }
         [HttpGet]
         [Route("search")]
+        [Authorize(Roles ="manager")]
         public async Task<IActionResult> Gets(string searchStr, string role, int page, int limit)
         {
             return await GetAsync($"/{ApiRouteRsx.Account}/search", new
@@ -55,7 +57,13 @@ namespace my8Blog.Admin.Controllers
             if (!string.IsNullOrWhiteSpace(account.WorkAs))
                 claims.Add(new Claim("WorkAs", account.WorkAs));
             if (!string.IsNullOrWhiteSpace(account.Role))
-                claims.Add(new Claim("Role", account.Role));
+            {
+                claims.Add(new Claim(ClaimTypes.Role, account.Role));
+            }
+            else
+            {
+                claims.Add(new Claim(ClaimTypes.Role, "guest"));
+            }
             if(account.Scopes.Any())
             {
                 claims.Add(new Claim("Scopes", String.Join(",", account.Scopes)));

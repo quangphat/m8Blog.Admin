@@ -29,7 +29,7 @@ export class Accounts extends React.Component<RouteComponentProps, AccountStates
     }
     private renderManagers(accounts: Models.IAccount[]) {
         if (Utils.isArrNullOrHaveNoItem(accounts)) return null
-        return <Components.Box title="Quản trị viên" className="box-success">
+        return <Components.Box title="Quản trị viên" className="box-blue">
             <div className="users-list clearfix">
                 {accounts.map(account =>
                     <li key={account.personId}>
