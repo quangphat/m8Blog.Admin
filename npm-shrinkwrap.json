@@ -576,6 +576,12 @@
         "postcss-value-parser": "^3.2.3"
       }
     },
+    "autosize": {
+      "version": "4.0.2",
+      "resolved": "https://registry.npmjs.org/autosize/-/autosize-4.0.2.tgz",
+      "integrity": "sha512-jnSyH2d+qdfPGpWlcuhGiHmqBJ6g3X+8T+iRwFrHPLVcdoGJE/x6Qicm6aDHfTsbgZKxyV8UU/YB2p4cjKDRRA==",
+      "dev": true
+    },
     "awesome-typescript-loader": {
       "version": "3.2.1",
       "resolved": "https://registry.npmjs.org/awesome-typescript-loader/-/awesome-typescript-loader-3.2.1.tgz",

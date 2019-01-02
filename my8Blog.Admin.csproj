@@ -50,6 +50,7 @@
     <None Remove="ClientApp\components\index.tsx" />
     <None Remove="ClientApp\components\InfoBox\InfoBox.tsx" />
     <None Remove="ClientApp\components\Loading\Loading.tsx" />
+    <None Remove="ClientApp\components\TextArea\TextArea.tsx" />
     <None Remove="ClientApp\Enums\AppEnums.tsx" />
     <None Remove="ClientApp\Models\IArticleMeta.tsx" />
     <None Remove="ClientApp\Models\IAuthor.ts" />
@@ -99,6 +100,7 @@
     <TypeScriptCompile Include="ClientApp\components\CategoryTree\CategoryTree.tsx" />
     <TypeScriptCompile Include="ClientApp\components\InfoBox\InfoBox.tsx" />
     <TypeScriptCompile Include="ClientApp\components\Loading\Loading.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\TextArea\TextArea.tsx" />
     <TypeScriptCompile Include="ClientApp\Enums\AppEnums.tsx" />
     <TypeScriptCompile Include="ClientApp\infrastructure\Utils.tsx" />
     <TypeScriptCompile Include="ClientApp\Models\ICategory.ts" />
