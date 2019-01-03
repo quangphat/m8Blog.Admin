@@ -6,6 +6,7 @@ import * as Models from '../../Models'
 import { ArticleRepository } from '../../repositories/ArticleRepository'
 import * as Utils from '../../infrastructure/Utils'
 import * as RoutePath from '../../infrastructure/RoutePath'
+import * as Markdown from 'react-markdown';
 interface ArticleDetailStates {
     categories: Models.ICategory[],
     article: Models.IArticle
@@ -43,7 +44,9 @@ export class ArticleDetail extends React.Component<RouteComponentProps<any>, Art
             </div>
             <div className="form-group">
                 <label>Nội dung</label>
-                <Components.HtmlParser className='background-white pd-all-20' data={article.content} />
+                <Markdown source={article.content} escapeHtml={false}
+                    renderers={{ code: Components.CodeBlock }}
+                    skipHtml={false} />
             </div>
             <div className="form-group">
                 <label>Đường dẫn thân thiện</label>

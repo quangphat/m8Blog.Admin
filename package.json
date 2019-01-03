@@ -27,6 +27,8 @@
     "extract-text-webpack-plugin": "2.1.2",
     "file-loader": "0.11.2",
     "history": "4.7.2",
+    "react-markdown": "4.0.4",
+    "highlightjs": "9.12.0",
     "html2canvas": "1.0.0-alpha.12",
     "immutable": "3.8.2",
     "jquery": "3.2.1",

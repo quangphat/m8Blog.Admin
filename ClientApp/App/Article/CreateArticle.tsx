@@ -13,6 +13,7 @@ interface CreateArticleStates {
 }
 export class CreateArticle extends React.Component<RouteComponentProps<any>, CreateArticleStates> {
     ref_ContentEditor: Components.ContentEditor;
+    ref_pwe: Components.PowerEditor;
     constructor(props: any) {
         super(props);
         let model = new Object as Models.IArticle
@@ -37,12 +38,14 @@ export class CreateArticle extends React.Component<RouteComponentProps<any>, Cre
         let { article } = this.state
         if (article == null) return
         if (Utils.isNullOrUndefined(article.category)) return
+        article.content = this.ref_pwe.getContent()
         if (Utils.isNullOrEmpty(article.title) || Utils.isNullOrEmpty(article.content)) return
-        article.preview = this.ref_ContentEditor.getPlainText();
+        article.preview = '';
         if (article.preview.length > 300)
             article.preview = article.preview.substring(0, 300);
         article.status = Enums.ArticleStatus.Pending;
         article.friendlyUrl = Utils.NonUnicode(article.friendlyUrl)
+       
         let res = await ArticleRepository.CreateArticle(article)
         this.setState({ article: article })
         console.log(res)
@@ -76,10 +79,7 @@ export class CreateArticle extends React.Component<RouteComponentProps<any>, Cre
                     </div>
                     <div className="form-group">
                             <label>Nội dung</label>
-                            <Components.ContentEditor
-                                ref={ref => this.ref_ContentEditor = ref}
-                                content={article.content}
-                                onChange={(value) => this.setState({ article: { ...this.state.article, content: value } })} />
+                            <Components.PowerEditor ref={ref_pwe => this.ref_pwe = ref_pwe} content='' />
                         </div>
                         <div className="form-group">
                             <label>Đường dẫn thân thiện</label>

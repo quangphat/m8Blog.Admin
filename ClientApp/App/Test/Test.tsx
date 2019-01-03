@@ -9,7 +9,6 @@ import ReactNotification from "react-notifications-component";
 import * as PropTypes from 'prop-types';
 import './index.css'
 import "react-notifications-component/dist/theme.css";
-import Cropper from 'react-cropper';
 import 'cropperjs/dist/cropper.css';
 import { MediaRepository } from '../../repositories/MediaRepository'
 
@@ -24,6 +23,7 @@ export class Test extends React.Component<RouteComponentProps<any>, TestStates> 
     ref_ContentEditor: Components.ContentEditor;
     cropper: any;
     ref_uploadImage: any;
+    ref_pwe: any;
     constructor(props: any) {
         super(props);
         this.state = {
@@ -90,24 +90,7 @@ export class Test extends React.Component<RouteComponentProps<any>, TestStates> 
     public render() {
         let account = Utils.GetAccount()
         return <div className="pd-all-20">
-            <div className="col-sm-12">
-                <div className="col-sm-3">
-
-                </div>
-                <div className="app-content">
-                    
-                    <Components.Box title="Quản trị viên" className="box-success">
-                        <Components.FileUpload ref={component => this.ref_uploadImage = component}
-                            onSelectFile={(files) => this.handleSelectImage(files)} isMultiple={false} className="position-relative">
-                            <div className='fileupload-text text-center'>
-                                <Components.CreateSVG size={30} linkHref='#next-icon-camera-plus' />
-                                <p className="mb-0 mt-2 text-secondary">Thêm hình ảnh</p>
-                            </div>
-
-                        </Components.FileUpload>
-                    </Components.Box>
-                </div>
-            </div>
+            <Components.PowerEditor ref={ref_pwe => this.ref_pwe = ref_pwe} content='' />
         </div>
 
     }

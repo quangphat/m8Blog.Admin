@@ -8,6 +8,8 @@ import { ArticleRepository } from '../../repositories/ArticleRepository'
 import * as Utils from '../../infrastructure/Utils'
 import { CategoryRepository } from '../../repositories/CategoryRepository'
 import * as RoutePath from '../../infrastructure/RoutePath'
+import * as Markdown from 'react-markdown';
+
 interface ArticleEditStates {
     categories: Models.ICategory[],
     article: Models.IArticle

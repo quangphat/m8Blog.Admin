@@ -15,6 +15,6 @@ namespace my8Blog.Admin.Models
         public DateTime ModifiedTime { get; set; }
         public string Password { get; set; }
         public string Email { get; set; }
-        public int ProjectId { get; set; }
+        public string ProjectId { get; set; }
     }
 }

@@ -22,7 +22,7 @@ namespace my8Blog.Admin.Models
         public string[] CategoryIds { get; set; }
         public string[] CategoryNames { get; set; }
         public Author Author { get; set; }
-        public int ProjectId { get; set; }
+        public string ProjectId { get; set; }
         public string FriendlyUrl { get; set; }
         public int Status { get; set; }
     }
