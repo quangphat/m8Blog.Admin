@@ -11,6 +11,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using my8Blog.Admin.Infrastructures;
 using my8Blog.Admin.Models;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace my8Blog.Admin.Controllers
 {
@@ -39,12 +41,58 @@ namespace my8Blog.Admin.Controllers
                 role
             });
         }
+        //[HttpPost]
+        //[Route("login")]
+        //public async Task<ResponseJsonModel<Account>> Login([FromBody]AccountLogin model)
+        //{
+        //    var result = await LoginUser(model);
+        //    Account account = null;
+        //    if (result.data == null || result.error != null)
+        //        return result;
+        //    if (result.data != null)
+        //        account = result.data;
+        //    if (!isValidAccount(account)) return result;
+
+        //    List<Claim> claims = new List<Claim>();
+        //    claims.Add(new Claim("PersonId", account.PersonId));
+        //    claims.Add(new Claim("Email", account.Email));
+        //    claims.Add(new Claim("ProjectId", account.ProjectId.ToString()));
+        //    if (!string.IsNullOrWhiteSpace(account.DisplayName))
+        //        claims.Add(new Claim("DisplayName", account.DisplayName));
+        //    if (!string.IsNullOrWhiteSpace(account.WorkAs))
+        //        claims.Add(new Claim("WorkAs", account.WorkAs));
+        //    if (!string.IsNullOrWhiteSpace(account.Role))
+        //        claims.Add(new Claim("Role", account.Role));
+        //    if (account.Scopes != null && account.Scopes.Any())
+        //    {
+        //        claims.Add(new Claim("Scopes", String.Join(",", account.Scopes)));
+        //    }
+        //    var userIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+
+        //    ClaimsPrincipal principal = new ClaimsPrincipal(userIdentity);
+        //    var authProperties = new AuthenticationProperties
+        //    {
+        //        IsPersistent = true
+        //    };
+        //    await HttpContext.SignInAsync(principal, authProperties);
+        //    var obj = JsonConvert.SerializeObject(account, new JsonSerializerSettings
+        //    {
+        //        ContractResolver = new CamelCasePropertyNamesContractResolver()
+        //    });
+        //    return result;
+        //}
         [HttpPost]
         [Route("login")]
         public async Task<IActionResult> Login(AccountLogin model)
         {
-            Account account = await LoginUser(model);
-            if (!isValidAccount(account)) return View();
+            var result = await LoginUser(model);
+            Account account = null;
+            if (result.data == null || result.error != null)
+                return View();
+            if (result.data != null)
+                account = result.data;
+            if (!isValidAccount(account))
+                return View();
 
             List<Claim> claims = new List<Claim>();
             claims.Add(new Claim("PersonId", account.PersonId));
@@ -64,7 +112,7 @@ namespace my8Blog.Admin.Controllers
             {
                 claims.Add(new Claim(ClaimTypes.Role, "guest"));
             }
-            if(account.Scopes.Any())
+            if (account.Scopes.Any())
             {
                 claims.Add(new Claim("Scopes", String.Join(",", account.Scopes)));
             }
@@ -86,7 +134,7 @@ namespace my8Blog.Admin.Controllers
             if (string.IsNullOrWhiteSpace(account.ProjectId)) return false;
             return true;
         }
-        private async Task<Account> LoginUser(AccountLogin model)
+        private async Task<ResponseJsonModel<Account>> LoginUser(AccountLogin model)
         {
             if (model == null)
             {
@@ -96,12 +144,11 @@ namespace my8Blog.Admin.Controllers
             {
                 return null;
             }
-            model.Password = Utils.GetSHA256Hash(model.Password);
+            //model.Password = Utils.GetSHA256Hash(model.Password);
             var result = await LoginPostAsync("/accounts/login", null, model);
             if (result.StatusCode == System.Net.HttpStatusCode.OK)
             {
-                if (result.Data != null)
-                    return (Account)result.Data.data;
+                return result.Data;
             }
             return null;
         }
