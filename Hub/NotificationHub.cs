@@ -30,7 +30,6 @@ namespace my8Blog.Admin
             SignalRAccount exists = _ConnectingAccounts.Where(p => p.PersonId == _currentAccount.PersonId).FirstOrDefault();
                 if (exists == null)
                     _ConnectingAccounts.Add(_currentAccount);
-
             await base.OnConnectedAsync();
         }
         public override async Task OnDisconnectedAsync(Exception exception)
