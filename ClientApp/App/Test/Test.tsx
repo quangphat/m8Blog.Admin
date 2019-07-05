@@ -90,7 +90,14 @@ export class Test extends React.Component<RouteComponentProps<any>, TestStates> 
     public render() {
         let account = Utils.GetAccount()
         return <div className="pd-all-20">
-            <Components.PowerEditor ref={ref_pwe => this.ref_pwe = ref_pwe} content='' />
+            <Components.FileUpload ref={component => this.ref_uploadImage = component}
+                onSelectFile={(files) => this.handleSelectImage(files)} isMultiple={false} className="position-relative">
+                <div className='fileupload-text text-center'>
+                    <Components.CreateSVG size={30} linkHref='#next-icon-camera-plus' />
+                    <p className="mb-0 mt-2 text-secondary">Thêm hình ảnh</p>
+                </div>
+
+            </Components.FileUpload>
         </div>
 
     }

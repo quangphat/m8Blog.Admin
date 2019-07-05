@@ -26,17 +26,21 @@ namespace my8Blog.Admin.Controllers
         [Route("{accountId}/avatar")]
         public async Task<IActionResult> UploadAvatar(string accountId, IFormFile file)
         {
-            
+
             if (file == null)
                 return BadRequest("Dữ liệu không hợp lệ");
             var uploads = Path.Combine(_appEnvironment.WebRootPath, "upload\\images");
             string fileName = await FileHelper.UploadAvatar(file, accountId, uploads);
-            if(!string.IsNullOrWhiteSpace(fileName))
+            if (!string.IsNullOrWhiteSpace(fileName))
             {
                 var account = _currentProcess.CurrentAccount.Account;
                 account.Avatar = fileName;
                 SetNewCookie(account);
-                return await PostAsync($"/{ApiRouteRsx.Media}/{accountId}/avatar/{fileName}");
+                if (file == null)
+                    return BadRequest("Dữ liệu không hợp lệ");
+
+                var data = await file.UploadFileHelper();
+                return await PostAsync($"/{ApiRouteRsx.Media}/{accountId}/avatar/{fileName}", null, data);
             }
             return BadRequest();
         }
