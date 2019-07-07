@@ -35,7 +35,6 @@
     <None Remove="ClientApp\App\Home\Home.tsx" />
     <None Remove="ClientApp\App\index.tsx" />
     <None Remove="ClientApp\App\Layout\AdminLayout.tsx" />
-    <None Remove="ClientApp\App\Layout\Layout.tsx" />
     <None Remove="ClientApp\App\Test\Test.tsx" />
     <None Remove="ClientApp\App\Utils.tsx" />
     <None Remove="ClientApp\components\ArticleMeta\ArticleMeta.tsx" />
@@ -43,7 +42,6 @@
     <None Remove="ClientApp\components\Box\Box.tsx" />
     <None Remove="ClientApp\components\CategoryTree\CategoryTree.tsx" />
     <None Remove="ClientApp\components\CkEditor\CkEditor.tsx" />
-    <None Remove="ClientApp\components\DanteEditor\DanteEditor.tsx" />
     <None Remove="ClientApp\components\HeaderPage\HeaderPage.tsx" />
     <None Remove="ClientApp\components\Image\ImageEmpty.tsx" />
     <None Remove="ClientApp\components\Image\ImageResize.tsx" />
@@ -86,13 +84,11 @@
     <TypeScriptCompile Include="ClientApp\App\Home\Home.tsx" />
     <TypeScriptCompile Include="ClientApp\App\index.tsx" />
     <TypeScriptCompile Include="ClientApp\App\Layout\AdminLayout.tsx" />
-    <TypeScriptCompile Include="ClientApp\App\Layout\Layout.tsx" />
     <TypeScriptCompile Include="ClientApp\App\Test\Test.tsx" />
     <TypeScriptCompile Include="ClientApp\components\ArticleMeta\ArticleMeta.tsx" />
     <TypeScriptCompile Include="ClientApp\components\Avatar\Avatar.tsx" />
     <TypeScriptCompile Include="ClientApp\components\Box\Box.tsx" />
     <TypeScriptCompile Include="ClientApp\components\CkEditor\CkEditor.tsx" />
-    <TypeScriptCompile Include="ClientApp\components\DanteEditor\DanteEditor.tsx" />
     <TypeScriptCompile Include="ClientApp\components\HeaderPage\HeaderPage.tsx" />
     <TypeScriptCompile Include="ClientApp\components\Image\ImageEmpty.tsx" />
     <TypeScriptCompile Include="ClientApp\components\Image\ImageResize.tsx" />

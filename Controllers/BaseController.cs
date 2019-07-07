@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using my8Blog.Admin.Infrastructures;
@@ -35,7 +38,7 @@ namespace my8Blog.Admin.Controllers
 
         protected async Task<IActionResult> PostAsync(string path = "/", object param = null, object data = null)
         {
-            return await _httpClient.Post(_clientConfig,  path, param, data, _currentProcess);
+            return await _httpClient.Post(_clientConfig, path, param, data, _currentProcess);
         }
 
         protected async Task<IActionResult> PutAsync(string path = "/", object param = null, object data = null)
@@ -48,9 +51,21 @@ namespace my8Blog.Admin.Controllers
             var result = await _httpClient.SendRequestAsync<ResponseJsonModel<Account>>(_clientConfig, HttpMethod.Post, path, param, data, _currentProcess);
             return result;
         }
-        protected void SetNewCookie(Account account)
+        protected async void SetNewCookie(Account account)
         {
             var raw = Utils.ToBinary(account);
+            var identity = new ClaimsIdentity(User.Identity);
+            var avatarClaim = identity.FindFirst("Avatar");
+            if (avatarClaim != null)
+                identity.RemoveClaim(identity.FindFirst("Avatar"));
+            if (!string.IsNullOrWhiteSpace(account.Avatar))
+                identity.AddClaim(new Claim("Avatar", account.Avatar));
+            ClaimsPrincipal principal = new ClaimsPrincipal(identity);
+            var authProperties = new AuthenticationProperties
+            {
+                IsPersistent = true
+            };
+            await HttpContext.SignInAsync(principal, authProperties);
             HttpContext.Session.Set("current-user", raw);
         }
     }

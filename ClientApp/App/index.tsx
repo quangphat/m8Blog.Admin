@@ -1,5 +1,4 @@
-﻿export { Layout } from './Layout/Layout';
-export { AdminLayout } from './Layout/AdminLayout';
+﻿export { AdminLayout } from './Layout/AdminLayout';
 export { Home } from './Home/Home';
 export { Admin } from './Admin/Admin';
 export { CreateArticle } from './Article/CreateArticle';
