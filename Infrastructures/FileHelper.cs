@@ -18,7 +18,8 @@ namespace my8Blog.Admin.Infrastructures
             if (file == null || string.IsNullOrWhiteSpace(accountId)) return string.Empty;
             if (file.Length > 0)
             {
-                var fileName = $"{accountId}{Guid.NewGuid()}_avatar";
+                string ext = Path.GetExtension(file.FileName);
+                var fileName = $"{accountId}{Guid.NewGuid()}_avatar{ext}";
                 string fullName = $"{fileName}.png";
                 using (var fileStream = new FileStream(Path.Combine(path, fullName), FileMode.Create))
                 {

@@ -51,7 +51,7 @@ export class Avatar extends React.Component<AvatarProps, AvatarStates>
     }
     private getAvatar(img: string) {
         if (Utils.isNullOrEmpty(img)) return ""
-        return `http://admin.greencode.vn:52709/upload/images/${img}.png`
+        return img
     }
     private getAvatarColor(shortName:string) {
         let index = -1;

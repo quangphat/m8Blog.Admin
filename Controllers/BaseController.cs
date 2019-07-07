@@ -26,26 +26,26 @@ namespace my8Blog.Admin.Controllers
         }
         protected async Task<IActionResult> GetAsync(string path = "/", object param = null)
         {
-            return await _httpClient.Get(_clientConfig, HttpContext.Request, path, param, _currentProcess);
+            return await _httpClient.Get(_clientConfig, path, param, _currentProcess);
         }
         protected async Task<IActionResult> DeleteAsync(string path = "/", object data = null)
         {
-            return await _httpClient.Delete(_clientConfig, HttpContext.Request, path, data, _currentProcess);
+            return await _httpClient.Delete(_clientConfig, path, data, _currentProcess);
         }
 
         protected async Task<IActionResult> PostAsync(string path = "/", object param = null, object data = null)
         {
-            return await _httpClient.Post(_clientConfig, HttpContext.Request, path, param, data, _currentProcess);
+            return await _httpClient.Post(_clientConfig,  path, param, data, _currentProcess);
         }
 
         protected async Task<IActionResult> PutAsync(string path = "/", object param = null, object data = null)
         {
-            return await _httpClient.Put(_clientConfig, HttpContext.Request, path, param, data, _currentProcess);
+            return await _httpClient.Put(_clientConfig, path, param, data, _currentProcess);
         }
         protected async Task<HttpClientResult<ResponseJsonModel<Account>>> LoginPostAsync(string path = "/",
             object param = null, object data = null)
         {
-            var result = await _httpClient.SendRequestAsync<ResponseJsonModel<Account>>(_clientConfig, HttpContext.Request, path, param, data, _currentProcess);
+            var result = await _httpClient.SendRequestAsync<ResponseJsonModel<Account>>(_clientConfig, HttpMethod.Post, path, param, data, _currentProcess);
             return result;
         }
         protected void SetNewCookie(Account account)

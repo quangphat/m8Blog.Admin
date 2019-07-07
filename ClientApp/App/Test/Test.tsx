@@ -7,6 +7,7 @@ import { ArticleRepository } from '../../repositories/ArticleRepository'
 import * as Utils from '../../infrastructure/Utils'
 import ReactNotification from "react-notifications-component";
 import * as PropTypes from 'prop-types';
+import Cropper from 'react-cropper';
 import './index.css'
 import "react-notifications-component/dist/theme.css";
 import 'cropperjs/dist/cropper.css';
@@ -87,6 +88,10 @@ export class Test extends React.Component<RouteComponentProps<any>, TestStates> 
         })
                     
     }
+    _crop() {
+        // image in dataUrl
+        console.log('');
+    }
     public render() {
         let account = Utils.GetAccount()
         return <div className="pd-all-20">
@@ -98,6 +103,16 @@ export class Test extends React.Component<RouteComponentProps<any>, TestStates> 
                 </div>
 
             </Components.FileUpload>
+            <Components.ImageResize src="https://my8-dev.s3-ap-southeast-1.amazonaws.com/5c0a8d6aeb562671178ff907ce0afddc-ef0a-45bd-97dd-5bf5f3e63f7c_avatar.png" />
+            <Cropper
+                ref='cropper'
+                src='https://my8-dev.s3-ap-southeast-1.amazonaws.com/5c0a8d6aeb562671178ff907ce0afddc-ef0a-45bd-97dd-5bf5f3e63f7c_avatar.png'
+                style={{ height: '50%', width: '50%' }}
+                // Cropper.js options
+                aspectRatio={16 / 9}
+                guides={false}
+                
+                crop={this._crop.bind(this)} />
         </div>
 
     }

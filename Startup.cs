@@ -30,9 +30,9 @@ namespace my8Blog.Admin
             services.AddCors(o => o.AddPolicy("CorsPolicy", builder =>
             {
                 builder
+                .WithOrigins("http://greencode.vn:52701", "https://my8-dev.s3-ap-southeast-1.amazonaws.com")
                     .AllowAnyMethod()
                     .AllowAnyHeader()
-                    .WithOrigins("http://greencode.vn:52701")
                     .AllowCredentials();
             }));
             services.AddSignalR().AddJsonProtocol(opts => {

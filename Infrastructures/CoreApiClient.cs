@@ -18,33 +18,33 @@ namespace my8Blog.Admin.Infrastructures
     {
 
         public static async Task<IActionResult> Get(this HttpClient httpClient, ClientConfig clientConfig, 
-            HttpRequest request, string path = "/", object param = null, CurrentProcess process=null)
+           string path = "/", object param = null, CurrentProcess process=null)
         {
-            return await httpClient.Call(clientConfig, request, HttpMethod.Get, path, param,null,process);
+            return await httpClient.Call(clientConfig, HttpMethod.Get, path, param,null,process);
         }
 
         public static async Task<IActionResult> Delete(this HttpClient httpClient, ClientConfig clientConfig, 
-            HttpRequest request, string path = "/", object data = null, CurrentProcess process=null)
+             string path = "/", object data = null, CurrentProcess process=null)
         {
-            return await httpClient.Call(clientConfig, request, HttpMethod.Delete, path, null, data,process);
+            return await httpClient.Call(clientConfig, HttpMethod.Delete, path, null, data,process);
         }
 
         public static async Task<IActionResult> Post(this HttpClient httpClient, ClientConfig clientConfig, 
-            HttpRequest request, string path = "/", object param = null, object data = null, CurrentProcess process=null)
+             string path = "/", object param = null, object data = null, CurrentProcess process=null)
         {
-            return await httpClient.Call(clientConfig, request, HttpMethod.Post, path, param, data,process);
+            return await httpClient.Call(clientConfig, HttpMethod.Post, path, param, data,process);
         }
 
         public static async Task<IActionResult> Put(this HttpClient httpClient, ClientConfig clientConfig, 
-            HttpRequest request, string path = "/", object param = null, object data = null, CurrentProcess process=null)
+             string path = "/", object param = null, object data = null, CurrentProcess process=null)
         {
-            return await httpClient.Call(clientConfig, request, HttpMethod.Put, path, param, data, process);
+            return await httpClient.Call(clientConfig, HttpMethod.Put, path, param, data, process);
         }
         public static async Task<HttpClientResult<T>> SendRequestAsync<T>(
             this HttpClient httpClient, ClientConfig clientConfig,
-            HttpRequest request, string path = "/", object param = null, object data = null, CurrentProcess process = null)
+            HttpMethod httpMethod, string path = "/", object param = null, object data = null, CurrentProcess process = null)
         {
-            var response = await httpClient.CallGetResponse(clientConfig, request, HttpMethod.Post, path, param, data, process);
+            var response = await httpClient.CallGetResponse(clientConfig, httpMethod, path, param, data, process);
 
             if (response != null)
             {
@@ -63,8 +63,41 @@ namespace my8Blog.Admin.Infrastructures
             else
                 return HttpClientResult<T>.Create(response.Item1, TypeExtensions.GetDefaultValue<T>(), null, false);
         }
-        private static async Task<IActionResult> Call(this HttpClient httpClient, ClientConfig clientConfig, HttpRequest request, 
+        private static async Task<IActionResult> Call(this HttpClient httpClient, ClientConfig clientConfig, 
             HttpMethod method, string path = "/", object param = null, object data = null,CurrentProcess process = null)
+        {
+            var requestMessage = processRequestMessage(clientConfig, method, path, param, data, process);
+            var response = await httpClient.SendAsync(requestMessage).ConfigureAwait(false);
+            response.EnsureSuccessStatusCode();
+            
+            return new HttpContentActionResult(response.Content);
+        }
+
+       
+        private static async Task<Tuple<HttpStatusCode, string, string, bool>> CallGetResponse(this HttpClient httpClient, ClientConfig clientConfig,
+            HttpMethod method, string path = "/", object param = null, object data = null, CurrentProcess process = null)
+        {
+            var requestMessage = processRequestMessage(clientConfig, method, path, param, data, process);
+            using (var response = await httpClient.SendAsync(requestMessage))
+            {
+                if (response.Content != null)
+                {
+                    var responseData = response.StatusCode == HttpStatusCode.Moved || response.StatusCode == HttpStatusCode.Found
+                        ? response.Headers.Location.AbsoluteUri
+                        : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+
+                    return new Tuple<HttpStatusCode, string, string, bool>(
+                        response.StatusCode,
+                        responseData,
+                        response.Headers?.ETag?.Tag,
+                        response.StatusCode == HttpStatusCode.NotModified);
+                }
+                else
+                    throw new Exception($"error {response.StatusCode}");
+            }
+        }
+        private static HttpRequestMessage processRequestMessage(ClientConfig clientConfig, HttpMethod method, 
+            string path = "/", object param = null, object data = null, CurrentProcess process = null)
         {
             if (param != null)
                 path = path.AddQuery(param);
@@ -132,104 +165,14 @@ namespace my8Blog.Admin.Infrastructures
             string personId = process != null ? process.CurrentAccount?.Account?.PersonId : string.Empty;
             if (personId == null)
                 personId = "guest";
-            
+
             requestMessage.Headers.Add("X-my8-Key", clientConfig.ApiKey);
             requestMessage.Headers.Add("X-my8-Signature", signature);
             requestMessage.Headers.Add("X-my8-PersonId", personId);
             requestMessage.Headers.Add("X-my8-ProjectId", process.CurrentAccount.Account.ProjectId.ToString());
             requestMessage.Content = content;
-
-
-
-            var response = await httpClient.SendAsync(requestMessage).ConfigureAwait(false);
-            response.EnsureSuccessStatusCode();
-
-            return new HttpContentActionResult(response.Content);
+            return requestMessage;
         }
-
-       
-        private static async Task<Tuple<HttpStatusCode, string, string, bool>> CallGetResponse(this HttpClient httpClient, ClientConfig clientConfig, HttpRequest request,
-            HttpMethod method, string path = "/", object param = null, object data = null, CurrentProcess process = null)
-        {
-            if (param != null)
-                path = path.AddQuery(param);
-            var url = $"{clientConfig.ServiceUrl}{path}";
-            var requestMessage = new HttpRequestMessage(method, url);
-            string json = null;
-
-            HttpContent content = null;
-
-            if (data != null)
-                if (data is string)
-                    content = new StringContent((string)data, Encoding.UTF8, "application/json");
-                else if (data is IDictionary<string, object>)
-                {
-                    var formData = new MultipartFormDataContent();
-
-                    foreach (var pair in data as IDictionary<string, object>)
-                        if (pair.Value is byte[])
-                            formData.Add(new ByteArrayContent(pair.Value as byte[]), pair.Key, pair.Key);
-                        else
-                            formData.Add(new StringContent(pair.Value.ToString()), pair.Key);
-
-                    content = formData;
-                }
-                else
-                {
-                    json = JsonConvert.SerializeObject(data, new JsonSerializerSettings
-                    {
-                        NullValueHandling = NullValueHandling.Ignore
-                    });
-
-                    content = new StringContent(json, Encoding.UTF8, "application/json");
-                }
-            var signature = string.Empty;
-            var originalData = string.Empty;
-            if (method == HttpMethod.Get)
-            {
-                var list = new List<string>();
-
-                if (url.Contains("?"))
-                    foreach (var q in url.Split('?')[1].Split('&'))
-                        if (q.Contains("="))
-                            list.Add(q.Split('=')[1]);
-
-                originalData = string.Join(string.Empty, list);
-            }
-            else if (data != null)
-                originalData = json;
-
-            if (string.IsNullOrWhiteSpace(originalData))
-                originalData = string.Empty;
-            signature = Utils.HmacSha256(clientConfig.ApiKey + originalData, clientConfig.SecretKey);
-            string personId = process != null ? process.CurrentAccount?.Account?.PersonId : string.Empty;
-            if (personId == null)
-                personId = "guest";
-
-            requestMessage.Headers.Add("X-my8-Key", clientConfig.ApiKey);
-            requestMessage.Headers.Add("X-my8-Signature", signature);
-            requestMessage.Headers.Add("X-my8-PersonId", personId);
-            requestMessage.Headers.Add("X-my8-ProjectId", clientConfig.ProjectId);
-            requestMessage.Content = content;
-            using (var response = await httpClient.SendAsync(requestMessage))
-            {
-                if (response.Content != null)
-                {
-                    var responseData = response.StatusCode == HttpStatusCode.Moved || response.StatusCode == HttpStatusCode.Found
-                        ? response.Headers.Location.AbsoluteUri
-                        : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-
-                    return new Tuple<HttpStatusCode, string, string, bool>(
-                        response.StatusCode,
-                        responseData,
-                        response.Headers?.ETag?.Tag,
-                        response.StatusCode == HttpStatusCode.NotModified);
-                }
-                else
-                    throw new Exception($"request to {url} error {response.StatusCode}");
-            }
-        }
-
     }
     public class HttpContentActionResult : IActionResult
     {

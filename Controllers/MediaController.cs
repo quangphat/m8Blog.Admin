@@ -33,14 +33,25 @@ namespace my8Blog.Admin.Controllers
             string fileName = await FileHelper.UploadAvatar(file, accountId, uploads);
             if (!string.IsNullOrWhiteSpace(fileName))
             {
-                var account = _currentProcess.CurrentAccount.Account;
-                account.Avatar = fileName;
-                SetNewCookie(account);
+                
                 if (file == null)
                     return BadRequest("Dữ liệu không hợp lệ");
 
                 var data = await file.UploadFileHelper();
-                return await PostAsync($"/{ApiRouteRsx.Media}/{accountId}/avatar/{fileName}", null, data);
+                var result = await _httpClient.SendRequestAsync<ResponseJsonModel<string>>(_clientConfig,HttpMethod.Post,
+                                $"/{ApiRouteRsx.Media}/{accountId}/avatar/{fileName}", null, data, _currentProcess);
+                
+                if(result!=null 
+                    && result.Data!=null
+                    && !string.IsNullOrEmpty(result.Data.data)
+                    && !string.IsNullOrWhiteSpace(result.Data.data))
+                {
+                    var account = _currentProcess.CurrentAccount.Account;
+                    account.Avatar = result.Data.data;
+                    SetNewCookie(account);
+                }
+                return Ok(result.Data);
+                //return await PostAsync($"/{ApiRouteRsx.Media}/{accountId}/avatar/{fileName}", null, data);
             }
             return BadRequest();
         }
