@@ -88,12 +88,16 @@ export class Test extends React.Component<RouteComponentProps<any>, TestStates> 
         })
                     
     }
-    _crop() {
-        // image in dataUrl
-        console.log('');
+    private onChangeCrop() {
+        this.cropper.getCroppedCanvas().toBlob(function (blob) {
+            if (blob) {
+                console.log(blob)
+            }
+        });
     }
     public render() {
         let account = Utils.GetAccount()
+        let avatar = "https://my8-dev.s3-ap-southeast-1.amazonaws.com/5c0a8d6aeb562671178ff907ce0afddc-ef0a-45bd-97dd-5bf5f3e63f7c_avatar.png" 
         return <div className="pd-all-20">
             <Components.FileUpload ref={component => this.ref_uploadImage = component}
                 onSelectFile={(files) => this.handleSelectImage(files)} isMultiple={false} className="position-relative">
@@ -103,16 +107,16 @@ export class Test extends React.Component<RouteComponentProps<any>, TestStates> 
                 </div>
 
             </Components.FileUpload>
-            <Components.ImageResize src="https://my8-dev.s3-ap-southeast-1.amazonaws.com/5c0a8d6aeb562671178ff907ce0afddc-ef0a-45bd-97dd-5bf5f3e63f7c_avatar.png" />
+           
             <Cropper
-                ref='cropper'
-                src='https://my8-dev.s3-ap-southeast-1.amazonaws.com/5c0a8d6aeb562671178ff907ce0afddc-ef0a-45bd-97dd-5bf5f3e63f7c_avatar.png'
+                ref={cropper => this.cropper = cropper}
+                src={avatar}
                 style={{ height: '50%', width: '50%' }}
                 // Cropper.js options
                 aspectRatio={16 / 9}
                 guides={false}
-                
-                crop={this._crop.bind(this)} />
+
+                crop={() => this.onChangeCrop()} />
         </div>
 
     }
