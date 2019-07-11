@@ -104,7 +104,7 @@ namespace my8Blog.Admin.Infrastructures
             var url = $"{clientConfig.ServiceUrl}{path}";
             var requestMessage = new HttpRequestMessage(method, url);
             string json = null;
-
+            
             HttpContent content = null;
 
             if (data != null)
@@ -127,12 +127,14 @@ namespace my8Blog.Admin.Infrastructures
                     var formData = new MultipartFormDataContent();
 
                     foreach (var pair in data as List<Tuple<string, object>>)
+                    {
                         if (pair.Item2 is byte[])
                             formData.Add(new ByteArrayContent(pair.Item2 as byte[]), pair.Item1, pair.Item1);
                         else if (pair.Item2 != null)
                             formData.Add(new StringContent(pair.Item2.ToString()), pair.Item1);
-
+                    }
                     content = formData;
+                   
                 }
                 else
                 {
@@ -161,6 +163,7 @@ namespace my8Blog.Admin.Infrastructures
 
             if (string.IsNullOrWhiteSpace(originalData))
                 originalData = string.Empty;
+            
             signature = Utils.HmacSha256(clientConfig.ApiKey + originalData, clientConfig.SecretKey);
             string personId = process != null ? process.CurrentAccount?.Account?.PersonId : string.Empty;
             if (personId == null)
@@ -170,6 +173,7 @@ namespace my8Blog.Admin.Infrastructures
             requestMessage.Headers.Add("X-my8-Signature", signature);
             requestMessage.Headers.Add("X-my8-PersonId", personId);
             requestMessage.Headers.Add("X-my8-ProjectId", process.CurrentAccount.Account.ProjectId.ToString());
+            
             requestMessage.Content = content;
             return requestMessage;
         }

@@ -30,9 +30,9 @@ namespace my8Blog.Admin.Controllers
             if (file == null || string.IsNullOrWhiteSpace(file.FileName))
                 return BadRequest("Dữ liệu không hợp lệ");
             var data = await file.UploadFileHelper();
+
             var result = await _httpClient.SendRequestAsync<ResponseJsonModel<string>>(_clientConfig, HttpMethod.Post,
                             $"/{ApiRouteRsx.Media}/{accountId}/avatar", null, data, _currentProcess);
-
             if (result != null
                 && result.Data != null
                 && !string.IsNullOrEmpty(result.Data.data)
@@ -43,7 +43,7 @@ namespace my8Blog.Admin.Controllers
                 SetNewCookie(account);
             }
             return Ok(result.Data);
-
+            //return Ok();
         }
     }
 }

@@ -12,12 +12,11 @@ import './index.css'
 import "react-notifications-component/dist/theme.css";
 import 'cropperjs/dist/cropper.css';
 import { MediaRepository } from '../../repositories/MediaRepository'
-
 interface TestStates {
     categories: Models.ICategory[],
     content: string,
     onChange?: Function,
-    getPlainText?: Function
+    getPlainText?: Function, rangeValue: number
 }
 export class Test extends React.Component<RouteComponentProps<any>, TestStates> {
     notificationDOMRef: any;
@@ -29,8 +28,10 @@ export class Test extends React.Component<RouteComponentProps<any>, TestStates> 
         super(props);
         this.state = {
             categories: [],
-            content: ''
+            content: '',
+            rangeValue : 1
         };
+        
         this.notificationDOMRef = React.createRef();
     }
     componentWillMount() {
@@ -67,33 +68,50 @@ export class Test extends React.Component<RouteComponentProps<any>, TestStates> 
         </div>
         this.context.ShowSmartMessage('success', content)
     }
-    private sendNotify() {
-        let notify = {
-            id: "1",
-            content: "yeah",
-            ownerActionId: "5c0a8d6aeb562671178ff907",
-            receiversId: ["5c0a8e96eb562671178ff92e", "5c2338ec71479b759ab01807"]
-        } as Models.INotification
-        this.context._sendCommentNotify(notify)
-    }
 
-    handleSelectImage(files) {
-        if (files == null) return
-        MediaRepository.UploadAvatar(Utils.GetAccount().personId, files[0], "").then(response => {
+    private onUploadAvatar(blob) {
+        MediaRepository.UploadAvatar(Utils.GetAccount().personId, blob, "").then(response => {
             if (response != null && response.error == null) {
                 let account = Utils.GetAccount()
                 account.avatar = response.data
                 this.context.updateAccount(account)
             }
         })
-                    
+    }
+    //handleSelectImage(files) {
+    //    if (files == null) return
+    //    MediaRepository.UploadAvatar(Utils.GetAccount().personId, files[0], "").then(response => {
+    //        if (response != null && response.error == null) {
+    //            let account = Utils.GetAccount()
+    //            account.avatar = response.data
+    //            this.context.updateAccount(account)
+    //        }
+    //    })
+
+    //}
+    handleSelectImage(files) {
+        //if (files == null) return
+        
+        const canvas = this.cropper.getCroppedCanvas().toDataURL()
+        //let imageURL;
+        fetch(canvas)
+            .then(res => res.blob()).then(blob => {
+                this.onUploadAvatar(blob)
+            })
+           
+
     }
     private onChangeCrop() {
-        this.cropper.getCroppedCanvas().toBlob(function (blob) {
-            if (blob) {
-                console.log(blob)
-            }
-        });
+        
+        //console.log(this.cropper.getCroppedCanvas().toDataURL());
+    }
+    private onZoom(e) {
+        if (e.detail.ratio > 1) {
+            e.preventDefault();
+            this.cropper.zoomTo = 1
+        }
+           
+        console.log(e)
     }
     public render() {
         let account = Utils.GetAccount()
@@ -107,16 +125,25 @@ export class Test extends React.Component<RouteComponentProps<any>, TestStates> 
                 </div>
 
             </Components.FileUpload>
-           
             <Cropper
                 ref={cropper => this.cropper = cropper}
                 src={avatar}
-                style={{ height: '50%', width: '50%' }}
-                // Cropper.js options
-                aspectRatio={16 / 9}
+                style={{ height: 200, width: 200 }}
+                aspectRatio={1 / 1}
+                background={false}
+                cropBoxResizable={false}
+                dragMode={"move"}
+                viewMode={1}
+                movable={true}
                 guides={false}
-
+                zoomTo={1}
+                minCanvasHeight={150}
+                minCanvasWidth={150}
+                maxCanvasWidth={200}
+                maxCanvasHeight={200}
+                zoom={(e)=>this.onZoom(e)}
                 crop={() => this.onChangeCrop()} />
+            <input type="range" max="1.5" min="0.3" step="0.0001" value={this.state.rangeValue} onChange={(e) => this.setState({ rangeValue: Number(e.target.value) })} />
         </div>
 
     }

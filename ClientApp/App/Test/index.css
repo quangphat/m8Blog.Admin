@@ -1,1 +1,6 @@
-﻿
+﻿.croppie-container .cr-vp-circle {
+    border-radius: 50%;
+}
+.cropper-view-box{
+    border-radius:50%;
+}

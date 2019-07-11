@@ -29,6 +29,13 @@ namespace my8Blog.Admin.Infrastructures
                 return ms.ToArray();
             }
         }
+        //public static async Task<IDictionary<string, object>> UploadFileHelper(this IFormFile file)
+        //{
+        //    var x = new Dictionary<string, object>() {
+        //        {file.FileName, await IFormFileToByteArray(file)}
+        //    };
+        //    return x;
+        //}
         public static async Task<List<Tuple<string, object>>> UploadFileHelper(this IFormFile file)
         {
             return new List<Tuple<string, object>>
