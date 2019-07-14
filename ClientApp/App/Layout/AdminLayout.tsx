@@ -135,8 +135,7 @@ export class AdminLayout extends React.Component<MainLayoutProps, AdminLayoutSta
                                         <li>
                                             <a href="#">
                                                 <div className="pull-left">
-                                                    <img src="https://res.cloudinary.com/quangphat/image/upload/c_thumb,h_100,w_100/static/5c0a407cc0412195df965750_avatar.jpg"
-                                                        className="img-circle" alt="User Image" />
+                                                    <Avatar displayName={this.state.account.displayName} img={account.avatar} />
                                                 </div>
                                                 <h4>
                                                     Support Team
@@ -314,8 +313,7 @@ export class AdminLayout extends React.Component<MainLayoutProps, AdminLayoutSta
                             </a>
                             <ul className="dropdown-menu">
                                 <li className="user-header">
-                                    <img src="https://res.cloudinary.com/quangphat/image/upload/c_thumb,h_50,w_50/static/5c0a407cc0412195df965750_avatar.jpg"
-                                        className="img-circle" alt="User Image" />
+                                    <Avatar displayName={this.state.account.displayName} img={account.avatar} />
 
                                     <p>
                                         Alexander Pierce - Web Developer
