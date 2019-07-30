@@ -119,7 +119,7 @@ export class Paginate extends React.Component<IPaginateProps, IPaginateStates> {
             return <li className="page-item hidden-mobile page-arrow">
                 <NavLink to={path} className="page-link" aria-label="Go First Page">
                     <span aria-hidden="true">
-                        <CreateSVG size={10} linkHref='#next-icon-arrow-double' />
+                        <CreateSVG size={10} svgName='iconArrow' />
                     </span>
                 </NavLink>
             </li>
@@ -137,7 +137,7 @@ export class Paginate extends React.Component<IPaginateProps, IPaginateStates> {
             return <li className="page-item hidden-mobile page-arrow">
                 <NavLink to={path} className="page-link" aria-label="Go Last Page">
                     <span aria-hidden="true">
-                        <CreateSVG size={10} rotate={180} linkHref='#next-icon-arrow-double' />
+                        <CreateSVG size={10} rotate={180} svgName='#next-icon-arrow-double' />
                     </span>
                 </NavLink>
             </li>
@@ -157,7 +157,7 @@ export class Paginate extends React.Component<IPaginateProps, IPaginateStates> {
             return <li className="page-item page-arrow">
                 <NavLink to={path} className="page-link" aria-label="Previous">
                     <span aria-hidden="true">
-                        <CreateSVG size={10} rotate={180} linkHref='#next-icon-arrow' />
+                        <CreateSVG size={10} rotate={180} svgName='iconArrow' />
                     </span>
                 </NavLink>
             </li>
@@ -178,7 +178,7 @@ export class Paginate extends React.Component<IPaginateProps, IPaginateStates> {
             return <li className="page-item page-arrow">
                 <NavLink to={path} className="page-link" aria-label="Next">
                     <span aria-hidden="true">
-                        <CreateSVG size={10} linkHref='#next-icon-arrow' />
+                        <CreateSVG size={10} svgName='iconArrow' />
                     </span>
                 </NavLink>
             </li>
@@ -232,7 +232,7 @@ export class Paginate extends React.Component<IPaginateProps, IPaginateStates> {
         >
             <Button type='default'>
                 <span className='pr-3'>Hiển thị {this.state.limit}</span>
-                <CreateSVG size={12} rotate={90} linkHref='#next-icon-arrow' />
+                <CreateSVG size={12} rotate={90} svgName='iconArrow' />
             </Button>
         </DropdownMenu>
     }

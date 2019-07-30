@@ -4,7 +4,7 @@ import * as classnames from 'classnames';
 import * as Models from '../../Models'
 import * as Utils from '../../infrastructure/Utils'
 import { AccountRepository } from '../../repositories/AccountRepository'
-import * as Components from '../../components'
+import { Avatar,Box } from '../../components'
 interface AccountStates {
     accounts: Models.IAccount[]
 }
@@ -29,17 +29,17 @@ export class Accounts extends React.Component<RouteComponentProps, AccountStates
     }
     private renderManagers(accounts: Models.IAccount[]) {
         if (Utils.isArrNullOrHaveNoItem(accounts)) return null
-        return <Components.Box title="Quản trị viên" className="box-blue">
+        return <Box title="Quản trị viên" className="box-blue">
             <div className="users-list clearfix">
                 {accounts.map(account =>
                     <li key={account.personId}>
-                        <Components.Avatar displayName={account.displayName} img={account.avatar} className="my8-avatar-50" />
+                        <Avatar displayName={account.displayName} profileName={account.profileName} img={account.avatar} className="my8-avatar-50" />
                         <a className="users-list-name" href="#">{account.displayName}</a>
                     </li>
                 )}
             </div>
 
-        </Components.Box>
+        </Box>
     }
     render() {
         let account = Utils.GetAccount()

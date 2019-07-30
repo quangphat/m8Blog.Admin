@@ -62,8 +62,8 @@ export class CreateArticle extends React.Component<RouteComponentProps<any>, Cre
         return <React.Fragment>
             <Components.HeaderPage>
                 <Components.Button type='primary' className='ml-3'
-                    handleOnClick={() => this.onCreateArticle()} >
-                    <Components.CreateSVG size={12} linkHref='#next-icon-checkmark' className='mr-3' />
+                    onClick={() => this.onCreateArticle()} >
+                    <Components.CreateSVG size={12} svgName='iconCheckmark' className='mr-3' />
                     <span>Lưu</span>
                 </Components.Button>
             </Components.HeaderPage>

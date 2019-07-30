@@ -50,6 +50,7 @@
     <None Remove="ClientApp\components\Loading\Loading.tsx" />
     <None Remove="ClientApp\components\TextArea\TextArea.tsx" />
     <None Remove="ClientApp\Enums\AppEnums.tsx" />
+    <None Remove="ClientApp\Models\Enums.tsx" />
     <None Remove="ClientApp\Models\IArticleMeta.tsx" />
     <None Remove="ClientApp\Models\IAuthor.ts" />
     <None Remove="ClientApp\Models\ICategory.ts" />
@@ -99,6 +100,7 @@
     <TypeScriptCompile Include="ClientApp\components\TextArea\TextArea.tsx" />
     <TypeScriptCompile Include="ClientApp\Enums\AppEnums.tsx" />
     <TypeScriptCompile Include="ClientApp\infrastructure\Utils.tsx" />
+    <TypeScriptCompile Include="ClientApp\Models\Enums.tsx" />
     <TypeScriptCompile Include="ClientApp\Models\ICategory.ts" />
     <TypeScriptCompile Include="ClientApp\Models\IAuthor.ts" />
     <TypeScriptCompile Include="ClientApp\Models\IArticleMeta.tsx" />

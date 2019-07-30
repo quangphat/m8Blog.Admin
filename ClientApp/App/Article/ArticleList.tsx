@@ -1,34 +1,59 @@
 ﻿import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
 import { IArticleMeta } from '../../Models/IArticleMeta'
-import * as Components from '../../components'
-import * as Models from '../../Models'
+import { ArticleStatus, TableList, HeaderPage, Button, CreateSVG } from '../../components'
+import { IArticle, IPaging } from '../../Models'
 import { ArticleRepository } from '../../repositories/ArticleRepository'
 import * as Utils from '../../infrastructure/Utils'
 import { NavLink } from 'react-router-dom';
+import * as PagingHelpers from '../../infrastructure/PagingHelpers'
 import * as RoutePath from '../../infrastructure/RoutePath'
 interface ArticleListStates {
-    articles: Models.IArticle[]
+    articles: IArticle[],
+    paging: IPaging
 }
 export class ArticleList extends React.Component<RouteComponentProps<any>, ArticleListStates> {
     constructor(props: any) {
         super(props);
         this.state = {
-            articles: []
+            articles: [],
+            paging: Utils.createNewPaging()
         };
 
     }
     componentWillMount() {
-        this.getArticle()
+        let pagingUrl = PagingHelpers.parsePaging(this.props.location.search);
+        let { paging } = this.state
+        paging.query = pagingUrl.query
+        paging.page = pagingUrl.page;
+        paging.limit = pagingUrl.limit
+        this.setState({ paging: paging }, () => this.getArticle())
+    }
+    componentWillReceiveProps(newProps) {
+        const newParam = `${newProps.location.search}${newProps.location.hash ? newProps.location.hash : ''}`
+        const oldParam = this.props.location.search
+
+        if (newParam != oldParam) {
+            let pagingUrl = PagingHelpers.parsePaging(newParam);
+            let { paging } = this.state
+            paging.page = pagingUrl.page;
+            paging.limit = pagingUrl.limit
+            paging.query = pagingUrl.query
+            this.setState({ paging: paging }, () => {
+                this.getArticle()
+            })
+
+        }
     }
     private getArticle() {
-        ArticleRepository.Search(null, null, null, 1, 10).then(res => {
+        let { paging } = this.state
+        ArticleRepository.Search(paging.query, paging.authorId, paging.status, paging.page, paging.limit).then(res => {
             if (res.data != null) {
                 this.setState({ articles: res.data.datas })
             }
         })
     }
-    renderTableBody(data: Models.IArticle[]) {
+    renderTableBody(data: IArticle[]) {
         return data.map((item) => {
             return <tr key={item.id}>
                 <td className='text-left text-normal'>
@@ -51,8 +76,8 @@ export class ArticleList extends React.Component<RouteComponentProps<any>, Artic
                     {item.comments}
                 </td>
                 <td>
-                    Đã duyệt
-                    </td>
+                    <ArticleStatus status={item.status} />
+                </td>
             </tr>
         })
     }
@@ -67,26 +92,26 @@ export class ArticleList extends React.Component<RouteComponentProps<any>, Artic
             { title: 'Bình luận', classes: 'min-width-250px table-header--25per', sortFieldName: '' },
             { title: 'Tình trạng', classes: 'table-header--status cursor-pointer text-uppercase font-weight-bold', sortFieldName: 'status' }
         ]
-        return <Components.TableList listData={articles}
+        return <TableList listData={articles}
             dataTableHeader={tableHeader}
             location={this.props.location}
-            pathName={'/admin/article'}
+            pathName={RoutePath.Path.articles}
             totalRecord={articles.length}
             hasPagination={true}
             renderTableBody={() => this.renderTableBody(articles)} >
 
-        </Components.TableList>
+        </TableList>
     }
     public render() {
 
         return <React.Fragment>
-            <Components.HeaderPage>
-                <Components.Button type='primary' className='ml-3'
-                    handleOnClick={() => { this.props.history.push(RoutePath.Path.article_create) }} >
-                    <Components.CreateSVG size={12} linkHref='#next-icon-checkmark' className='mr-3' />
+            <HeaderPage>
+                <Button type='primary' className='ml-3'
+                    onClick={() => { this.props.history.push(RoutePath.Path.article_create) }} >
+                    <CreateSVG size={12} svgName='iconCheckmark' className='mr-3' />
                     <span>Tạo bài viết mới</span>
-                </Components.Button>
-            </Components.HeaderPage>
+                </Button>
+            </HeaderPage>
             <div className="pd-all-20">
                 <div className="col-sm-12">
                     {this.renderArticleTable()}
@@ -95,7 +120,3 @@ export class ArticleList extends React.Component<RouteComponentProps<any>, Artic
         </React.Fragment>
     }
 }
-const listData = [
-    { value: '0', display: 'item1' },
-    { value: '1', display: 'item2' },
-]

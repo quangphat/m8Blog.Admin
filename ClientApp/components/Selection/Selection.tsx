@@ -190,8 +190,8 @@ export class Selection extends React.Component<ISelectionProps, ISelectionStates
         return (hasAddNew && isValueNew) &&
             <li onClick={() => this.handleOnClickItem()}>
                 <div className='row no-gutters align-items-center'>
-                    <div className='col-auto mr-2'>
-                        <CreateSVG size={12} linkHref='#next-icon-plus-circle' />
+                <div className='col-auto mr-2'>
+                    <CreateSVG size={12} svgName='#next-icon-plus-circle' />
                     </div>
                     <div className='col'>
                         <span className='ml-2 break-word'><span>Thêm</span> "{valueNew}"</span>
@@ -209,7 +209,7 @@ export class Selection extends React.Component<ISelectionProps, ISelectionStates
             <div className='ui-select-cell'>
                 <div className='ui-select-value text-truncate'>{item[dataLabel]}</div>
                 <div className='ui-select-arrow'>
-                    <CreateSVG size={10} rotate={90} linkHref='#next-icon-arrow' />
+                    <CreateSVG size={10} rotate={90} svgName='iconArrow' />
                 </div>
             </div>
         </div>

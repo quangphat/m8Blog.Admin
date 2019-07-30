@@ -120,7 +120,7 @@ export class Test extends React.Component<RouteComponentProps<any>, TestStates> 
             <Components.FileUpload ref={component => this.ref_uploadImage = component}
                 onSelectFile={(files) => this.handleSelectImage(files)} isMultiple={false} className="position-relative">
                 <div className='fileupload-text text-center'>
-                    <Components.CreateSVG size={30} linkHref='#next-icon-camera-plus' />
+                    <Components.CreateSVG size={30} svgName='#next-icon-camera-plus' />
                     <p className="mb-0 mt-2 text-secondary">Thêm hình ảnh</p>
                 </div>
 

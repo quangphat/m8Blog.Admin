@@ -1,73 +1,67 @@
-export interface IPaging {
-    query: string,
-    page: number,
-    limit: number,
-    status: string,
-    hidden: boolean,
-    startDate?: string,
-    endDate?: string,
-    over?: string,
+import { IPaging } from "../Models";
 
-}
-export const parsePaging = (search: string, hasPaging: boolean=true): IPaging => {
+
+
+export const parsePaging = (search: string, hasPaging: boolean = true): IPaging => {
     let queries = new URLSearchParams(search);
-    let query = ''
-   
-    let status = ''
-   
-    let hidden = false
-    
-    let page = null as number
-    let limit = null as number
-    let startDate = ''
-    let endDate = ''
-    let over = ''
-    
-
-    if (queries.get('status')) {
-        status = queries.get('status')
+    let paging = new Object as IPaging
+    paging.query = '';
+    paging.tab_id = '';
+    paging.status = '';
+    paging.hidden = false;
+    paging.page = null as number;
+    paging.limit = null as number
+    paging.startDate = '';
+    paging.endDate = '';
+    paging.over = ''
+    paging.tags = ''
+    paging.authorId = ''
+    if (queries.get('author_id')) {
+        paging.authorId = queries.get('author_id')
     }
-   
-    
+    if (queries.get('query')) {
+        paging.query = queries.get('query')
+    }
+    if (queries.get('tags')) {
+        paging.tags = queries.get('tags')
+    }
+    if (queries.get('status')) {
+        paging.status = queries.get('status')
+    }
+    if (queries.get('tab_id')) {
+        paging.tab_id = queries.get('tab_id')
+    }
+
     if (queries.get('startDate')) {
-        startDate = queries.get('startDate')
+        paging.startDate = queries.get('startDate')
     }
     if (queries.get('endDate')) {
-        endDate = queries.get('endDate')
+        paging.endDate = queries.get('endDate')
     }
     if (queries.get('over')) {
-        over = queries.get('over')
+        paging.over = queries.get('over')
     }
     if (queries.get('hidden')) {
         let value = queries.get('hidden')
         if (value && value.toLowerCase() === 'true') {
-            hidden = true
+            paging.hidden = true
         }
     }
-    
+
     if (queries.get('page')) {
         let tmp = parseInt(queries.get('page'))
         if (!isNaN(tmp)) {
-            page = tmp
+            paging.page = tmp
         }
     }
     if (queries.get('limit')) {
         let tmp = parseInt(queries.get('limit'))
         if (!isNaN(tmp)) {
-            limit = tmp
+            paging.limit = tmp
         }
     }
-    
+
     let defaultPage = hasPaging ? 1 : null
-    let defaultLimit = hasPaging ? 20 : null
-    return {
-        query: query,
-        page: page == null ? defaultPage : page,
-        limit: limit == null ? defaultLimit : limit,
-        status: status,
-        hidden: hidden,
-        startDate: startDate,
-        endDate: endDate,
-        over: over
-    }
+    let defaultLimit = hasPaging ? 10 : null
+    return paging;
 }

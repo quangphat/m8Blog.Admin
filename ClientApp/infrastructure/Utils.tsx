@@ -1,7 +1,11 @@
 ﻿import * as H from 'history';
 import { createBrowserHistory } from 'history';
-import { IAccount } from '../Models/IAccount'
+import { IAccount, IPaging } from '../Models'
 export const history = createBrowserHistory();
+
+export const createNewPaging = (): IPaging => {
+    return { page: 1, limit: 10, totalRecord: 0, hasMore: false } as IPaging
+}
 
 export const getNewGuid = (): string => {
     const s4 = () => {

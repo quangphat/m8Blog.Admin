@@ -1,9 +1,10 @@
 ﻿import * as React from 'react';
 import * as classnames from 'classnames';
 import './index.css';
+import * as listIcon from "./listIcon";
 
 interface ICreateSVGProps {
-    linkHref: string,
+    svgName: string,
     className?: string,
     size: number,
     rotate?: number,
@@ -15,6 +16,14 @@ export class CreateSVG extends React.Component<ICreateSVGProps, {}> {
         super(props)
     }
 
+    convertNameIcon(linkHref) {
+        let nameIcon = linkHref
+
+        nameIcon = nameIcon.replace("#", "");
+        let nameIconSplit = nameIcon.split("-")
+        return nameIconSplit.join("");
+    }
+
     public render() {
         let { className, size, rotate, style } = this.props
         let classes = classnames({
@@ -24,9 +33,10 @@ export class CreateSVG extends React.Component<ICreateSVGProps, {}> {
             [`svg-next-icon-rotate-${rotate}`]: rotate
         })
 
-        if (this.props.linkHref != null) {
-            return <svg className={classes} style={style}>
-                <use xmlnsXlink='http://www.w3.org/1999/xlink' xlinkHref={this.props.linkHref}></use>
+        if (this.props.svgName != null) {
+            return <svg className={classes} style={style} width={size} height={size}>
+                {/* <use xmlnsXlink='http://www.w3.org/1999/xlink' xlinkHref={this.props.linkHref}></use> */}
+                {listIcon[this.convertNameIcon(this.props.svgName)]}
             </svg>;
         } else {
             return null;

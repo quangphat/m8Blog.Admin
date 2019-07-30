@@ -17,5 +17,10 @@ export const Path = {
             return '/article/:id/edit'
         return `/article/${id}/edit`
     },
-    accounts:'/accounts'
+    accounts: '/accounts',
+    profile: (profileName?: string): string => {
+        if (isNullOrEmpty(profileName))
+            return '/profile/:profileName'
+        return `/profile/${profileName}`
+    },
 }

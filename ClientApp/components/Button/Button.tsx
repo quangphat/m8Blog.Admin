@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import * as classnames from 'classnames';
 import './index.css';
 export declare type IElementButtonType = 'submit' | 'button'
-export declare type IButtonType = 'primary' | 'secondary' | 'default' | 'danger' | 'link' | 'link-no-pding' | 'clean'
+export declare type IButtonType = 'primary' | 'secondary' | 'default' | 'danger' | 'link' | 'link-no-pding' | 'clean' | 'thin'
 export declare type ITargetType = '_blank' | '_self' | '_parent' | '_top'
 
 interface IButtonProps {
@@ -14,7 +14,7 @@ interface IButtonProps {
     href?: any,
     target?: ITargetType,
     isDisabled?: boolean,
-    handleOnClick?: Function,
+    onClick?: Function,
     btnLoading?: boolean
 }
 
@@ -85,7 +85,7 @@ export class Button extends React.Component<IButtonProps, IButtonStates> {
 
     handleOnClick(e) {
         let self = this;
-        let clickHandler = this.props.handleOnClick;
+        let clickHandler = this.props.onClick;
         if (typeof clickHandler === 'function') {
             if (this.mounted) {
                 this.setState({
@@ -141,6 +141,7 @@ export class Button extends React.Component<IButtonProps, IButtonStates> {
             'btn btn-link': type == 'link',
             'btn btn-clean': type == 'clean',
             'btn btn-link no-padding': type == 'link-no-pding',
+            'btn btn-thin': type == "thin",
             [className]: className,
             'btn-loading': btnLoading || asyncState === 'pending'
         })

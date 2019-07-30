@@ -139,7 +139,7 @@ export class TableList extends React.Component<ITableListProps, ITableListStates
                         ? this.props.contentEmpty
                         : <div className='row no-gutters align-items-center justify-content-center min-height-200px'>
                             <div className='col flex-column text-center'>
-                                <CreateSVG className='mb-5 color-heather' size={80} linkHref='#next-icon-search' />
+                                <CreateSVG className='mb-5 color-heather' size={80} svgName='iconSearch' />
                                 <div className='text-center font-size-20px mb-3'>Không tìm thấy dữ liệu</div>
                                 <div className='text-center text-secondary'>Hãy thay đổi bộ lọc hoặc điều kiện tìm kiếm</div>
                             </div>

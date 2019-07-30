@@ -69,10 +69,10 @@ export class AutoModal extends React.Component<IAutoModalProps, IAutoModalStates
             footerContent={
                 <div className="row">
                     <div className="col text-right">
-                        <Components.Button handleOnClick={() => this.setSwitchPopup(false)} type='default' className="mr-3">
+                        <Components.Button onClick={() => this.setSwitchPopup(false)} type='default' className="mr-3">
                             <span>Hủy</span>
                         </Components.Button>
-                        <Components.Button type='danger' handleOnClick={() => this.onPositiveClick()} className='photo-overlay-actions__link' isDisabled={false}>
+                        <Components.Button type='danger' onClick={() => this.onPositiveClick()} className='photo-overlay-actions__link' isDisabled={false}>
                             <span>Xác nhận</span>
                         </Components.Button>
                     </div>

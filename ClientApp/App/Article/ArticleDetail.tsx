@@ -1,21 +1,19 @@
 ﻿import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
 import { IArticleMeta } from '../../Models/IArticleMeta'
-import * as Components from '../../components'
-import * as Models from '../../Models'
+import { Button, Input, CodeBlock, HeaderPage, CreateSVG} from '../../components'
+import { IArticle } from '../../Models'
 import { ArticleRepository } from '../../repositories/ArticleRepository'
 import * as Utils from '../../infrastructure/Utils'
 import * as RoutePath from '../../infrastructure/RoutePath'
 import * as Markdown from 'react-markdown';
 interface ArticleDetailStates {
-    categories: Models.ICategory[],
-    article: Models.IArticle
+    article: IArticle
 }
 export class ArticleDetail extends React.Component<RouteComponentProps<any>, ArticleDetailStates> {
     constructor(props: any) {
         super(props);
         this.state = {
-            categories: [],
             article: null
         };
 
@@ -34,18 +32,25 @@ export class ArticleDetail extends React.Component<RouteComponentProps<any>, Art
             }
         })
     }
+    private async onApprove() {
+        let { article } = this.state
+        let response = await ArticleRepository.Approve(article.id);
+        if (response == null || response.error)
+            return;
+        this.props.history.push(RoutePath.Path.articles)
+    }
     private renderBody() {
         let article = this.state.article
         if (Utils.isNullOrUndefined(article)) return null
         return <React.Fragment>
             <div className="form-group">
                 <label>Tiêu đề</label>
-                <Components.Input isReadOnly={true} value={article.title} />
+                <Input isReadOnly={true} value={article.title} />
             </div>
             <div className="form-group">
                 <label>Nội dung</label>
                 <Markdown source={article.content} escapeHtml={false}
-                    renderers={{ code: Components.CodeBlock }}
+                    renderers={{ code: CodeBlock }}
                     skipHtml={false} />
             </div>
             <div className="form-group">
@@ -58,13 +63,18 @@ export class ArticleDetail extends React.Component<RouteComponentProps<any>, Art
     }
     public render() {
         return <React.Fragment>
-            <Components.HeaderPage>
-                <Components.Button type='primary' className='ml-3'
-                    handleOnClick={() => { this.props.history.push(RoutePath.Path.article_edit(this.state.article.id)) }} >
-                    <Components.CreateSVG size={12} linkHref='#next-icon-edit' className='mr-3' />
+            <HeaderPage>
+                <Button type='primary' className='ml-3'
+                    onClick={() => { this.props.history.push(RoutePath.Path.article_edit(this.state.article.id)) }} >
+                    <CreateSVG size={12} svgName='iconEdit' className='mr-3' />
                     <span>Chỉnh sửa</span>
-                </Components.Button>
-            </Components.HeaderPage>
+                </Button>
+                <Button type='primary' className='ml-3'
+                    onClick={() => this.onApprove()} >
+                    <CreateSVG size={12} svgName='iconEdit' className='mr-3' />
+                    <span>Xuất bản</span>
+                </Button>
+            </HeaderPage>
                 <div className="col-sm-12">
                     <div className="col-sm-8">
                         {this.renderBody()}

@@ -1,14 +1,14 @@
 ﻿import * as React from 'react'
 import * as classnames from 'classnames';
 import './index.css'
-export declare type IBadgeType = 'blue' | 'aqua' | 'green' | 'red' | 'orrange'
+export declare type IBadgeType = 'blue' | 'aqua' | 'green' | 'red' | 'orrange' | 'grey'
 interface BadgeProps {
     type?: IBadgeType,
     content: string,
-    className?:string
+    className?: string
 }
 interface BadgeStates {
-    
+
 }
 export class Badge extends React.Component<BadgeProps, BadgeStates>{
     constructor(props) {
@@ -18,7 +18,7 @@ export class Badge extends React.Component<BadgeProps, BadgeStates>{
 
     static defaultProps = {
         type: 'blue',
-        className:''
+        className: ''
     }
     render() {
         let { type, content, className } = this.props
@@ -28,6 +28,7 @@ export class Badge extends React.Component<BadgeProps, BadgeStates>{
             'bg-aqua': type == 'aqua',
             'bg-red': type == 'red',
             'bg-orrange': type == 'orrange',
+            'bg-grey': type == 'grey',
             [className]: className,
         })
         return <span className={`badge ${classes}`}>

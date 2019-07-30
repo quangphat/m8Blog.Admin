@@ -60,8 +60,8 @@ export class Modal extends React.Component<IModalProps, IModalStates> {
                 <div className='modal-header'>
                     <h4 className='modal-title'>{this.props.headerTitle}</h4>
                     {this.props.iconClose &&
-                        <LibComponents.Button type='link' className='close' handleOnClick={this.handleClick}>
-                            <LibComponents.CreateSVG size={14} linkHref='#next-icon-times' />
+                        <LibComponents.Button type='link' className='close' onClick={this.handleClick}>
+                        <LibComponents.CreateSVG size={14} svgName='icontimes' />
                         </LibComponents.Button>
                     }
                 </div>
@@ -69,7 +69,7 @@ export class Modal extends React.Component<IModalProps, IModalStates> {
                 {
                     (this.props.footerContent || this.props.isBtnClose) && 
                     <div className='modal-footer'>
-                        {this.props.isBtnClose && <LibComponents.Button type='default' handleOnClick={this.handleClick}>Hủy</LibComponents.Button>}
+                        {this.props.isBtnClose && <LibComponents.Button type='default' onClick={this.handleClick}>Hủy</LibComponents.Button>}
                         {this.props.footerDisabledCloseModal ? 
                         <div className='col-auto 1'>{this.props.footerContent}</div> : 
                         <div className='col-auto 2' onClick={this.handleClick}>{this.props.footerContent}</div>}

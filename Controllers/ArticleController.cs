@@ -20,12 +20,13 @@ namespace my8Blog.Admin.Controllers
         }
         [HttpGet]
         [Route("search")]
-        public async Task<IActionResult> Gets(string searchStr, string authorId, string categoryId, int page, int limit)
+        public async Task<IActionResult> Gets(string searchStr, string authorId, string status, int page, int limit)
         {
-            return await GetAsync($"/{ApiRouteRsx.Article}/search",new {
+            return await GetAsync($"/{ApiRouteRsx.Article}/admin/search", new
+            {
                 searchStr,
                 authorId,
-                categoryId,
+                status,
                 page,
                 limit
             });
@@ -36,7 +37,7 @@ namespace my8Blog.Admin.Controllers
             if (model == null) return BadRequest();
             Author author = AutoMapper.Mapper.Map<Author>(_currentProcess.CurrentAccount.Account);
             model.Author = author;
-            return await PostAsync( $"/{ApiRouteRsx.Article}/create", null, model);
+            return await PostAsync($"/{ApiRouteRsx.Article}/create", null, model);
         }
         [HttpPut]
         [Route("{articleId}")]
@@ -53,6 +54,12 @@ namespace my8Blog.Admin.Controllers
         {
             if (string.IsNullOrWhiteSpace(articleId)) return BadRequest();
             return await GetAsync($"/{ApiRouteRsx.Article}/{articleId}");
+        }
+        [HttpPut]
+        [Route("approve/{articleId}")]
+        public async Task<IActionResult> Approve(string articleId)
+        {
+            return await PutAsync($"/{ApiRouteRsx.Article}/approve/{articleId}");
         }
     }
 }

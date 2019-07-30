@@ -10,7 +10,7 @@ import * as RoutePath from '../../infrastructure/RoutePath'
 import * as SignalR from '../../infrastructure/SignalR'
 import { INotification } from '../../Models/INotification'
 import { IAccount } from '../../Models/IAccount'
-import { Avatar } from '../../components/Avatar/Avatar'
+import { Avatar} from '../../components'
 export interface MainLayoutProps {
     routerHistory: H.History
 }
@@ -113,7 +113,7 @@ export class AdminLayout extends React.Component<MainLayoutProps, AdminLayoutSta
                 <span className="logo-mini"><b>A</b>LT</span>
                 <span className="logo-lg"><b>Admin</b>LTE</span>
             </a>
-            <nav className="navbar navbar-static-top">
+            <nav className="navbar navbar-static-top h-50">
                 <a href="#" className="sidebar-toggle" data-toggle="push-menu" role="button">
                     <span className="sr-only">Toggle navigation</span>
                     <span className="icon-bar"></span>
@@ -135,7 +135,7 @@ export class AdminLayout extends React.Component<MainLayoutProps, AdminLayoutSta
                                         <li>
                                             <a href="#">
                                                 <div className="pull-left">
-                                                    <Avatar displayName={this.state.account.displayName} img={account.avatar} />
+                                                    <Avatar displayName={this.state.account.displayName} profileName={account.profileName} img={account.avatar} />
                                                 </div>
                                                 <h4>
                                                     Support Team
@@ -308,12 +308,14 @@ export class AdminLayout extends React.Component<MainLayoutProps, AdminLayoutSta
                         </li>
                         <li className="dropdown user user-menu">
                             <a href="#" className="dropdown-toggle" data-toggle="dropdown">
-                                <Avatar displayName={account.displayName} img={account.avatar} className="my8-avatar-32" isResetAvatar={this.state.isResetAvatar} />
+                                <Avatar displayName={account.displayName} img={account.avatar}
+                                    profileName={account.profileName}
+                                    className="my8-avatar-32" isResetAvatar={this.state.isResetAvatar} />
                                 <span className="hidden-xs">{Utils.GetAccount().displayName}</span>
                             </a>
                             <ul className="dropdown-menu">
                                 <li className="user-header">
-                                    <Avatar displayName={this.state.account.displayName} img={account.avatar} />
+                                    <Avatar displayName={this.state.account.displayName} profileName={account.profileName} img={account.avatar} />
 
                                     <p>
                                         Alexander Pierce - Web Developer
@@ -357,12 +359,12 @@ export class AdminLayout extends React.Component<MainLayoutProps, AdminLayoutSta
             <section className="sidebar">
                 <div className="user-panel">
                     <div className="pull-left image">
-                        <Avatar displayName={account.displayName} img={account.avatar} className="my8-avatar-32" isResetAvatar={this.state.isResetAvatar} />
+                        <Avatar displayName={account.displayName} img={account.avatar}
+                            profileName={account.profileName}
+                            
+                            className="my8-avatar-32 text-white" isResetAvatar={this.state.isResetAvatar} />
                     </div>
-                    <div className="pull-left info">
-                        <p>Alexander Pierce</p>
-                        <a href="#"><i className="fa fa-circle text-success"></i> Online</a>
-                    </div>
+                   
                 </div>
                 <form action="#" method="get" className="sidebar-form">
                     <div className="input-group">

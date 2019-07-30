@@ -141,7 +141,7 @@ export class CategoryTree extends React.Component<TreeProps, TreeStates> {
             </span>
             <a className="treeview-note-collapse ml-3 cursor-pointer" onClick={() => this.onSwitchOpen(cate)}
                 style={{ "position": "absolute", "left": "-8px", "top": "10px" }}>
-                {cate.level < 2 && <Components.CreateSVG linkHref='#next-icon-arrow' rotate={cate.isOpen ? 90 : 0} size={12} />}
+                {cate.level < 2 && <Components.CreateSVG svgName='iconArrow' rotate={cate.isOpen ? 90 : 0} size={12} />}
             </a>
         </div>
     }
@@ -155,7 +155,7 @@ export class CategoryTree extends React.Component<TreeProps, TreeStates> {
             </div>
         })
         let button = cate.level < 2 && <Components.Button type='link-no-pding' key={1} className=''
-            handleOnClick={() => this.onOpenPopupAddSub(cate)}>
+            onClick={() => this.onOpenPopupAddSub(cate)}>
             Thêm mới
             </Components.Button>
         return [
@@ -181,10 +181,10 @@ export class CategoryTree extends React.Component<TreeProps, TreeStates> {
             footerContent={
                          <div className="row">
                     <div className="col text-right">
-                        <Components.Button handleOnClick={() => this.setState({ isOpenPopup: false, newCate: null })} type='default' className="mr-3">
+                        <Components.Button onClick={() => this.setState({ isOpenPopup: false, newCate: null })} type='default' className="mr-3">
                             <span>Hủy</span>
                         </Components.Button>
-                        <Components.Button type='danger' handleOnClick={() => this.onCreateRootCategory()}
+                        <Components.Button type='danger' onClick={() => this.onCreateRootCategory()}
                             className='photo-overlay-actions__link' isDisabled={false}>
                             <span>Tạo mới</span>
                         </Components.Button>

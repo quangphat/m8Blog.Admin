@@ -185,11 +185,11 @@ export class CustomToolbar extends React.Component<CustomToolbarProps, CustomToo
 
                                         <div className="content-editor--btngroup">
                                             <div className='btn-group'>
-                                                <Button className='mr-0' type='default' handleOnClick={(e) => handleModalImageAddGetPrev(e)} isDisabled={!modalImageAddHasPrev}>
-                                                    <CreateSVG linkHref='#next-icon-arrow' size={14} rotate={180}></CreateSVG>
+                                                <Button className='mr-0' type='default' onClick={(e) => handleModalImageAddGetPrev(e)} isDisabled={!modalImageAddHasPrev}>
+                                                    <CreateSVG svgName='iconArrow' size={14} rotate={180}></CreateSVG>
                                                 </Button>
-                                                <Button className='ml-0' type='default' handleOnClick={(e) => handleModalImageAddGetNext(e)} isDisabled={!modalImageAddHasNext}>
-                                                    <CreateSVG linkHref='#next-icon-arrow' size={14}></CreateSVG>
+                                                <Button className='ml-0' type='default' onClick={(e) => handleModalImageAddGetNext(e)} isDisabled={!modalImageAddHasNext}>
+                                                    <CreateSVG svgName='iconArrow' size={14}></CreateSVG>
                                                 </Button>
                                             </div>
                                         </div>
@@ -223,11 +223,11 @@ export class CustomToolbar extends React.Component<CustomToolbarProps, CustomToo
 
                                         <div className="content-editor--btngroup">
                                             <div className='btn-group'>
-                                                <Button className='mr-0' type='default' handleOnClick={(e) => handleModalImageAddGetPrev(e)} isDisabled={!modalImageAddHasPrev}>
-                                                    <CreateSVG linkHref='#next-icon-arrow' size={14} rotate={180}></CreateSVG>
+                                                <Button className='mr-0' type='default' onClick={(e) => handleModalImageAddGetPrev(e)} isDisabled={!modalImageAddHasPrev}>
+                                                    <CreateSVG svgName='iconArrow' size={14} rotate={180}></CreateSVG>
                                                 </Button>
-                                                <Button className='ml-0' type='default' handleOnClick={(e) => handleModalImageAddGetNext(e)} isDisabled={!modalImageAddHasNext}>
-                                                    <CreateSVG linkHref='#next-icon-arrow' size={14}></CreateSVG>
+                                                <Button className='ml-0' type='default' onClick={(e) => handleModalImageAddGetNext(e)} isDisabled={!modalImageAddHasNext}>
+                                                    <CreateSVG svgName='iconArrow' size={14}></CreateSVG>
                                                 </Button>
                                             </div>
                                         </div>
@@ -304,11 +304,11 @@ export class CustomToolbar extends React.Component<CustomToolbarProps, CustomToo
                             <div className="btn-group pull-left">
                                 {
                                     isUploadImage ? [
-                                        <Button key="uploadImage-9" className='mr-0' type='default' handleOnClick={(e) => handleModalImageAddGetPrev(e)} isDisabled={!modalImageAddHasPrev}>
-                                            <CreateSVG linkHref='#next-icon-arrow' size={14} rotate={180}></CreateSVG>
+                                        <Button key="uploadImage-9" className='mr-0' type='default' onClick={(e) => handleModalImageAddGetPrev(e)} isDisabled={!modalImageAddHasPrev}>
+                                            <CreateSVG svgName='iconArrow' size={14} rotate={180}></CreateSVG>
                                         </Button>,
-                                        <Button key="uploadImage-10" className='ml-0' type='default' handleOnClick={(e) => handleModalImageAddGetNext(e)} isDisabled={!modalImageAddHasNext}>
-                                            <CreateSVG linkHref='#next-icon-arrow' size={14}></CreateSVG>
+                                        <Button key="uploadImage-10" className='ml-0' type='default' onClick={(e) => handleModalImageAddGetNext(e)} isDisabled={!modalImageAddHasNext}>
+                                            <CreateSVG svgName='iconArrow' size={14}></CreateSVG>
                                         </Button>
                                     ] : null
                                 }
@@ -319,7 +319,7 @@ export class CustomToolbar extends React.Component<CustomToolbarProps, CustomToo
                         <div className="col-9 text-right content-editor--modalFooter">
 
 
-                            <Button type='default' className='ml-0' handleOnClick={this.handleCloseModalImageRemove.bind(this)}>
+                            <Button type='default' className='ml-0' onClick={this.handleCloseModalImageRemove.bind(this)}>
                                 <span>Hủy</span>
                             </Button>
 
@@ -332,7 +332,7 @@ export class CustomToolbar extends React.Component<CustomToolbarProps, CustomToo
                                 </FileUpload>
                                     : null
                             }
-                            <Button type='primary' handleOnClick={addImages}>
+                            <Button type='primary' onClick={addImages}>
                                 <span>Chèn hình</span>
                             </Button>
                         </div>
@@ -353,10 +353,10 @@ export class CustomToolbar extends React.Component<CustomToolbarProps, CustomToo
                 footerContent={
                     <div className="row">
                         <div className="col text-right">
-                            <Button handleOnClick={this.handleCloseModalSourceCode.bind(this)} type='default' className="mr-2">
+                            <Button onClick={this.handleCloseModalSourceCode.bind(this)} type='default' className="mr-2">
                                 <span>Hủy</span>
                             </Button>
-                            <Button type='primary' handleOnClick={handleUpdateContentEditor}>
+                            <Button type='primary' onClick={handleUpdateContentEditor}>
                                 <span>Cập nhật</span>
                             </Button>
                         </div>
@@ -368,7 +368,7 @@ export class CustomToolbar extends React.Component<CustomToolbarProps, CustomToo
                     }
                 }
             >
-                <Button handleOnClick={handleViewHTML} type="clean">
+                <Button onClick={handleViewHTML} type="clean">
                     code
         </Button>
             </Modal>

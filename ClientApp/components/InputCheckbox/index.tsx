@@ -28,7 +28,7 @@ export class InputCheckbox extends React.Component<IInputCheckboxProps, IInputCh
 
         this.state = {
             isChecked: this.props.isChecked || false,
-            iconCheck: this.props.iconCheck || '#next-icon-checkmark',
+            iconCheck: this.props.iconCheck || 'iconCheckmark',
             selfHandle: props.selfHandle == false ? false : true,
         }
         this.handleOnChange = this.handleOnChange.bind(this)
@@ -36,7 +36,7 @@ export class InputCheckbox extends React.Component<IInputCheckboxProps, IInputCh
 
     static defaultProps = {
         isDisabled: false,
-        iconCheck: '#next-icon-checkmark'
+        iconCheck: 'iconCheckmark'
     }
 
     componentWillReceiveProps(newProps) {
@@ -79,7 +79,7 @@ export class InputCheckbox extends React.Component<IInputCheckboxProps, IInputCh
                     onChange={(e) => { this.handleOnChange(e) }}
                 />
                 <span className='next-checkbox--styled'>
-                    <LibComponents.CreateSVG size={10} className='checkmark' linkHref={this.state.iconCheck} />
+                    <LibComponents.CreateSVG size={10} className='checkmark' svgName={this.state.iconCheck} />
                 </span>
             </div>
         );

@@ -1,4 +1,11 @@
-﻿.no-padding {
+﻿.h-50{
+    height:50px;
+}
+.text-white{
+    color:white;
+}
+
+.no-padding {
     padding: 0 !important;
 }
 

@@ -147,18 +147,19 @@ namespace my8Blog.Admin.Infrastructures
                 }
             var signature = string.Empty;
             var originalData = string.Empty;
-            if (method == HttpMethod.Get)
-            {
-                var list = new List<string>();
+            //if (method == HttpMethod.Get)
+            //{
+            //    var list = new List<string>();
 
-                if (url.Contains("?"))
-                    foreach (var q in url.Split('?')[1].Split('&'))
-                        if (q.Contains("="))
-                            list.Add(q.Split('=')[1]);
+            //    if (url.Contains("?"))
+            //        foreach (var q in url.Split('?')[1].Split('&'))
+            //            if (q.Contains("="))
+            //                list.Add(q.Split('=')[1]);
 
-                originalData = string.Join(string.Empty, list);
-            }
-            else if (data != null)
+            //    originalData = string.Join(string.Empty, list);
+            //}
+            //else
+            if (data != null)
                 originalData = json;
 
             if (string.IsNullOrWhiteSpace(originalData))
@@ -172,8 +173,9 @@ namespace my8Blog.Admin.Infrastructures
             requestMessage.Headers.Add("X-my8-Key", clientConfig.ApiKey);
             requestMessage.Headers.Add("X-my8-Signature", signature);
             requestMessage.Headers.Add("X-my8-PersonId", personId);
-            requestMessage.Headers.Add("X-my8-ProjectId", process.CurrentAccount.Account.ProjectId.ToString());
-            
+            //requestMessage.Headers.Add("X-my8-ProjectId", process.CurrentAccount.Account.ProjectId.ToString());
+            requestMessage.Headers.Add("X-my8-ProjectId", "greencode");
+
             requestMessage.Content = content;
             return requestMessage;
         }
