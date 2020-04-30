@@ -1,5 +1,5 @@
 ﻿import * as React from 'react';
-import * as Components from '..';
+import { Button, Modal } from '../../CoreComponents';
 
 export declare type optionSize = 'lg' | 'md' | 'sm';
 
@@ -55,7 +55,7 @@ export class AutoModal extends React.Component<IAutoModalProps, IAutoModalStates
         }
     }
     private renderModal() {
-        return <Components.Modal
+        return <Modal
             headerTitle={this.props.headerTitle}
             isOpen={this.state.isOpen}
             className="text-left"
@@ -69,17 +69,17 @@ export class AutoModal extends React.Component<IAutoModalProps, IAutoModalStates
             footerContent={
                 <div className="row">
                     <div className="col text-right">
-                        <Components.Button onClick={() => this.setSwitchPopup(false)} type='default' className="mr-3">
+                        <Button onClick={() => this.setSwitchPopup(false)} type='default' className="mr-3">
                             <span>Hủy</span>
-                        </Components.Button>
-                        <Components.Button type='danger' onClick={() => this.onPositiveClick()} className='photo-overlay-actions__link' isDisabled={false}>
+                        </Button>
+                        <Button type='danger' onClick={() => this.onPositiveClick()} className='photo-overlay-actions__link' isDisabled={false}>
                             <span>Xác nhận</span>
-                        </Components.Button>
+                        </Button>
                     </div>
                 </div>
             }>
             {this.props.children}
-        </Components.Modal>
+        </Modal>
     }
     public render() {
         return this.state.isOpen ? this.renderModal() : <div onClick={() => this.setSwitchPopup(true)}>{this.props.children}</div>

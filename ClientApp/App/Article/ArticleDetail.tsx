@@ -1,7 +1,8 @@
 ﻿import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
 import { IArticleMeta } from '../../Models/IArticleMeta'
-import { Button, Input, CodeBlock, HeaderPage, CreateSVG} from '../../components'
+import { Button, Input, CodeBlock, CreateSVG } from '../../CoreComponents'
+import { HeaderPage } from '../../components'
 import { IArticle } from '../../Models'
 import { ArticleRepository } from '../../repositories/ArticleRepository'
 import * as Utils from '../../infrastructure/Utils'

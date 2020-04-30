@@ -1,7 +1,8 @@
 ﻿import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
 import { IArticleMeta } from '../../Models/IArticleMeta'
-import * as Components from '..'
+import { Button, InputCheckbox, CreateSVG, Modal, Input } from '../../CoreComponents';
+import { AutoModal } from '..';
 import * as Models from '../../Models'
 import * as Utils from '../../infrastructure/Utils'
 import { CategoryRepository } from '../../repositories/CategoryRepository'
@@ -9,13 +10,11 @@ import './index.css'
 
 interface TreeProps {
     categories: Models.ICategory[],
-    selectedItem?: Models.ICategory,
     onSelect: Function
 }
 interface TreeStates {
     categories: Models.ICategory[],
     newCate: Models.ICategory,
-    selectedItem: Models.ICategory,
     isOpenPopup: boolean
 }
 export class CategoryTree extends React.Component<TreeProps, TreeStates> {
@@ -24,7 +23,6 @@ export class CategoryTree extends React.Component<TreeProps, TreeStates> {
         this.state = {
             categories: this.props.categories,
             isOpenPopup: false,
-            selectedItem: this.props.selectedItem || null,
             newCate: new Object as Models.ICategory
         };
 
@@ -79,7 +77,7 @@ export class CategoryTree extends React.Component<TreeProps, TreeStates> {
                 this.setCheck(p, item, value)
             }
         })
-        this.setState({ categories: categories, selectedItem: item }, () => this.props.onSelect(item))
+        this.setState({ categories: categories }, () => this.props.onSelect(item))
     }
     private async getCategories() {
         let res = await CategoryRepository.GetAll()
@@ -98,11 +96,8 @@ export class CategoryTree extends React.Component<TreeProps, TreeStates> {
         }
         if (!parentCate.isRoot) {
             newCate.categoryIds = parentCate.categoryIds
-            if (newCate.categoryIds == null) newCate.categoryIds =[]
             newCate.categoryIds.push(parentCate.id.toString())
             newCate.categoryNames = parentCate.categoryNames
-            if (newCate.categoryNames == null)
-                newCate.categoryNames =[]
             newCate.categoryNames.push(parentCate.categoryName)
         }
        
@@ -127,21 +122,17 @@ export class CategoryTree extends React.Component<TreeProps, TreeStates> {
         return true
     }
     private renderItem(cate: Models.ICategory) {
-        let { selectedItem } = this.state
-        let isCheck = cate.isCheck
-        if (!Utils.isNullOrUndefined(selectedItem) && cate.id == selectedItem.id)
-            cate.isCheck = true
         return <div className='col-md-12'>
             <span className="treeview-node-name node-active boder-none pd-l13 background-none box-shadow-none">
-                {!this.isHasChild(cate) && <Components.InputCheckbox nameInput='category'
-                    isChecked={isCheck} handleOnChange={(e) => this.onCheck(cate, e)} />}
+                {!this.isHasChild(cate) && <InputCheckbox nameInput='category'
+                    isChecked={cate.isCheck} onChange={(e) => this.onCheck(cate, e)} />}
                 <span className="text-left" onClick={() => this.onSwitchOpen(cate)} >
                     {cate.categoryName}
                 </span>
             </span>
             <a className="treeview-note-collapse ml-3 cursor-pointer" onClick={() => this.onSwitchOpen(cate)}
                 style={{ "position": "absolute", "left": "-8px", "top": "10px" }}>
-                {cate.level < 2 && <Components.CreateSVG svgName='iconArrow' rotate={cate.isOpen ? 90 : 0} size={12} />}
+                {cate.level < 2 && <CreateSVG svgName='#iconArrow' rotate={cate.isOpen ? 90 : 0} size={12} />}
             </a>
         </div>
     }
@@ -154,10 +145,10 @@ export class CategoryTree extends React.Component<TreeProps, TreeStates> {
                 </div>}
             </div>
         })
-        let button = cate.level < 2 && <Components.Button type='link-no-pding' key={1} className=''
+        let button = cate.level < 2 && <Button type='link-no-pding' key={1} className=''
             onClick={() => this.onOpenPopupAddSub(cate)}>
             Thêm mới
-            </Components.Button>
+            </Button>
         return [
             button,
             content
@@ -166,7 +157,7 @@ export class CategoryTree extends React.Component<TreeProps, TreeStates> {
     private renderAddNewSubCatePopup() {
         let newCate = this.state.newCate
         if (Utils.isNullOrUndefined(newCate)) return null
-        return <Components.Modal
+        return <Modal
             headerTitle={'Tạo danh mục mới'}
             iconClose={true}
             isOpen={this.state.isOpenPopup}
@@ -174,25 +165,25 @@ export class CategoryTree extends React.Component<TreeProps, TreeStates> {
             bodyContent={
                 <div className="pd-all-20">
                     <p className="my-2 font-weight-bold">Tên</p>
-                    <Components.Input value={newCate.categoryName}
+                    <Input value={newCate.categoryName}
                         onChange={(e) => this.setState({ newCate: { ...this.state.newCate, categoryName: e.target.value, isRoot: false } })} />
                 </div>
             }
             footerContent={
                          <div className="row">
                     <div className="col text-right">
-                        <Components.Button onClick={() => this.setState({ isOpenPopup: false, newCate: null })} type='default' className="mr-3">
+                        <Button onClick={() => this.setState({ isOpenPopup: false, newCate: null })} type='default' className="mr-3">
                             <span>Hủy</span>
-                        </Components.Button>
-                        <Components.Button type='danger' onClick={() => this.onCreateRootCategory()}
+                        </Button>
+                        <Button type='danger' onClick={() => this.onCreateRootCategory()}
                             className='photo-overlay-actions__link' isDisabled={false}>
                             <span>Tạo mới</span>
-                        </Components.Button>
+                        </Button>
                     </div>
                 </div>
             }
         >
-        </Components.Modal>
+        </Modal>
 
     }
     private renderTree(categories: Models.ICategory[]) {
@@ -210,22 +201,22 @@ export class CategoryTree extends React.Component<TreeProps, TreeStates> {
 
     private renderAddNewRootPopup() {
         let newCate = this.state.newCate
-        return <Components.AutoModal
+        return <AutoModal
             headerTitle={'Tạo danh mục mới'}
             iconClose={true}
             onPositiveClick={() => this.onCreateRootCategory()}
             bodyContent={
                 <div className="pd-all-20">
                     <p className="my-2 font-weight-bold">Tên</p>
-                    <Components.Input value={newCate.categoryName}
+                    <Input value={newCate.categoryName}
                         onChange={(e) => this.setState({ newCate: { ...this.state.newCate, categoryName: e.target.value } })} />
                 </div>
             }>
 
-            <Components.Button type='link-no-pding' key={1} className=''>
+            <Button type='link-no-pding' key={1} className=''>
                 Thêm mới danh mục
-            </Components.Button>
-        </Components.AutoModal>
+            </Button>
+        </AutoModal>
     }
     public render() {
         let categories = this.state.categories

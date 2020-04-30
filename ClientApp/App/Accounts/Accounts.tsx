@@ -4,7 +4,8 @@ import * as classnames from 'classnames';
 import * as Models from '../../Models'
 import * as Utils from '../../infrastructure/Utils'
 import { AccountRepository } from '../../repositories/AccountRepository'
-import { Avatar,Box } from '../../components'
+import { Avatar } from '../../components'
+import {  Box } from '../../CoreComponents'
 interface AccountStates {
     accounts: Models.IAccount[]
 }

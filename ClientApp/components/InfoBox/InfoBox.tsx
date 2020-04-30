@@ -1,6 +1,6 @@
 ﻿import * as React from 'react'
 import * as classnames from 'classnames';
-import { Button } from '../Button/Button'
+import { Button } from '../../CoreComponents'
 export declare type IInfoBoxStatesType = 'blue' | 'aqua' | 'green' | 'red' | 'orrange'
 export declare type IInfoBoxStatesIconType = 'likes' | 'views' | 'articleweek' | 'articlenew' | 'none'
 

@@ -2,7 +2,8 @@
 import { RouteComponentProps } from 'react-router';
 import * as Utils from '../../infrastructure/Utils';
 import * as Enums from '../../Models/Enums'
-import { IBadgeType, Badge } from '../Badge/Badge';
+import { IOptionSimple } from '../../Models'
+import { IBadgeType, Badge } from '../../CoreComponents/Badge/Badge';
 //import './index.css'
 
 

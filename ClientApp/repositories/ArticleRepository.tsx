@@ -19,6 +19,11 @@ export const ArticleRepository = {
             return response;
         })
     },
+    LikeArticle: async (articleId: string, isLike: boolean) => {
+        return Fetch.Post(`/articles/like/${articleId}/${isLike}`, null).then(response => {
+            return response;
+        })
+    },
     GetDetail: async (id:string) => {
         return Fetch.Get(`/articles/${id}`, null).then(response => {
             return response;

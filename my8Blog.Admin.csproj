@@ -21,7 +21,19 @@
 
   <ItemGroup>
     <!-- Files not to publish (note that the 'dist' subfolders are re-added below) -->
+    <Compile Remove="ClientApp\components\ArticleMeta\**" />
+    <Compile Remove="ClientApp\components\Image\**" />
+    <Compile Remove="ClientApp\components\Loading\**" />
+    <Compile Remove="ClientApp\components\TextArea\**" />
     <Content Remove="ClientApp\**" />
+    <EmbeddedResource Remove="ClientApp\components\ArticleMeta\**" />
+    <EmbeddedResource Remove="ClientApp\components\Image\**" />
+    <EmbeddedResource Remove="ClientApp\components\Loading\**" />
+    <EmbeddedResource Remove="ClientApp\components\TextArea\**" />
+    <None Remove="ClientApp\components\ArticleMeta\**" />
+    <None Remove="ClientApp\components\Image\**" />
+    <None Remove="ClientApp\components\Loading\**" />
+    <None Remove="ClientApp\components\TextArea\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -37,18 +49,6 @@
     <None Remove="ClientApp\App\Layout\AdminLayout.tsx" />
     <None Remove="ClientApp\App\Test\Test.tsx" />
     <None Remove="ClientApp\App\Utils.tsx" />
-    <None Remove="ClientApp\components\ArticleMeta\ArticleMeta.tsx" />
-    <None Remove="ClientApp\components\Avatar\Avatar.tsx" />
-    <None Remove="ClientApp\components\Box\Box.tsx" />
-    <None Remove="ClientApp\components\CategoryTree\CategoryTree.tsx" />
-    <None Remove="ClientApp\components\CkEditor\CkEditor.tsx" />
-    <None Remove="ClientApp\components\HeaderPage\HeaderPage.tsx" />
-    <None Remove="ClientApp\components\Image\ImageEmpty.tsx" />
-    <None Remove="ClientApp\components\Image\ImageResize.tsx" />
-    <None Remove="ClientApp\components\index.tsx" />
-    <None Remove="ClientApp\components\InfoBox\InfoBox.tsx" />
-    <None Remove="ClientApp\components\Loading\Loading.tsx" />
-    <None Remove="ClientApp\components\TextArea\TextArea.tsx" />
     <None Remove="ClientApp\Enums\AppEnums.tsx" />
     <None Remove="ClientApp\Models\Enums.tsx" />
     <None Remove="ClientApp\Models\IArticleMeta.tsx" />
@@ -61,6 +61,10 @@
     <None Remove="ClientApp\repositories\CategoryRepository.tsx" />
     <None Remove="ClientApp\repositories\Fetch.tsx" />
     <None Remove="ClientApp\repositories\MediaRepository.tsx" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="ClientApp\infrastructure\messages.json" />
   </ItemGroup>
 
   <ItemGroup>
@@ -86,18 +90,6 @@
     <TypeScriptCompile Include="ClientApp\App\index.tsx" />
     <TypeScriptCompile Include="ClientApp\App\Layout\AdminLayout.tsx" />
     <TypeScriptCompile Include="ClientApp\App\Test\Test.tsx" />
-    <TypeScriptCompile Include="ClientApp\components\ArticleMeta\ArticleMeta.tsx" />
-    <TypeScriptCompile Include="ClientApp\components\Avatar\Avatar.tsx" />
-    <TypeScriptCompile Include="ClientApp\components\Box\Box.tsx" />
-    <TypeScriptCompile Include="ClientApp\components\CkEditor\CkEditor.tsx" />
-    <TypeScriptCompile Include="ClientApp\components\HeaderPage\HeaderPage.tsx" />
-    <TypeScriptCompile Include="ClientApp\components\Image\ImageEmpty.tsx" />
-    <TypeScriptCompile Include="ClientApp\components\Image\ImageResize.tsx" />
-    <TypeScriptCompile Include="ClientApp\components\index.tsx" />
-    <TypeScriptCompile Include="ClientApp\components\CategoryTree\CategoryTree.tsx" />
-    <TypeScriptCompile Include="ClientApp\components\InfoBox\InfoBox.tsx" />
-    <TypeScriptCompile Include="ClientApp\components\Loading\Loading.tsx" />
-    <TypeScriptCompile Include="ClientApp\components\TextArea\TextArea.tsx" />
     <TypeScriptCompile Include="ClientApp\Enums\AppEnums.tsx" />
     <TypeScriptCompile Include="ClientApp\infrastructure\Utils.tsx" />
     <TypeScriptCompile Include="ClientApp\Models\Enums.tsx" />

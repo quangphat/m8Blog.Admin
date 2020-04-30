@@ -7,5 +7,6 @@
     modifiedTime?: Date,
     email: string,
     projectId: number,
-
+    displayName: string,
+    profileName: string
 }

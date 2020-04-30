@@ -1,12 +1,26 @@
 ﻿import * as H from 'history';
 import { createBrowserHistory } from 'history';
-import { IAccount, IPaging } from '../Models'
+import { IAccount, IPaging, IAuthor } from '../Models'
 export const history = createBrowserHistory();
 
 export const createNewPaging = (): IPaging => {
     return { page: 1, limit: 10, totalRecord: 0, hasMore: false } as IPaging
 }
-
+export const getParamSingle = (search: string, param: string): any => {
+    let queries = new URLSearchParams(search);
+    if (queries.get(param)) {
+        return queries.get(param)
+    }
+    return null
+}
+export const buildSearchQuery = (locationPathname: string, paging: Object): string => {
+    return locationPathname + '?' + joinObject(paging)
+}
+export const isNullOrWhiteSpace = (str: string): boolean => {
+    if (str == null || str === '' || str == undefined || str.trim() == '')
+        return true
+    return false;
+}
 export const getNewGuid = (): string => {
     const s4 = () => {
         return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1)
@@ -22,6 +36,39 @@ export const isNullOrUndefined = (obj: any): boolean => {
     if (obj == null || obj === '' || obj == undefined)
         return true
     return false;
+}
+export const JoinFullName = (lastName: string, firstName: string, isDisplay: boolean = true): string => {
+    let fullName = '';
+    if (!isNullOrWhiteSpace(lastName) || !isNullOrWhiteSpace(firstName)) {
+        if (!isNullOrWhiteSpace(lastName)) {
+            fullName = lastName;
+        }
+        if (!isNullOrWhiteSpace(firstName)) {
+            fullName += ' ' + firstName;
+        }
+    }
+    else {
+        if (isDisplay == true)
+            fullName = '---';
+        else
+            fullName = '';
+    }
+    return fullName.trim();
+}
+export const getAuthor = (): IAuthor => {
+    if (isLogin() == false) return null
+    let account = document['account'] as IAccount
+    let author = {
+        firstName: account.firstname,
+        lastName: account.lastname,
+        avatar: account.avatar,
+        email: account.email,
+        projectId: account.projectId,
+        displayName: account.displayName,
+        profileName: account.profileName,
+        id: account.personId
+    } as IAuthor
+    return author;
 }
 export const isArrNullOrHaveNoItem = (arr: any[]): boolean => {
     if (arr == null || arr.length == 0 || arr == undefined)

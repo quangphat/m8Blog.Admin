@@ -18,6 +18,7 @@ export const Path = {
         return `/article/${id}/edit`
     },
     accounts: '/accounts',
+    article_by_tags: '/tags',
     profile: (profileName?: string): string => {
         if (isNullOrEmpty(profileName))
             return '/profile/:profileName'

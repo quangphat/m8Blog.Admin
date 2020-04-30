@@ -10,7 +10,7 @@ import * as RoutePath from '../../infrastructure/RoutePath'
 import * as SignalR from '../../infrastructure/SignalR'
 import { INotification } from '../../Models/INotification'
 import { IAccount } from '../../Models/IAccount'
-import { Avatar} from '../../components'
+import { Avatar } from '../../components'
 export interface MainLayoutProps {
     routerHistory: H.History
 }

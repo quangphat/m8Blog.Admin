@@ -1,20 +1,23 @@
 ﻿import * as React from 'react'
 import * as classnames from 'classnames';
-import { ImageResize } from '../Image/ImageResize'
 import * as H from 'history';
 import * as Utils from '../../infrastructure/Utils'
 import * as  RoutePath from '../../infrastructure/RoutePath'
 import './index.css'
-export declare type IAvatarSize = 's50' | 's32'
+export declare type IAvatarSize = 's50' | 's32' |'s100'
+export declare type IdisplayNamePosition = 'horizontalAvartar' | 'belowAvatar'
 interface AvatarProps {
     img: string,
     displayName: string,
     profileName: string,
     size?: IAvatarSize,
+    wrapperClass?: string,
     className?: string,
     isShowName?: boolean,
     isResetAvatar?: number,
+    displayNamePosition?: IdisplayNamePosition,
     onClick?: Function,
+    isBlueText?: boolean,
     history?: H.History
 }
 interface AvatarStates {
@@ -36,7 +39,11 @@ export class Avatar extends React.Component<AvatarProps, AvatarStates>
     }
     static defaultProps = {
         isShowName: true,
-        size: "s32"
+        size: "s32",
+        className: '',
+        wrapperClass: '',
+        isBlueText: true,
+        displayNamePosition: 'horizontalAvartar'
     }
     componentWillReceiveProps(newProps: AvatarProps) {
         if (this.props.displayName != newProps.displayName) {
@@ -71,7 +78,7 @@ export class Avatar extends React.Component<AvatarProps, AvatarStates>
         return ""
     }
     private getAvatar(img: string) {
-        if (Utils.isNullOrEmpty(img)) return ""
+        if (Utils.isNullOrWhiteSpace(img)) return ""
         return img
     }
     private getAvatarColor(shortName: string) {
@@ -91,24 +98,36 @@ export class Avatar extends React.Component<AvatarProps, AvatarStates>
     }
     private renderAvatar() {
         let { img, displayName, isError } = this.state
-        let { className, size } = this.props
+        let { className, size, wrapperClass, displayNamePosition, isBlueText } = this.props
         let avatar = this.getAvatar(img)
         let shortName = this.getShortName(displayName)
         if (isError)
             return null
-        let imgClass = classnames({
+        let imgSizeClass = classnames({
             'my8-avatar-32': size == 's32',
             'my8-avatar-50': size == 's50',
+            'my8-avatar-100': size == 's100',
         })
-        return <div className={`${this.props.className}`} onClick={() => this.onClick()}>
-            {(Utils.isNullOrEmpty(avatar) || isError) ? <React.Fragment><div className={`my8-avatar ${this.props.className}`} style={this.getAvatarColor(shortName)}>
-                <span className="color-white font-size-20px">{shortName}</span>
-            </div>
-                {this.props.isShowName && <span className="ml-5">{displayName}</span>}
+        return <div className={`my8-avatar ${wrapperClass} ${displayNamePosition == 'horizontalAvartar' ? 'flex' : 'block'}`}>
+            {(Utils.isNullOrWhiteSpace(avatar) || isError) ? <React.Fragment>
+                <div className={`none-img ${className} ${imgSizeClass} inline-flex`}
+                    onClick={() => this.onClick()}
+                    style={this.getAvatarColor(shortName)}>
+                    <span className="color-white font-size-20px">{shortName}</span>
+                </div>
+                <div>{this.props.isShowName && <span onClick={() => this.onClick()} className={`${isBlueText == true ? 'display-name' : ''}
+                    ${displayNamePosition == 'horizontalAvartar' ? 'ml-5' : ''} pt-20`}>{displayName}</span>}</div>
             </React.Fragment>
                 : <React.Fragment>
-                    <img src={avatar} onError={() => this.setError(true)} className={`img-circle ${imgClass}`} alt={displayName} />
-                    {this.props.isShowName && <span className="ml-5">{displayName}</span>}
+                    <div>
+                        <img src={avatar} onError={() => this.setError(true)}
+                            onClick={() => this.onClick()}
+                            className={`img-circle ${imgSizeClass} ${className}`} alt={displayName} />
+                    </div>
+                    <div>
+                        {this.props.isShowName && <span onClick={() => this.onClick()} className={`${isBlueText == true ? 'display-name' : ''} 
+                            ${displayNamePosition == 'horizontalAvartar' ? 'ml-5' : ''} pt-20`}>{displayName}</span>}
+                    </div>
                 </React.Fragment>
             }
             {this.props.children}

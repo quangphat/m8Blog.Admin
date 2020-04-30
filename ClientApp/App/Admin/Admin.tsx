@@ -1,6 +1,6 @@
 ﻿import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
-import * as Components from '../../components'
+import { CkEditor } from '../../CoreComponents'
 import * as Models from '../../Models'
 import { ArticleRepository } from '../../repositories/ArticleRepository'
 interface AdminStates {
@@ -19,7 +19,7 @@ export class Admin extends React.Component<RouteComponentProps<any>, AdminStates
 
     }
     renderCkEditor() {
-        return <Components.CkEditor data="yeah" onChange={(e) => console.log(e)} />
+        return <CkEditor data="yeah" onChange={(e) => console.log(e)} />
     }
     public render() {
 

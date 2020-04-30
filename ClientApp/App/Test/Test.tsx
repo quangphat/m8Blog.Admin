@@ -1,7 +1,8 @@
 ﻿import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
 import { IArticleMeta } from '../../Models/IArticleMeta'
-import * as Components from '../../components'
+import { } from '../../components'
+import { ContentEditor, FileUpload, CreateSVG } from '../../CoreComponents'
 import * as Models from '../../Models'
 import { ArticleRepository } from '../../repositories/ArticleRepository'
 import * as Utils from '../../infrastructure/Utils'
@@ -20,7 +21,7 @@ interface TestStates {
 }
 export class Test extends React.Component<RouteComponentProps<any>, TestStates> {
     notificationDOMRef: any;
-    ref_ContentEditor: Components.ContentEditor;
+    ref_ContentEditor: ContentEditor;
     cropper: any;
     ref_uploadImage: any;
     ref_pwe: any;
@@ -117,14 +118,14 @@ export class Test extends React.Component<RouteComponentProps<any>, TestStates> 
         let account = Utils.GetAccount()
         let avatar = "https://my8-dev.s3-ap-southeast-1.amazonaws.com/5c0a8d6aeb562671178ff907ce0afddc-ef0a-45bd-97dd-5bf5f3e63f7c_avatar.png" 
         return <div className="pd-all-20">
-            <Components.FileUpload ref={component => this.ref_uploadImage = component}
+            <FileUpload ref={component => this.ref_uploadImage = component}
                 onSelectFile={(files) => this.handleSelectImage(files)} isMultiple={false} className="position-relative">
                 <div className='fileupload-text text-center'>
-                    <Components.CreateSVG size={30} svgName='#next-icon-camera-plus' />
+                    <CreateSVG size={30} svgName='#next-icon-camera-plus' />
                     <p className="mb-0 mt-2 text-secondary">Thêm hình ảnh</p>
                 </div>
 
-            </Components.FileUpload>
+            </FileUpload>
             <Cropper
                 ref={cropper => this.cropper = cropper}
                 src={avatar}

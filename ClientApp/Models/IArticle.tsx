@@ -4,7 +4,6 @@ export interface IArticle {
     id: string,
     title: string,
     preview: string,
-    createdTime?: number,
     modifiedTime?: number,
     createdBy: string,
     modifiedBy: string,
@@ -21,6 +20,8 @@ export interface IArticle {
     author?: IAuthor,
     projectId: number,
     friendlyUrl: string,
-    status: number
+    status: number,
+    tags: string[],
+    createdTime?: Date,
 }
 //<AppendNewHere>

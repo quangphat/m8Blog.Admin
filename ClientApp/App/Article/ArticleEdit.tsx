@@ -1,7 +1,8 @@
 ﻿import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
 import { IArticleMeta } from '../../Models/IArticleMeta'
-import * as Components from '../../components'
+import { ContentEditor, Button, CreateSVG, Input } from '../../CoreComponents'
+import { HeaderPage } from '../../components'
 import * as Models from '../../Models'
 import * as Enums from '../../Enums/AppEnums'
 import { ArticleRepository } from '../../repositories/ArticleRepository'
@@ -15,7 +16,7 @@ interface ArticleEditStates {
     article: Models.IArticle
 }
 export class ArticleEdit extends React.Component<RouteComponentProps<any>, ArticleEditStates> {
-    ref_ContentEditor: Components.ContentEditor;
+    ref_ContentEditor: ContentEditor;
     constructor(props: any) {
         super(props);
         this.state = {
@@ -72,14 +73,14 @@ export class ArticleEdit extends React.Component<RouteComponentProps<any>, Artic
         let { categories, article } = this.state
         if (Utils.isArrNullOrHaveNoItem(categories) || article == null) return null
         return <React.Fragment>
-            <Components.HeaderPage>
-                <Components.Button type='primary' className='ml-3'
+            <HeaderPage>
+                <Button type='primary' className='ml-3'
                     onClick={() => this.onSaveArticle()} >
-                    <Components.CreateSVG size={12} svgName='iconCheckmark' className='mr-3' />
+                    <CreateSVG size={12} svgName='iconCheckmark' className='mr-3' />
                     <span>Lưu</span>
-                </Components.Button>
+                </Button>
                 
-            </Components.HeaderPage>
+            </HeaderPage>
             <div className="pd-all-20">
 
                 <div className="col-sm-12">
@@ -87,33 +88,25 @@ export class ArticleEdit extends React.Component<RouteComponentProps<any>, Artic
                     <div className="col-sm-10">
                         <div className="form-group">
                             <label>Tiêu đề</label>
-                            <Components.Input value={article.title}
+                            <Input value={article.title}
                                 onChange={(e) => this.onChangeTitle(e)} />
                         </div>
                         <div className="form-group">
                             <label>Nội dung</label>
-                            <Components.ContentEditor
+                            <ContentEditor
                                 ref={ref => this.ref_ContentEditor = ref}
                                 content={article.content}
                                 onChange={(value) => this.setState({ article: { ...this.state.article, content: value } })} />
                         </div>
                         <div className="form-group">
                             <label>Đường dẫn thân thiện</label>
-                            <Components.Input value={article.friendlyUrl}
+                            <Input value={article.friendlyUrl}
                                 onChange={(e) => this.setState({ article: { ...this.state.article, friendlyUrl: e.target.value } })} />
                         </div>
                         <div className="form-group">
                             <p className="collection-seo--preview-url text-truncate mb-0">
                                 {'https://wwww.greencode.vn/article' + Utils.NonUnicode(article.friendlyUrl)}
                             </p>
-                        </div>
-                    </div>
-                    <div className="col-sm-2">
-                        <div className="form-group">
-                            <label></label>
-                            {!Utils.isArrNullOrHaveNoItem(categories) && <Components.CategoryTree selectedItem={article.category}
-                                categories={this.state.categories}
-                                onSelect={(c) => this.setState({ article: { ...this.state.article, category: c } })} />}
                         </div>
                     </div>
                 </div>
