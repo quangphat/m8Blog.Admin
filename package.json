@@ -30,7 +30,7 @@
     "html2canvas": "1.0.0-alpha.12",
     "immutable": "3.8.2",
     "json-loader": "0.5.4",
-    "lodash": "4.17.5",
+    "lodash": "4.17.19",
     "moment": "2.20.1",
     "numeral": "2.0.6",
     "prop-types": "15.6.2",
